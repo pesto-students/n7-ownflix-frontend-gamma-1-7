@@ -1,10 +1,20 @@
-.navbar {
+@import '../../scss/mixin';
+@import '../../scss/variables';
+
+.Navbar {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0px 55px;
-  color: white;
+  z-index: 10;
+  position: fixed;
+  height: 70px;
+  width: 100%;
+  background-image: linear-gradient(
+    180deg,rgba(0,0,0,.7) 10%,transparent);
+        transition: all .2s ease-out;
+  box-sizing:border-box;
   .left-navbar {
     display: flex;
     flex-direction: row;
@@ -24,4 +34,9 @@
       margin-left: 10px;
     }
   }
+
+  &__fixed {
+    background-image: none;
+    background-color: $black;
+}
 }
