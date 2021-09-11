@@ -2,32 +2,41 @@
 @import '../../scss/variables';
 
 .Homepage{
-  position: absolute;
-  background-color: $black;
-  top:-70px;
+  overflow: hidden;
+  position: relative;
+  top: -70px;
   .main-header{
     position: relative;
+    height: 80vh;
     .header {
-      position: relative;
+      position: absolute;
+      height: inherit;
+      width: 100%;
+      top: -70px;
       .image {
+        height: 100%;
+        width: 100%;
         filter: blur(5px);
         -webkit-filter: blur(5px);
-        width: 100%;
+        background-size: cover;
       }
       &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: auto;
-        background: linear-gradient(to bottom, transparent 50%, $black 100%);
-      }
-      .header-content{
-        position: absolute;
-        top: 140px;
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 50%, #141414 100%);
       }
     }
+    .header-content{
+      padding: 0 4vw;
+      position: absolute;
+      margin-top: 70px;
+    }
+  }
+  &__content{
+    position: relative;
+    top: -35px;
   }
 }
