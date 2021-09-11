@@ -1,0 +1,27 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 55px;
+  color: white;
+  .left-navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .browse {
+      margin-left: 10px;
+    }
+    .logo {
+      width: 150px;
+    }
+  }
+  .right-navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .author {
+      margin-left: 10px;
+    }
+  }
+}
