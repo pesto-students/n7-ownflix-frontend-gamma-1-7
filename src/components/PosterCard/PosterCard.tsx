@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RemoveIcon from '@material-ui/icons/Remove';
+
 interface PosterCardProps {
     isLarge: boolean
 }
