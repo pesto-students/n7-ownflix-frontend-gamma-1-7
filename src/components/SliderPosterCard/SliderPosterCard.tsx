@@ -1,15 +1,15 @@
 import * as React from 'react';
-import './PosterCard.scss';
+import './SliderPosterCard.scss';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RemoveIcon from '@material-ui/icons/Remove';
 
-interface PosterCardProps {
+interface SliderPosterCardProps {
     isLarge: boolean
 }
 
-const PosterCard: React.FunctionComponent<PosterCardProps> = (props) => {
+const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props) => {
     let fallbackTitle = 'Money Heist';
     let genresConverted = ['Action', 'Thriller'];
     let poster_path = 'https://image.tmdb.org/t/p/original//reEMJA1uzscCbkpeRJeTT2bjqUp.jpg';
@@ -35,7 +35,7 @@ const PosterCard: React.FunctionComponent<PosterCardProps> = (props) => {
     };
     return <div>
         <div
-            className={`Row__poster ${isLarge && "Row__poster--big"}`}
+            className={`SliderPosterCard__poster ${isLarge && "SliderPosterCard__poster--big"}`}
             onClick={handleModalOpening}
         >
             {isLarge ? (
@@ -47,15 +47,15 @@ const PosterCard: React.FunctionComponent<PosterCardProps> = (props) => {
             ) : (
                 <>
                     <img src='images/home-image.jpg' alt={fallbackTitle} />
-                    <div className="Row__poster__fallback">
+                    <div className="SliderPosterCard__poster__fallback">
                         <span>{fallbackTitle}</span>
                     </div>
                 </>
             )}
-            <div className="Row__poster-info">
-                <div className="Row__poster-info--iconswrp">
+            <div className="SliderPosterCard__poster-info">
+                <div className="SliderPosterCard__poster-info--iconswrp">
                     <Link
-                        className="Row__poster-info--icon icon--play"
+                        className="SliderPosterCard__poster-info--icon icon--play"
                         onClick={handlePlayAction}
                         to={'/play'}
                     >
@@ -63,19 +63,19 @@ const PosterCard: React.FunctionComponent<PosterCardProps> = (props) => {
                     </Link>
                     {!hasAddedinWatchlist
                         ? (
-                            <button className='Row__poster-info--icon icon--favourite' onClick={handleAdd}>
+                            <button className='SliderPosterCard__poster-info--icon icon--favourite' onClick={handleAdd}>
                                 <AddIcon fontSize="small" />
                             </button>
                         ) : (
-                            <button className='Row__poster-info--icon icon--favourite' onClick={handleRemove}>
+                            <button className='SliderPosterCard__poster-info--icon icon--favourite' onClick={handleRemove}>
                                 <RemoveIcon fontSize="small" />
                             </button>
                         )}
                 </div>
-                <div className="Row__poster-info--title">
+                <div className="SliderPosterCard__poster-info--title">
                     <h3>{fallbackTitle}</h3>
                 </div>
-                <div className="Row__poster-info--genres">
+                <div className="SliderPosterCard__poster-info--genres">
                     {genresConverted && genresConverted.map(genre => (
                         <span key={`Genre--id_${genre}`} className="genre-title">{genre}</span>
                     ))}
@@ -85,4 +85,4 @@ const PosterCard: React.FunctionComponent<PosterCardProps> = (props) => {
     </div>;
 };
 
-export default PosterCard;
+export default SliderPosterCard;

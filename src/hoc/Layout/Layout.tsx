@@ -9,10 +9,10 @@ export interface ILayoutProps {
 
 export default function Layout(props: ILayoutProps) {
     return (
-        <div>
+        <div className='Layout'>
             <Aux>
                 <Navbar></Navbar>
-                <main className='Layout'>{props.children}</main>
+                <main>{props.children}</main>
                 <Footer></Footer>
             </Aux>
         </div>

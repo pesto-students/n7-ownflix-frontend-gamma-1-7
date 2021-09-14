@@ -5,6 +5,7 @@ import Homepage from './Pages/Homepage/Homepage';
 import Playerpage from './Pages/Playerpage/Playerpage';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import theme from './theme';
+import Searchpage from './Pages/Searchpage/Searchpage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Layout>
           <Switch>
             <Route path="/player" exact component={Playerpage}></Route>
+            <Route path="/search" exact component={Searchpage}></Route>
             <Route path="/" exact component={Homepage}></Route>
           </Switch>
         </Layout>

@@ -1,7 +1,7 @@
 @import "../../scss/mixin";
 @import "../../scss/variables";
 
-.Row__poster {
+.SliderPosterCard__poster {
 	position: relative;
 	overflow: hidden;
 	margin-right: 0.5rem;
@@ -209,7 +209,7 @@
 }
 
 .swiper-slide {
-	.Row__poster {
+	.SliderPosterCard__poster {
 		&::after {
 			content: "";
 			position: absolute;
@@ -226,7 +226,7 @@
 	}
 	@include mq('md') {
 		&:hover {
-			.Row__poster {
+			.SliderPosterCard__poster {
 				&::after {
 					opacity: 1;
 				}

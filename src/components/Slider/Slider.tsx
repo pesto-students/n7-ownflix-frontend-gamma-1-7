@@ -4,14 +4,13 @@ import useViewport from '../../hooks/useViewport';
 import { Link, useLocation } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import PosterCard from '../PosterCard/PosterCard';
-
 // Swiper
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
+import SliderPosterCard from '../SliderPosterCard/SliderPosterCard';
 SwiperCore.use([Navigation, Pagination]);
 
 interface SliderProps {
@@ -124,7 +123,7 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
                                     onMouseOver={rightMouseOver}
                                     onMouseOut={rightMouseOut}
                                 >
-                                    <PosterCard
+                                    <SliderPosterCard
                                         key={i}
                                         isLarge={isLarge}
                                     />
