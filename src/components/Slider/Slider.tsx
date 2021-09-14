@@ -82,30 +82,30 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
     }
 
     return (
-        <div className="Row">
-            {error && <div className='Row__not-loaded'>Oops, an error occurred.</div>}
+        <div className="SliderPosterCard">
+            {error && <div className='SliderPosterCard__not-loaded'>Oops, an error occurred.</div>}
             {loading ?
                 (
-                    <div className='Row__not-loaded'>
+                    <div className='SliderPosterCard__not-loaded'>
                         {/* <SkeletonElement type="title" />
 						<SkeletonPoster /> */}
                     </div>
                 ) : (
-                    <h3 className="Row__title">
+                    <h3 className="SliderPosterCard__title">
                         <Link to={`${pathname}/${genre}`}>
                             <span>{title}</span>
-                            <span className='Row__showmore'>Show all <ChevronRightIcon /></span>
+                            <span className='SliderPosterCard__showmore'>Show all <ChevronRightIcon /></span>
                         </Link>
                     </h3>
                 )
             }
             {!loading && !error && (
-                <div className="Row__poster--wrp">
-                    <div className="Row__slider--mask left" ref={navigationPrevRef}>
-                        <ChevronLeftIcon className="Row__slider--mask-icon left" fontSize="large" style={{ color: 'white' }} />
+                <div className="SliderPosterCard__poster--wrp">
+                    <div className="SliderPosterCard__slider--mask left" ref={navigationPrevRef}>
+                        <ChevronLeftIcon className="SliderPosterCard__slider--mask-icon left" fontSize="large" style={{ color: 'white' }} />
                     </div>
-                    <div className="Row__slider--mask right" ref={navigationNextRef}>
-                        <ChevronRightIcon className="Row__slider--mask-icon right" fontSize="large" style={{ color: 'white' }} />
+                    <div className="SliderPosterCard__slider--mask right" ref={navigationNextRef}>
+                        <ChevronRightIcon className="SliderPosterCard__slider--mask-icon right" fontSize="large" style={{ color: 'white' }} />
                     </div>
                     <Swiper
                         {...customSwiperParams}

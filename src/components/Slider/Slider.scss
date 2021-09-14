@@ -1,7 +1,7 @@
 @import '../../scss/mixin';
 @import '../../scss/variables';
 
-.Row {
+.SliderPosterCard {
     display: block;
     padding: 1.5vh 0;
 
@@ -30,7 +30,7 @@
         }
 
         &:hover {
-            .Row__showmore {
+            .SliderPosterCard__showmore {
                 opacity: 1;
                 max-width: 200px;
                 transform: translate(1vw,0);
@@ -234,7 +234,7 @@
             &.left,
             &.right {
                 &:hover {
-                    .Row__slider--mask-icon {
+                    .SliderPosterCard__slider--mask-icon {
                         opacity: 1;
                         transform: scale(1.3);
                     }
