@@ -1,10 +1,10 @@
 @import "../../scss/mixin";
 @import "../../scss/variables";
 
-.homepage {
+
+.HomePage {
   overflow: hidden;
   position: relative;
-  top: -70px;
   .main-header {
     position: relative;
     height: 80vh;
@@ -73,12 +73,7 @@
           .movie-options {
             padding-top: 30px;
             .movie-options-options {
-              margin-right: 30px;
-            }
-            .MuiButton-outlined {
-              color: $white;
-              border: 1px solid $white;
-              background-color: rgba(0, 151, 19, 0.1);
+              margin-right: 12px;
             }
           }
         }

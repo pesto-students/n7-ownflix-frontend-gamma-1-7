@@ -5,10 +5,10 @@ import Button from '@material-ui/core/Button';
 
 const Homepage = () => {
     return (
-        <div className="homepage">
+        <div className="HomePage">
             <div className="main-header">
                 <div className="header">
-                    <div className="image" style={{ backgroundImage: `url(${`https://image.tmdb.org/t/p/original//rcA17r3hfHtRrk3Xs3hXrgGeSGT.jpg`})` }}>
+                    <div className="image" style={{ backgroundImage: `url(${`https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg`})` }}>
                     </div>
                 </div>
                 <div className="header-content">
@@ -26,8 +26,8 @@ const Homepage = () => {
                                 Money Heist is a Spanish heist crime drama television series created by Álex Pina. The series traces two long-prepared heists led by the Professor, one on the Royal Mint of Spain, and one on the Bank of Spain, told from the perspective of one of the robbers, Tokyo
                             </p>
                             <div className="movie-options">
-                                <Button variant="contained" className="movie-options-options">Watch</Button>
-                                <Button variant="outlined">+ Add to My List</Button>
+                                <Button variant="contained" color="primary" className="movie-options-options">Watch</Button>
+                                <Button variant="outlined" color="primary">+ Add to My List</Button>
                             </div>
                         </div>
                         <div className="poster-details-2">
@@ -43,6 +43,9 @@ const Homepage = () => {
             <div className="Homepage__content">
                 <Slider isLarge={false}></Slider>
                 <Slider isLarge={true}></Slider>
+                <Slider isLarge={false}></Slider>
+                <Slider isLarge={false}></Slider>
+
             </div>
         </div>
     )

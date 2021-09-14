@@ -1,0 +1,20 @@
+@import "../../scss/mixin";
+@import "../../scss/variables";
+
+.Footer{
+    border-top: 1px solid $primary;
+    padding: 24px 4vw;
+    margin-top:48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__SiteDetails{
+        
+    }
+    &__Links{
+        display: flex;
+        &--Link{
+            padding-left:12px;
+        }
+    }
+}

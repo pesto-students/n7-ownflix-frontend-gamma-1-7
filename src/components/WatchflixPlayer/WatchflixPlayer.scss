@@ -1,0 +1,101 @@
+@import "../../scss/mixin";
+@import "../../scss/variables";
+
+
+.WatchflixPlayer{
+    &__Player{
+        padding: 0px 4vw;
+        background-color: black;
+        max-height: calc(100vw * (1080/1920));
+        @include mq('ll') {
+           height: calc(100vh - 80px - 75px);
+        }
+    }
+   
+    &__Info {
+            padding: 16px 4vw;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+            &--title {
+                h3 {
+                    font-size: 24px;
+                    font-weight: 600;
+                    text-transform: none;
+    
+                    @include mq('lg') {
+                        font-size: 36px;
+                    }
+    
+                    @include mq(1378px, 1680px) {
+                        font-size: 42px;
+                    }
+    
+                    @include mq(1680px) {
+                        font-size: 48px;
+                    }
+                }
+            }
+    
+            &--genres {
+                display: block;
+                color: $primary;
+                width: 100%;
+                margin-bottom: 12px;
+                .genre-title {
+                    display: inline-block;
+                    width: auto;
+                    font-size: 12px;
+                    margin: 0 0.3vw 0 0;
+    
+                    @include mq('lg') {
+                        font-size: 14px;
+                    }
+    
+                    @include mq(1378px, 1680px) {
+                        font-size: 14px;
+                    }
+    
+                    @include mq(1680px) {
+                        font-size: 18px;
+                    }
+    
+                    &:after {
+                        content: "●";
+                        display: inline-block;
+                        margin: 0 0 0 0.3vw;
+                        font-size: 6px;
+                        text-shadow: 0 1px 1px rgba(0, 0, 0, 0);
+                        color: $primary;
+                    }
+    
+                    &:last-child:after {
+                        display: none;
+                    }
+                }
+            }
+    }
+    
+    &__MovieOptions{
+        display: flex;
+        padding: 0 4vw;
+
+        &--Button{
+            margin-right: 12px;
+        }
+    }
+
+    .coverReplayAction_cnv2ux{
+        visibility: hidden; 
+    }
+    .coverReplayAction_cnv2ux span{
+      visibility: initial; 
+      position: absolute;
+      width: 100px;
+      background-color: rgba(0, 0, 0, 0.5);
+      height: 60px;
+      cursor: pointer;
+      padding: 8px 0;
+    }
+}
