@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PosterCard from '../../components/SliderPosterCard/SliderPosterCard';
+import PosterCard from '../../components/PosterCard/PosterCard';
 import './Searchpage.scss';
 
 interface ISearchpageProps {
@@ -19,7 +19,6 @@ const Searchpage: React.FunctionComponent<ISearchpageProps> = (props) => {
                     ? results.map((result, i) => (
                         <PosterCard
                             key={i}
-                            isLarge={false}
                         />)
                     )
                     : (
