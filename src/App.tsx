@@ -8,6 +8,7 @@ import theme from './theme';
 import Searchpage from './Pages/Searchpage/Searchpage';
 import Signin from './Pages/Signin/Signin';
 import Signup from './Pages/Signup/Signup';
+import Popular from './Pages/Popular/Popular';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
           <Layout>
             <Route path="/player" exact component={Playerpage}></Route>
+            <Route path="/popular" exact component={Popular}></Route>
             <Route path="/search" exact component={Searchpage}></Route>
             <Route path="/" exact component={Homepage}></Route>
           </Layout>

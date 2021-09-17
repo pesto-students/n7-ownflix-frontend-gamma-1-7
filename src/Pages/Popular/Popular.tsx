@@ -9,6 +9,9 @@ const Popular: React.FunctionComponent<IPopularProps> = (props) => {
     let results = [0, 1, 2, 3, 4, 5, 6, 7]
     return (
         <div className="Popular">
+            <div className="Popular__Header">
+                <h1>Popular</h1>
+            </div>
             <div
                 className="Popular__wrp"
             >
