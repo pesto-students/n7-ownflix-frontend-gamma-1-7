@@ -18,41 +18,42 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import theme from '../../theme';
 
 interface IMovieDetailsProps {
-    modalOpen: boolean;
-    closeModal: any;
+  modalOpen: boolean;
+  closeModal: any;
 }
 
 const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '80%',
-    height: '90%',
-    bgcolor: 'background.paper',
-    backgroundColor: '#101011',
-    border: '2px solid #000',
-    boxShadow: 24,
-    borderRadius: 12,
-    p: 4,
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '80%',
+  maxWidth: '1200px',
+  height: '90%',
+  bgcolor: 'background.paper',
+  backgroundColor: '#101011',
+  border: `1px solid ${theme.palette.primary.main}`,
+  boxShadow: 24,
+  borderRadius: 12,
+  p: 4,
 };
 
 
 const rows = [
-    createData('Episode 01', 'Temp title 1'),
-    createData('Episode 02', 'Temp title 2'),
-    createData('Episode 03', 'Temp title 3'),
-    createData('Episode 04', 'Temp title 4'),
-    createData('Episode 05', 'Temp title 5'),
+  createData('Episode 01', 'Temp title 1'),
+  createData('Episode 02', 'Temp title 2'),
+  createData('Episode 03', 'Temp title 3'),
+  createData('Episode 04', 'Temp title 4'),
+  createData('Episode 05', 'Temp title 5'),
 ];
 function createData(
-    episodes: string,
-    title: string
-) 
-{
-    return { episodes, title};
+  episodes: string,
+  title: string
+) {
+  return { episodes, title };
 }
 
 const ITEM_HEIGHT = 48;
@@ -115,91 +116,91 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props: any) =
         <Fade in={props.modalOpen}>
           <Box sx={style} className="modal-modal">
             <div className="modal-bg-img">
-                <img className="modal-bg-img-img" src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+              <img className="modal-bg-img-img" src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
             </div>
             <div className="close-button" onClick={props.closeModal}>
-                <CloseIcon />
+              <CloseIcon />
             </div>
             <div className="header-content">
-                <img src="https://image.tmdb.org/t/p/original//reEMJA1uzscCbkpeRJeTT2bjqUp.jpg" alt="poster" className="home-poster" />
-                <div className="poster-details">
-                    <div className="poster-details-1">
-                        <h1 className="movie-title">Movie Name</h1>
-                        <div className="movie-details">
-                            <div className="movie-details-details">1 hr 54 min - R</div>
-                            <div className="movie-details-details">Drama/Mystery</div>
-                            <div className="movie-details-details">89% Match</div>
-                        </div>
-                        <p className="movie-description">
-                            Money Heist is a Spanish heist crime drama television series created by Álex Pina. The series traces two long-prepared heists led by the Professor, one on the Royal Mint of Spain, and one on the Bank of Spain, told from the perspective of one of the robbers, Tokyo
-                        </p>
-                        <div className="movie-options">
-                            <Button variant="contained" color="primary" className="movie-options-options">Watch</Button>
-                            <Button variant="outlined" color="primary">+ Add to My List</Button>
-                        </div>
-                    </div>
-                    {!movie ?
-                        <div className="poster-details-2">
-                                <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
-                                <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
-                        </div>
-                    :   
-                        <div className="modal-dropdown">
-                            <div>
-                                <FormControl>
-                                    <Select
-                                    displayEmpty
-                                    value={personName}
-                                    onChange={handleChange}
-                                    input={<OutlinedInput />}
-                                    renderValue={(selected: any) => {
-                                        if (selected.length === 0) {
-                                        return <em>Seasons</em>;
-                                        }
-
-                                        return selected.join(', ');
-                                    }}
-                                    MenuProps={MenuProps}
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                    >
-                                    <MenuItem disabled value="">
-                                        <em>Seasons</em>
-                                    </MenuItem>
-                                    {names.map((name) => (
-                                        <MenuItem
-                                        key={name}
-                                        value={name}
-                                        style={getStyles(name, personName, theme)}
-                                        >
-                                        {name}
-                                        </MenuItem>
-                                    ))}
-                                    </Select>
-                                </FormControl>
-                            </div>
-                            <div className="episodes-table">
-                                <TableContainer component={Paper} className="episodes-table-table">
-                                    <Table className="table">
-                                        <TableBody>
-                                        {rows.map((row) => (
-                                            <TableRow
-                                            key={row.episodes}
-                                            className="table-row"
-                                            >
-                                            <TableCell component="th" scope="row">
-                                                {row.episodes}
-                                            </TableCell>
-                                            <TableCell align="center">{row.title}</TableCell>
-                                            <TableCell align="right" className="table-row-play"><PlayCircleFilledWhiteOutlinedIcon /></TableCell>
-                                            </TableRow>
-                                        ))}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </div>
-                        </div>
-                    }
+              <img src="https://image.tmdb.org/t/p/original//reEMJA1uzscCbkpeRJeTT2bjqUp.jpg" alt="poster" className="home-poster" />
+              <div className="poster-details">
+                <div className="poster-details-1">
+                  <h1 className="movie-title">Movie Name</h1>
+                  <div className="movie-details">
+                    <div className="movie-details-details">1 hr 54 min - R</div>
+                    <div className="movie-details-details">Drama/Mystery</div>
+                    <div className="movie-details-details">89% Match</div>
+                  </div>
+                  <p className="movie-description">
+                    Money Heist is a Spanish heist crime drama television series created by Álex Pina. The series traces two long-prepared heists led by the Professor, one on the Royal Mint of Spain, and one on the Bank of Spain, told from the perspective of one of the robbers, Tokyo
+                  </p>
+                  <div className="movie-options">
+                    <Button variant="contained" color="primary" className="movie-options-options">Watch</Button>
+                    <Button variant="outlined" color="primary">+ Add to My List</Button>
+                  </div>
                 </div>
+                {!movie ?
+                  <div className="poster-details-2">
+                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+                  </div>
+                  :
+                  <div className="modal-dropdown">
+                    <div>
+                      <FormControl>
+                        <Select
+                          displayEmpty
+                          value={personName}
+                          onChange={handleChange}
+                          input={<OutlinedInput />}
+                          renderValue={(selected: any) => {
+                            if (selected.length === 0) {
+                              return <em>Seasons</em>;
+                            }
+
+                            return selected.join(', ');
+                          }}
+                          MenuProps={MenuProps}
+                          inputProps={{ 'aria-label': 'Without label' }}
+                        >
+                          <MenuItem disabled value="">
+                            <em>Seasons</em>
+                          </MenuItem>
+                          {names.map((name) => (
+                            <MenuItem
+                              key={name}
+                              value={name}
+                              style={getStyles(name, personName, theme)}
+                            >
+                              {name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="episodes-table">
+                      <TableContainer component={Paper} className="episodes-table-table">
+                        <Table className="table">
+                          <TableBody>
+                            {rows.map((row) => (
+                              <TableRow
+                                key={row.episodes}
+                                className="table-row"
+                              >
+                                <TableCell component="th" scope="row">
+                                  {row.episodes}
+                                </TableCell>
+                                <TableCell align="center">{row.title}</TableCell>
+                                <TableCell align="right" className="table-row-play"><PlayCircleFilledWhiteOutlinedIcon /></TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </div>
+                  </div>
+                }
+              </div>
             </div>
           </Box>
         </Fade>

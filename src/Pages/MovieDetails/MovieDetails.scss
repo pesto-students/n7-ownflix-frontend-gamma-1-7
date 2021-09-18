@@ -3,6 +3,9 @@
 
 .movie-details-modal {
   padding: 0px;
+  .MuiBackdrop-root{
+    background-color:rgba(0, 0, 0, 0.8)
+  }
   .MuiBox-root {
     outline: none;
   }
@@ -95,6 +98,7 @@
           width: 100%;
           .MuiSelect-select.MuiSelect-select {
             background-color: $primary;
+            border-radius: 5px;
           }
           .MuiOutlinedInput-input {
             padding: 14px 24px 14px 14px;
