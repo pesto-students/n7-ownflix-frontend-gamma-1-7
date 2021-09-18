@@ -70,12 +70,21 @@
             }
           }
           .movie-description {
-            padding-top: 30px;
+            margin-top: 30px;
           }
           .movie-options {
-            padding-top: 30px;
+            margin-top: 30px;
+            display: flex;
             .movie-options-options {
               margin-right: 12px;
+            }
+            .MuiSelect-select.MuiSelect-select {
+              background-color: $primary;
+              border-radius: 5px;
+            }
+            .MuiOutlinedInput-input {
+              padding: 8px 24px 8px 14px;
+
             }
           }
         }
@@ -93,23 +102,13 @@
         .modal-dropdown {
           display: flex;
           flex-direction: column;
-          padding-top: 20px;
+          margin-top: 30px;
           flex-wrap: nowrap;
           width: 100%;
-          .MuiSelect-select.MuiSelect-select {
-            background-color: $primary;
-            border-radius: 5px;
-          }
-          .MuiOutlinedInput-input {
-            padding: 14px 24px 14px 14px;
-          }
+     
           .episodes-table {
-            margin-top: 20px;
             .episodes-table-table {
               max-height: 200px;
-              @include mq("ll") {
-                max-height: 150px;
-              }
               .table {
                 .table-row {
                   .table-row-play {

@@ -136,6 +136,40 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props: any) =
                   </p>
                   <div className="movie-options">
                     <Button variant="contained" color="primary" className="movie-options-options">Watch</Button>
+                    {movie ?
+                      <div className="movie-options-options">
+                        <FormControl>
+                          <Select
+                            displayEmpty
+                            value={personName}
+                            onChange={handleChange}
+                            input={<OutlinedInput />}
+                            renderValue={(selected: any) => {
+                              if (selected.length === 0) {
+                                return <em>Seasons</em>;
+                              }
+
+                              return selected.join(', ');
+                            }}
+                            MenuProps={MenuProps}
+                            inputProps={{ 'aria-label': 'Without label' }}
+                          >
+                            <MenuItem disabled value="">
+                              <em>Seasons</em>
+                            </MenuItem>
+                            {names.map((name) => (
+                              <MenuItem
+                                key={name}
+                                value={name}
+                                style={getStyles(name, personName, theme)}
+                              >
+                                {name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </div>
+                      : null}
                     <Button variant="outlined" color="primary">+ Add to My List</Button>
                   </div>
                 </div>
@@ -146,38 +180,6 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props: any) =
                   </div>
                   :
                   <div className="modal-dropdown">
-                    <div>
-                      <FormControl>
-                        <Select
-                          displayEmpty
-                          value={personName}
-                          onChange={handleChange}
-                          input={<OutlinedInput />}
-                          renderValue={(selected: any) => {
-                            if (selected.length === 0) {
-                              return <em>Seasons</em>;
-                            }
-
-                            return selected.join(', ');
-                          }}
-                          MenuProps={MenuProps}
-                          inputProps={{ 'aria-label': 'Without label' }}
-                        >
-                          <MenuItem disabled value="">
-                            <em>Seasons</em>
-                          </MenuItem>
-                          {names.map((name) => (
-                            <MenuItem
-                              key={name}
-                              value={name}
-                              style={getStyles(name, personName, theme)}
-                            >
-                              {name}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </div>
                     <div className="episodes-table">
                       <TableContainer component={Paper} className="episodes-table-table">
                         <Table className="table">
