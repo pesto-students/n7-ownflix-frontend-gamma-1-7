@@ -1,0 +1,123 @@
+@import "../../scss/mixin";
+@import "../../scss/variables";
+
+.movie-details-modal {
+  padding: 0px;
+  .MuiBox-root {
+    outline: none;
+  }
+  .modal-modal {
+    padding: 0px;
+    .close-button {
+      position: absolute;
+      color: $white;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+    }
+    .modal-bg-img {
+      max-height: 30%;
+      overflow: hidden;
+      .modal-bg-img-img {
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        border-radius: 12px 12px 0px 0px;
+      }
+    }
+    .header-content {
+      display: flex;
+      flex-direction: row;
+      padding: 0 4vw;
+      position: absolute;
+      padding-top: 10px;
+      color: $white;
+      .home-poster {
+        max-height: 58vh;
+        border-radius: 10px;
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2),
+          0 4px 15px 0 rgba(0, 0, 0, 0.19);
+        position: relative;
+        top: -150px;
+        @include mq("ll") {
+          display: block;
+        }
+        display: none;
+      }
+      .poster-details {
+        display: flex;
+        flex-direction: column;
+        padding-left: 40px;
+        align-items: flex-start;
+        flex-grow: 1;
+        .poster-details-1 {
+          display: flex;
+          flex-direction: column;
+          .movie-title {
+            @include mq("ll") {
+              font-size: 80px;
+            }
+            font-size: 60px;
+          }
+          .movie-details {
+            display: flex;
+            flex-direction: row;
+            .movie-details-details {
+              padding-right: 30px;
+            }
+          }
+          .movie-description {
+            padding-top: 30px;
+          }
+          .movie-options {
+            padding-top: 30px;
+            .movie-options-options {
+              margin-right: 12px;
+            }
+          }
+        }
+        .poster-details-2 {
+          display: flex;
+          flex-direction: row;
+          padding-top: 10px;
+          flex-wrap: nowrap;
+          padding-top: 20px;
+          img {
+            max-width: 300px;
+            margin-right: 30px;
+          }
+        }
+        .modal-dropdown {
+          display: flex;
+          flex-direction: column;
+          padding-top: 20px;
+          flex-wrap: nowrap;
+          width: 100%;
+          .MuiSelect-select.MuiSelect-select {
+            background-color: $primary;
+            border-color: $primary;
+          }
+          .MuiOutlinedInput-input {
+            padding: 14px 24px 14px 14px;
+          }
+          .episodes-table {
+            margin-top: 20px;
+            .episodes-table-table {
+              max-height: 200px;
+              @include mq("ll") {
+                max-height: 150px;
+              }
+              .table {
+                .table-row {
+                  .table-row-play {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

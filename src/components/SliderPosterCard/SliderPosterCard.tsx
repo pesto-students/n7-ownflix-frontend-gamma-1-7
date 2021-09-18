@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RemoveIcon from '@material-ui/icons/Remove';
+import MovieDetails from '../../Pages/MovieDetails/MovieDetails';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 interface SliderPosterCardProps {
     isLarge: boolean
@@ -16,6 +18,11 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
     let backdrop_path = 'https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg';
     let isLarge = props.isLarge;
     let hasAddedinWatchlist = false;
+    const [modalOpen, setModalOpen] = React.useState(false);
+ 
+    const closeModal = () => {
+        setModalOpen(false);
+    }
 
 
     const handleAdd = (event: any) => {
@@ -33,7 +40,9 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
         event.stopPropagation();
 
     };
-    return <div>
+    return (
+        <div>
+        <MovieDetails modalOpen={modalOpen} closeModal={closeModal} />
         <div
             className={`SliderPosterCard__poster ${isLarge && "SliderPosterCard__poster--big"}`}
             onClick={handleModalOpening}
@@ -52,7 +61,7 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                     </div>
                 </>
             )}
-            <div className="SliderPosterCard__poster-info">
+            <div className="SliderPosterCard__poster-info"  onClick={() => {setModalOpen(true)}}>
                 <div className="SliderPosterCard__poster-info--iconswrp">
                     <Link
                         className="SliderPosterCard__poster-info--icon icon--play"
@@ -71,6 +80,9 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                                 <RemoveIcon fontSize="small" />
                             </button>
                         )}
+                    <button className='SliderPosterCard__poster-info--icon icon--favourite'  onClick={() => {setModalOpen(true)}}>
+                        <KeyboardArrowDownIcon fontSize="small" />
+                    </button>
                 </div>
                 <div className="SliderPosterCard__poster-info--title">
                     <h3>{fallbackTitle}</h3>
@@ -82,7 +94,8 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                 </div>
             </div>
         </div>
-    </div>;
+    </div>
+    );
 };
 
 export default SliderPosterCard;
