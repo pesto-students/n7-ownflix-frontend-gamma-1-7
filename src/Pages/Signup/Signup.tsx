@@ -46,6 +46,7 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
     const [mobile, setMobile] = React.useState('');
     const [rememberMe, setRememberMe] = React.useState(false);
     const [errorText, setErrorText] = React.useState('');
+    const [loginBtnText, setLoginBtnText] = React.useState('Create my account')
 
     // const handleEmailChange = (event: any) => {
     //     setEmail(event.target.value);
@@ -58,6 +59,7 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
     // };
     const handleUserFormSubmit=(e:any)=>{
         e.preventDefault();
+        
         if(name===""){
             setErrorText("Please enter your name")
             return false
@@ -87,6 +89,7 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
         if(rememberMe){
             if(password===cnfPassowrd){
                 setErrorText("")
+                setLoginBtnText("Creating, Please wait...");
                 let dto:ISignupProps={
                     name,email,mobile,password
                 }
@@ -104,6 +107,9 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
                 }).catch(err=>{
                     console.log(err)
                     alert("Something went wrong")
+                }).finally(()=>{
+                    
+                    setLoginBtnText("Create my account");
                 })
             }else{
                 setErrorText("Passowrd does not match");
@@ -209,8 +215,8 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
                        {errorText!=="" && (
                            <span style={{color:'#ff5555'}}>{errorText}</span>
                        )}
-                        <Button style={{minWidth:'100%'}} type="submit" variant="contained" color="primary" className={classes.signupButton}>
-                            Create my account
+                        <Button disabled={loginBtnText==="Create my account"?false:true} style={{minWidth:'100%'}} type="submit" variant="contained" color="primary" className={classes.signupButton}>
+                            {loginBtnText}
                         </Button>
                    </div>
                 </form>
