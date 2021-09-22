@@ -1,6 +1,7 @@
-import axios from "axios";
 import { Movie } from "../../models/movie.interface";
+import { AppThunk } from "../store";
 import { moviesActionTypes } from './movies.types';
+import axios from '../../utils/axiosInstance';
 
 
 export const fetchPopularMoviesRequest = () => ({
@@ -19,13 +20,14 @@ export const fetchPopularMoviesFailure = (error: any) => ({
     payload: error,
 });
 
-export const fetchPopularMoviesAsync = (fetchUrl: string, isPage: number) => {
+export const fetchPopularMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
     return (dispatch: any) => {
         dispatch(fetchPopularMoviesRequest());
         axios
             .get(fetchUrl)
             .then(res => {
-                const popularMovies = res.data.results.map((el: any) => ({
+                debugger
+                const popularMovies = res.data.docs.map((el: any) => ({
                     ...el,
                     isFavourite: false,
                 }));

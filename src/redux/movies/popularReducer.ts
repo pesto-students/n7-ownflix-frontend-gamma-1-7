@@ -14,12 +14,16 @@ const initialState: {
 
 export const popularReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(moviesActionTypes.FETCH_POPULAR_MOVIES_REQUEST, (state, action: PayloadAction<{
-            loading: boolean;
-            error: string;
-            data: Movie[]
-        }>) => {
+        .addCase(moviesActionTypes.FETCH_POPULAR_MOVIES_REQUEST, (state) => {
             // "mutate" the array by calling push()
-            state.data = action.payload.data;
+            // state.data = action.payload.data;
+            state.loading = true
+        })
+        .addCase(moviesActionTypes.FETCH_POPULAR_MOVIES_SUCCESS, (state, action: PayloadAction<Movie[]>) => {
+            // "mutate" the array by calling push()
+            // state.data = action.payload.data;
+            state.error = ''
+            state.data = action.payload;
+            state.loading = false;
         })
 })

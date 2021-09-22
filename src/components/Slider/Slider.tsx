@@ -11,19 +11,22 @@ import "swiper/swiper.scss";
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import SliderPosterCard from '../SliderPosterCard/SliderPosterCard';
+import { Movie } from '../../models/movie.interface';
 SwiperCore.use([Navigation, Pagination]);
 
 interface SliderProps {
     isLarge: boolean;
+    title: string;
+    data: Movie[] | any;
 }
 
 const Slider: React.FunctionComponent<SliderProps> = (props) => {
     const { width } = useViewport();
+    const { title } = props;
     const loading = false;
     const error = false;
     const results = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const { pathname } = useLocation();
-    const title = 'Popular Movies'
     const genre = "Action"
     const isLarge = props.isLarge
     //Custom Swiper config

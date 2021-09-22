@@ -2,8 +2,20 @@ import * as React from 'react';
 import Slider from '../../components/Slider/Slider';
 import './homepage.scss';
 import Button from '@material-ui/core/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPopularMoviesAsync } from '../../redux/movies/movies.actions';
+import { requests } from '../../requests';
+import { RootState } from '../../redux/rootReducer';
 
 const Homepage = () => {
+
+    const dispatch = useDispatch();
+    const popularMovies = useSelector(
+        (state: RootState) => state.movies.popularMovies
+    );
+    React.useEffect(() => {
+        dispatch(fetchPopularMoviesAsync(requests.fetchPopularMovies, 1))
+    }, [dispatch])
     return (
         <div className="HomePage">
             <div className="main-header">
@@ -41,10 +53,10 @@ const Homepage = () => {
                 </div>
             </div>
             <div className="Homepage__content">
-                <Slider isLarge={false}></Slider>
-                <Slider isLarge={true}></Slider>
-                <Slider isLarge={false}></Slider>
-                <Slider isLarge={false}></Slider>
+                <Slider isLarge={false} title='Popular Movies' data={popularMovies}></Slider>
+                <Slider isLarge={true} title='Popular TV Series' data={popularMovies}></Slider>
+                <Slider isLarge={false} title='Action' data={popularMovies}></Slider>
+                <Slider isLarge={false} title='Drama' data={popularMovies}></Slider>
 
             </div>
         </div>

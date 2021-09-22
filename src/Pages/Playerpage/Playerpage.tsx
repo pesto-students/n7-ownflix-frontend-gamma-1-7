@@ -6,7 +6,7 @@ const Playerpage = () => {
     return (
         <div className="Playerpage">
             <WatchflixPlayer />
-            <Slider isLarge={false}></Slider>
+            <Slider isLarge={false} title='Recommended Movies' data={[]}></Slider>
         </div>
     )
 }
