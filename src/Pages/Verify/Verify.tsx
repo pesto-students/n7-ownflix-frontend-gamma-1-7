@@ -36,7 +36,8 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
     const [timer, setTimer] = React.useState(0)
     
     
-    const handleOTPSubmit=()=>{
+    const handleOTPSubmit=(e:any)=>{
+        e.preventDefault();
         setErrorText("");
         if(otp===""){
             setErrorText("Please enter the OTP");
@@ -46,8 +47,11 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
                 let user=res.data;
                 if(user.otp===otp){
                     alert("OTP verification successful")
+                    let search = window.location.search;
+                    let params = new URLSearchParams(search);
+                    let foo = params.get('ref');
                     axios.put("users/"+id,{isVerified:true}).then(res=>{
-                        window.location.href="/"
+                        window.location.href=""+foo
                     }).catch(err=>{
                         alert("Something went wrong")
                     })
@@ -115,7 +119,7 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
                            <span style={{color:'#ff5555'}}>{errorText}</span>
                        )}
                 </form>
-                <Button disabled={btnText==="Verify"?false:true} variant="contained" color="primary" className={classes.verifyButton} onClick={handleOTPSubmit}>
+                <Button disabled={btnText==="Verify"?false:true} variant="contained" color="primary" className={classes.verifyButton} onClick={e=>handleOTPSubmit(e)}>
                     Verify
                 </Button>
             </div>

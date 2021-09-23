@@ -74,18 +74,18 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
             localStorage.setItem('role', user.role);
             localStorage.setItem('user', user.id);
             dispatch(login())
-            if(user.isVerified){
+            let search = window.location.search;
+            let params = new URLSearchParams(search);
+            let foo = params.get('ref');
 
-                let search = window.location.search;
-                let params = new URLSearchParams(search);
-                let foo = params.get('ref');
+            if(user.isVerified){
                 if(foo){
                     window.location.href=foo
                 }else{
                     window.location.href="/home"
                 }
             }else{
-                window.location.href="verify/"+user.id
+                window.location.href="verify/"+user.id+"?ref="+foo
             }
             // if verified go to home 
             // if not verified go to verify
