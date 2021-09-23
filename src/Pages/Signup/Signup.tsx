@@ -95,20 +95,19 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
                 }
                 axios.post('users',dto).then(res=>{
                     if(res.status===201){
-                        alert("A OTP has been sent to your email id");
+                        // alert("A OTP has been sent to your email id");
                         // console.log(res.data)
                         window.location.href="/verify/"+res.data._id
                     }else if(res.status===204){
-                        alert("This email or mobile no  already registred with us")
+                        setLoginBtnText("This email or mobile no  already registred with us")
                     } else{
-                        alert("Something went wrong")
+                        setLoginBtnText("Something went wrong")
                         // console.log(res)
                     }
                 }).catch(err=>{
-                    console.log(err)
-                    alert("Something went wrong")
+                    // console.log(err)
+                    setLoginBtnText("Something went wrong")
                 }).finally(()=>{
-                    
                     setLoginBtnText("Create my account");
                 })
             }else{

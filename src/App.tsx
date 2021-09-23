@@ -10,6 +10,7 @@ import Signin from './Pages/Signin/Signin';
 import Signup from './Pages/Signup/Signup';
 import Popular from './Pages/Popular/Popular';
 import Verify from './Pages/Verify/Verify';
+import PrivateRoute from "./hoc/Routes/PrivateRoute"
 
 function App() {
   return (
@@ -23,10 +24,12 @@ function App() {
           <Route path="/verify/:id" exact component={Verify}></Route>
 
           <Layout>
-            <Route path="/player" exact component={Playerpage}></Route>
+            <PrivateRoute path="/player" exact component={Playerpage}></PrivateRoute>
             <Route path="/popular" exact component={Popular}></Route>
             <Route path="/search" exact component={Searchpage}></Route>
             <Route path="/" exact component={Homepage}></Route>
+            <Route path="/home" exact component={Homepage}></Route>
+            
           </Layout>
         </Switch>
       </div>

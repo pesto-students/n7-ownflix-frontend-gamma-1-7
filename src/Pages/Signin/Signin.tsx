@@ -5,6 +5,11 @@ import { Button, Checkbox, makeStyles, TextField, Theme, ThemeProvider } from '@
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import theme from '../../theme';
 import { Link } from '@material-ui/core';
+import { useDispatch, } from 'react-redux';
+import {login} from '../../redux/auth/auth.actions'
+import axios from '../../utils/axiosInstance';
+
+// import authReducer from '../../redux/auth/authReducer';
 
 interface ISigninProps {
 }
@@ -37,16 +42,65 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [rememberMe, setRememberMe] = React.useState(false);
+    const [errorText, setErrorText] = React.useState("")
+    const dispatch = useDispatch();
 
-    const handleEmailChange = (event: any) => {
-        setEmail(event.target.value);
-    };
-    const handlePasswordChange = (event: any) => {
-        setPassword(event.target.value);
-    };
-    const handleRememberMeChange = (event: any) => {
-        setRememberMe(event.target.checked);
-    };
+
+    // const handleEmailChange = (event: any) => {
+    //     setEmail(event.target.value);
+    // };
+    // const handlePasswordChange = (event: any) => {
+    //     setPassword(event.target.value);
+    // };
+    // const handleRememberMeChange = (event: any) => {
+    //     setRememberMe(event.target.checked);
+    // };
+    const handleLoginForm=(e:any)=>{
+        e.preventDefault();
+        setErrorText("")
+        if(email===""){
+            setErrorText("Enter email address")
+            return false
+        }
+        if(password===""){
+            setErrorText("Enter password")
+            return false
+        }
+        axios.post('auth/login/',{email:email,password:password}).then(res=>{
+            // console.log(res.data.data)
+            let user=res.data.data.user;
+            localStorage.setItem("accessToken",res.data.data.accessToken)
+            localStorage.setItem('name', user.name);
+            localStorage.setItem('role', user.role);
+            localStorage.setItem('user', user.id);
+            dispatch(login())
+            if(user.isVerified){
+
+                let search = window.location.search;
+                let params = new URLSearchParams(search);
+                let foo = params.get('ref');
+                if(foo){
+                    window.location.href=foo
+                }else{
+                    window.location.href="/home"
+                }
+            }else{
+                window.location.href="verify/"+user.id
+            }
+            // if verified go to home 
+            // if not verified go to verify
+            // alert("successful")
+            // window.location.href="/home"
+            // console.log(localStorage)
+            
+        }).catch(err=>{
+            setErrorText("Wrong email and password ")
+        })
+        // 
+        // dispatch(login())
+        // 
+        // window.location.href="/home"
+    }
     return (
         <div className="Signin">
             <a href="/">
@@ -65,7 +119,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
                                 variant="filled"
                                 id="mui-theme-provider-outlined-input"
                                 className={classes.input}
-                                onChange={handleEmailChange}
+                                onChange={e=>setEmail(e.target.value)}
                                 value={email}
                             />
                         </div>
@@ -75,7 +129,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
                             variant="filled"
                             id="mui-theme-provider-outlined-input"
                             className={classes.input}
-                            onChange={handlePasswordChange}
+                            onChange={e=>setPassword(e.target.value)}
                             value={password}
                         />
                     </ThemeProvider>
@@ -83,7 +137,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
                         control={
                             <Checkbox
                                 checked={rememberMe}
-                                onChange={handleRememberMeChange}
+                                // onChange={'handleRememberMeChange'}
                                 name="checkedB"
                                 color="primary"
                                 className={!rememberMe ? classes.checkbox : ''}
@@ -92,7 +146,10 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
                         label="Remember Me"
                     />
                 </form>
-                <Button variant="contained" color="primary" className={classes.signInButton}>
+                {errorText!=="" && (
+                           <span style={{color:'#ff5555'}}>{errorText}</span>
+                       )}
+                <Button onClick={e=>handleLoginForm(e)} variant="contained" color="primary" className={classes.signInButton}>
                     Sign in
                 </Button>
             </div>

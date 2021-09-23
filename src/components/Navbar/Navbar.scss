@@ -1,73 +1,72 @@
-@import "../../scss/mixin";
-@import "../../scss/variables";
+@import '../../scss/mixin';
+@import '../../scss/variables';
 
 .Navbar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px 4vw;
-  z-index: 10;
-  position: fixed;
-  height: 70px;
-  width: 100%;
-  background-image: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.7) 10%,
-    transparent
-  );
-  transition: all 0.2s ease-out;
-  .left-navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    .browse {
-      display: flex;
-      flex-direction: row;
-      margin-left: 20px;
-      align-items: center;
-      cursor: pointer;
-      .browse-text {
-        font-weight: 400;
-      }
-      .browse-menu-list {
-        color: $white;
-        background-color: $grey;
-        .dropdown-item {
-          &:hover {
-            background-color: $gray;
-          }
-        }
-      }
-    }
-    a img {
-      float: left;
-    }
-    .logo {
-      width: 150px;
-    }
-  }
-  .right-navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    .author {
-      margin-left: 20px;
-      cursor: pointer;
-    }
-    .icon-list {
-      color: $white;
-      background-color: $grey;
-      .dropdown-item {
-        &:hover {
-          background-color: $gray;
-        }
-      }
-    }
-  }
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0px 4vw;
+	z-index: 10;
+	position: fixed;
+	height: 70px;
+	width: 100%;
+	background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
+	transition: all 0.2s ease-out;
+	.left-navbar {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		.browse {
+			display: flex;
+			flex-direction: row;
+			margin-left: 20px;
+			align-items: center;
+			cursor: pointer;
+			.browse-text {
+				font-weight: 400;
+			}
+			.browse-menu-list {
+				color: $white;
+				background-color: $grey;
+				.dropdown-item {
+					&:hover {
+						background-color: $gray;
+					}
+				}
+			}
+		}
+		a img {
+			float: left;
+		}
+		.logo {
+			width: 150px;
+		}
+	}
+	.right-navbar {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		.author {
+			margin-left: 20px;
+			cursor: pointer;
+		}
+		.icon-list {
+			color: $white;
+			background-color: $grey;
+			.dropdown-item {
+				&:hover {
+					background-color: $gray;
+				}
+			}
+		}
+	}
 
-  &__fixed {
-    background-image: none;
-    background-color: $black;
-  }
+	&__fixed {
+		background-image: none;
+		background-color: $black;
+	}
+}
+.login-area {
+	padding-left: 15px;
 }

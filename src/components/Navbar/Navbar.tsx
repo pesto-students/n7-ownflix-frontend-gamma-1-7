@@ -12,8 +12,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
+import AvatarIcon from '@material-ui/icons/Person';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, alpha, Theme, makeStyles } from '@material-ui/core/styles';
+import {login, logout} from '../../redux/auth/auth.actions'
+import { useDispatch, } from 'react-redux';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -55,12 +59,19 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.up('sm')]: {
                 width: '12ch',
                 '&:focus': {
-                    width: '20ch',
+                    width: '120ch',
                 },
             },
         },
     }),
 );
+const isLogin =()=>{
+    let accessToken=localStorage.getItem("accessToken");
+    if(accessToken){
+        return true
+    }
+    return false
+}
 
 const Navbar = () => {
     const classes = useStyles();
@@ -69,6 +80,9 @@ const Navbar = () => {
     const [authorOpen, setAuthorOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
     const authorRef = React.useRef<HTMLDivElement>(null);
+    const [autheticated, setAutheticated] = React.useState(isLogin())
+
+    const dispatch = useDispatch();
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
@@ -103,7 +117,6 @@ const Navbar = () => {
         if (authorRef.current && authorRef.current.contains(event.target as HTMLElement)) {
             return;
         }
-
         setOpen(false);
         setAuthorOpen(false);
     };
@@ -115,8 +128,17 @@ const Navbar = () => {
             setAuthorOpen(false);
         }
     }
-
-
+    const handleLogout=()=>{
+        localStorage.removeItem("accessToken")
+        localStorage.removeItem("name")
+        localStorage.removeItem("role")
+        localStorage.removeItem("user")
+        dispatch(logout())
+        window.location.href="/home"
+    }
+    const loginPage=()=>{
+        window.location.href="/signin"
+    }
     return (
         <div className={`Navbar ${isScrolled && "Navbar__fixed"}`}>
             <div className="left-navbar">
@@ -168,14 +190,15 @@ const Navbar = () => {
                         inputProps={{ 'aria-label': 'search' }}
                     />
                 </div>
-                <div
+                {autheticated?(
+                    <div
                     className="author"
                     ref={authorRef}
                     aria-controls={authorOpen ? 'menu-list-grow' : undefined}
                     aria-haspopup="true"
                     onClick={handleAuthorToggle}
                 >
-                    <Avatar variant="square" src={profilePicture} alt="profile-picture" />
+                    <AvatarIcon color="primary"/>
                     <Popper open={authorOpen} anchorEl={authorRef.current} role={undefined} transition disablePortal>
                         {({ TransitionProps, placement }) => (
                             <Grow
@@ -183,17 +206,24 @@ const Navbar = () => {
                                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
                             >
                                 <Paper>
+                                    
                                     <ClickAwayListener onClickAway={handleClose}>
                                         <MenuList autoFocusItem={authorOpen} id="menu-list-grow" onKeyDown={handleListKeyDown} className="icon-list">
                                             <MenuItem onClick={handleClose} className="dropdown-item">Profile</MenuItem>
-                                            <MenuItem onClick={handleClose} className="dropdown-item">Logout</MenuItem>
+                                            <MenuItem onClick={handleLogout} className="dropdown-item">Logout</MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
+                                    
+                                    
                                 </Paper>
                             </Grow>
                         )}
                     </Popper>
                 </div>
+                ):(<div className="login-area">
+                    <Button onClick={loginPage}  variant="contained" color="primary" className="movie-options-options">Sign In</Button>
+                </div>)}
+                
             </div>
         </div>
     )
