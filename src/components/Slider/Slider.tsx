@@ -17,15 +17,17 @@ SwiperCore.use([Navigation, Pagination]);
 interface SliderProps {
     isLarge: boolean;
     title: string;
-    data: Movie[] | any;
+    sliderData: {
+        loading: boolean;
+        error: string;
+        data: Movie[]
+    } | any;
 }
 
 const Slider: React.FunctionComponent<SliderProps> = (props) => {
     const { width } = useViewport();
-    const { title } = props;
-    const loading = false;
+    const { title, sliderData } = props;
     const error = false;
-    const results = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const { pathname } = useLocation();
     const genre = "Action"
     const isLarge = props.isLarge
@@ -86,12 +88,13 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
 
     return (
         <div className="SliderPosterCard">
-            {error && <div className='SliderPosterCard__not-loaded'>Oops, an error occurred.</div>}
-            {loading ?
+            {sliderData.error && <div className='SliderPosterCard__not-loaded'>Oops, an error occurred.</div>}
+            {sliderData.loading ?
                 (
                     <div className='SliderPosterCard__not-loaded'>
                         {/* <SkeletonElement type="title" />
 						<SkeletonPoster /> */}
+                        Loading...
                     </div>
                 ) : (
                     <h3 className="SliderPosterCard__title">
@@ -102,7 +105,7 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
                     </h3>
                 )
             }
-            {!loading && !error && (
+            {!sliderData.loading && !error && (
                 <div className="SliderPosterCard__poster--wrp">
                     <div className="SliderPosterCard__slider--mask left" ref={navigationPrevRef}>
                         <ChevronLeftIcon className="SliderPosterCard__slider--mask-icon left" fontSize="large" style={{ color: 'white' }} />
@@ -117,16 +120,16 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
                             swiper.params.navigation.nextEl = navigationNextRef.current;
                         }}
                     >
-                        {!loading &&
-                            results &&
-                            results.map((result, i) => (
+                        {!sliderData.loading &&
+                            sliderData.data &&
+                            sliderData.data.map((result: Movie, i: number) => (
                                 <SwiperSlide
                                     key={i}
                                     className={insertPositionClassName(i)}
                                     onMouseOver={rightMouseOver}
                                     onMouseOut={rightMouseOut}
                                 >
-                                    <SliderPosterCard
+                                    <SliderPosterCard data={result}
                                         key={i}
                                         isLarge={isLarge}
                                     />

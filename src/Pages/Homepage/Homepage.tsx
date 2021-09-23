@@ -53,10 +53,10 @@ const Homepage = () => {
                 </div>
             </div>
             <div className="Homepage__content">
-                <Slider isLarge={false} title='Popular Movies' data={popularMovies}></Slider>
-                <Slider isLarge={true} title='Popular TV Series' data={popularMovies}></Slider>
-                <Slider isLarge={false} title='Action' data={popularMovies}></Slider>
-                <Slider isLarge={false} title='Drama' data={popularMovies}></Slider>
+                <Slider isLarge={false} title='Popular Movies' sliderData={popularMovies}></Slider>
+                <Slider isLarge={true} title='Popular TV Series' sliderData={popularMovies}></Slider>
+                <Slider isLarge={false} title='Action' sliderData={popularMovies}></Slider>
+                <Slider isLarge={false} title='Drama' sliderData={popularMovies}></Slider>
 
             </div>
         </div>
