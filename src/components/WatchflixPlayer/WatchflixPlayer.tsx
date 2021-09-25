@@ -9,7 +9,7 @@ const WatchflixPlayer = () => {
     const sources = {
         sd: {
             format: 'm3u8',
-            play_url: 'https://d3dr7atq7iqw02.cloudfront.net/a7391795-fc96-431b-9a0d-b975cd54edab/AppleHLS1/288628-ayub-uploaded-this-video.m3u8',
+            play_url: 'https://d3dr7atq7iqw02.cloudfront.net/48626d63-e362-4233-9f2f-f2c3f4c916b1/AppleHLS1/videoplayback_Ott_Hls_Ts_Avc_Aac_16x9_1280x720p_6.0Mbps_qvbr.m3u8',
         },
         hd: {
             format: 'm3u8',
@@ -53,9 +53,6 @@ const WatchflixPlayer = () => {
                 <p>{movieDescription}</p>
             </div>
             <div className="WatchflixPlayer__MovieOptions">
-                <div className="WatchflixPlayer__MovieOptions--Button">
-                    <Button variant="contained" color="primary">Watch</Button>
-                </div>
                 <Button variant="outlined" color="primary">+ Add to My List</Button>
             </div>
         </div>

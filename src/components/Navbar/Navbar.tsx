@@ -15,7 +15,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AvatarIcon from '@material-ui/icons/Person';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, alpha, Theme, makeStyles } from '@material-ui/core/styles';
-import {login, logout} from '../../redux/auth/auth.actions'
+import { login, logout } from '../../redux/auth/auth.actions'
 import { useDispatch, } from 'react-redux';
 import { Button } from '@material-ui/core';
 
@@ -59,15 +59,15 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.up('sm')]: {
                 width: '12ch',
                 '&:focus': {
-                    width: '120ch',
+                    width: '20ch',
                 },
             },
         },
     }),
 );
-const isLogin =()=>{
-    let accessToken=localStorage.getItem("accessToken");
-    if(accessToken){
+const isLogin = () => {
+    let accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
         return true
     }
     return false
@@ -128,16 +128,16 @@ const Navbar = () => {
             setAuthorOpen(false);
         }
     }
-    const handleLogout=()=>{
+    const handleLogout = () => {
         localStorage.removeItem("accessToken")
         localStorage.removeItem("name")
         localStorage.removeItem("role")
         localStorage.removeItem("user")
         dispatch(logout())
-        window.location.href="/home"
+        window.location.href = "/home"
     }
-    const loginPage=()=>{
-        window.location.href="/signin"
+    const loginPage = () => {
+        window.location.href = "/signin"
     }
     return (
         <div className={`Navbar ${isScrolled && "Navbar__fixed"}`}>
@@ -190,40 +190,40 @@ const Navbar = () => {
                         inputProps={{ 'aria-label': 'search' }}
                     />
                 </div>
-                {autheticated?(
+                {autheticated ? (
                     <div
-                    className="author"
-                    ref={authorRef}
-                    aria-controls={authorOpen ? 'menu-list-grow' : undefined}
-                    aria-haspopup="true"
-                    onClick={handleAuthorToggle}
-                >
-                    <AvatarIcon color="primary"/>
-                    <Popper open={authorOpen} anchorEl={authorRef.current} role={undefined} transition disablePortal>
-                        {({ TransitionProps, placement }) => (
-                            <Grow
-                                {...TransitionProps}
-                                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                            >
-                                <Paper>
-                                    
-                                    <ClickAwayListener onClickAway={handleClose}>
-                                        <MenuList autoFocusItem={authorOpen} id="menu-list-grow" onKeyDown={handleListKeyDown} className="icon-list">
-                                            <MenuItem onClick={handleClose} className="dropdown-item">Profile</MenuItem>
-                                            <MenuItem onClick={handleLogout} className="dropdown-item">Logout</MenuItem>
-                                        </MenuList>
-                                    </ClickAwayListener>
-                                    
-                                    
-                                </Paper>
-                            </Grow>
-                        )}
-                    </Popper>
-                </div>
-                ):(<div className="login-area">
-                    <Button onClick={loginPage}  variant="contained" color="primary" className="movie-options-options">Sign In</Button>
+                        className="author"
+                        ref={authorRef}
+                        aria-controls={authorOpen ? 'menu-list-grow' : undefined}
+                        aria-haspopup="true"
+                        onClick={handleAuthorToggle}
+                    >
+                        <AvatarIcon color="primary" />
+                        <Popper open={authorOpen} anchorEl={authorRef.current} role={undefined} transition disablePortal>
+                            {({ TransitionProps, placement }) => (
+                                <Grow
+                                    {...TransitionProps}
+                                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                                >
+                                    <Paper>
+
+                                        <ClickAwayListener onClickAway={handleClose}>
+                                            <MenuList autoFocusItem={authorOpen} id="menu-list-grow" onKeyDown={handleListKeyDown} className="icon-list">
+                                                <MenuItem onClick={handleClose} className="dropdown-item">Profile</MenuItem>
+                                                <MenuItem onClick={handleLogout} className="dropdown-item">Logout</MenuItem>
+                                            </MenuList>
+                                        </ClickAwayListener>
+
+
+                                    </Paper>
+                                </Grow>
+                            )}
+                        </Popper>
+                    </div>
+                ) : (<div className="login-area">
+                    <Button onClick={loginPage} variant="contained" color="primary" className="movie-options-options">Sign In</Button>
                 </div>)}
-                
+
             </div>
         </div>
     )

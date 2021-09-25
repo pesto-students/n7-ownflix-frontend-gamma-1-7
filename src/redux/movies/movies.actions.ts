@@ -26,11 +26,7 @@ export const fetchPopularMoviesAsync = (fetchUrl: string, isPage: number): AppTh
         axios
             .get(fetchUrl)
             .then(res => {
-                debugger
-                const popularMovies = res.data.docs.map((el: any) => ({
-                    ...el,
-                    isFavourite: false,
-                }));
+                const popularMovies = res.data.docs;
                 if (isPage) {
                     dispatch(fetchPopularMoviesSuccess(popularMovies, isPage));
                 } else dispatch(fetchPopularMoviesSuccess(popularMovies));
@@ -38,6 +34,247 @@ export const fetchPopularMoviesAsync = (fetchUrl: string, isPage: number): AppTh
             .catch(error => {
                 const errorMessage = error.message;
                 dispatch(fetchPopularMoviesFailure(errorMessage));
+            });
+    };
+};
+
+
+export const fetchActionMoviesRequest = () => ({
+    type: moviesActionTypes.FETCH_ACTION_MOVIES_REQUEST,
+});
+
+export const fetchActionMoviesSuccess = (actionMovies: Movie[], isPage?: number) => ({
+    type: isPage
+        ? moviesActionTypes.FETCH_ACTION_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_ACTION_MOVIES_SUCCESS,
+    payload: actionMovies,
+});
+
+export const fetchActionMoviesFailure = (error: any) => ({
+    type: moviesActionTypes.FETCH_ACTION_MOVIES_FAILURE,
+    payload: error,
+});
+
+export const fetchActionMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchActionMoviesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const actionMovies = res.data.docs;
+                if (isPage) {
+                    dispatch(fetchActionMoviesSuccess(actionMovies, isPage));
+                } else dispatch(fetchActionMoviesSuccess(actionMovies));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchActionMoviesFailure(errorMessage));
+            });
+    };
+};
+
+export const fetchComedyMoviesRequest = () => ({
+    type: moviesActionTypes.FETCH_COMEDY_MOVIES_REQUEST,
+});
+
+export const fetchComedyMoviesSuccess = (comedyMovies: Movie[], isPage?: number) => ({
+    type: isPage
+        ? moviesActionTypes.FETCH_COMEDY_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_COMEDY_MOVIES_SUCCESS,
+    payload: comedyMovies,
+});
+
+export const fetchComedyMoviesFailure = (error: any) => ({
+    type: moviesActionTypes.FETCH_COMEDY_MOVIES_FAILURE,
+    payload: error,
+});
+
+export const fetchComedyMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchComedyMoviesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const comedyMovies = res.data.docs;
+                if (isPage) {
+                    dispatch(fetchComedyMoviesSuccess(comedyMovies, isPage));
+                } else dispatch(fetchComedyMoviesSuccess(comedyMovies));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchComedyMoviesFailure(errorMessage));
+            });
+    };
+};
+
+export const fetchDramaMoviesRequest = () => ({
+    type: moviesActionTypes.FETCH_DRAMA_MOVIES_REQUEST,
+});
+
+export const fetchDramaMoviesSuccess = (dramaMovies: Movie[], isPage?: number) => ({
+    type: isPage
+        ? moviesActionTypes.FETCH_DRAMA_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_DRAMA_MOVIES_SUCCESS,
+    payload: dramaMovies,
+});
+
+export const fetchDramaMoviesFailure = (error: any) => ({
+    type: moviesActionTypes.FETCH_DRAMA_MOVIES_FAILURE,
+    payload: error,
+});
+
+export const fetchDramaMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchDramaMoviesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const dramaMovies = res.data.docs;
+                if (isPage) {
+                    dispatch(fetchDramaMoviesSuccess(dramaMovies, isPage));
+                } else dispatch(fetchDramaMoviesSuccess(dramaMovies));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchDramaMoviesFailure(errorMessage));
+            });
+    };
+};
+
+
+export const fetchHorrorMoviesRequest = () => ({
+    type: moviesActionTypes.FETCH_HORROR_MOVIES_REQUEST,
+});
+
+export const fetchHorrorMoviesSuccess = (horrorMovies: Movie[], isPage?: number) => ({
+    type: isPage
+        ? moviesActionTypes.FETCH_HORROR_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_HORROR_MOVIES_SUCCESS,
+    payload: horrorMovies,
+});
+
+export const fetchHorrorMoviesFailure = (error: any) => ({
+    type: moviesActionTypes.FETCH_HORROR_MOVIES_FAILURE,
+    payload: error,
+});
+
+export const fetchHorrorMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchHorrorMoviesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const horrorMovies = res.data.docs;
+                if (isPage) {
+                    dispatch(fetchHorrorMoviesSuccess(horrorMovies, isPage));
+                } else dispatch(fetchHorrorMoviesSuccess(horrorMovies));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchHorrorMoviesFailure(errorMessage));
+            });
+    };
+};
+
+export const fetchLatestMoviesRequest = () => ({
+    type: moviesActionTypes.FETCH_LATEST_MOVIES_REQUEST,
+});
+
+export const fetchLatestMoviesSuccess = (latetMovies: Movie[], isPage?: number) => ({
+    type: isPage
+        ? moviesActionTypes.FETCH_LATEST_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_LATEST_MOVIES_SUCCESS,
+    payload: latetMovies,
+});
+
+export const fetchLatestMoviesFailure = (error: any) => ({
+    type: moviesActionTypes.FETCH_LATEST_MOVIES_FAILURE,
+    payload: error,
+});
+
+export const fetchLatestMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchLatestMoviesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const latetMovies = res.data.docs;
+                if (isPage) {
+                    dispatch(fetchLatestMoviesSuccess(latetMovies, isPage));
+                } else dispatch(fetchLatestMoviesSuccess(latetMovies));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchLatestMoviesFailure(errorMessage));
+            });
+    };
+};
+
+export const fetchThrillerMoviesRequest = () => ({
+    type: moviesActionTypes.FETCH_THRILLER_MOVIES_REQUEST,
+});
+
+export const fetchThrillerMoviesSuccess = (thrillerMovies: Movie[], isPage?: number) => ({
+    type: isPage
+        ? moviesActionTypes.FETCH_THRILLER_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_THRILLER_MOVIES_SUCCESS,
+    payload: thrillerMovies,
+});
+
+export const fetchThrillerMoviesFailure = (error: any) => ({
+    type: moviesActionTypes.FETCH_THRILLER_MOVIES_FAILURE,
+    payload: error,
+});
+
+export const fetchThrillerMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchThrillerMoviesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const thrillerMovies = res.data.docs;
+                if (isPage) {
+                    dispatch(fetchThrillerMoviesSuccess(thrillerMovies, isPage));
+                } else dispatch(fetchThrillerMoviesSuccess(thrillerMovies));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchThrillerMoviesFailure(errorMessage));
+            });
+    };
+};
+
+
+export const fetchRecommendedMoviesRequest = () => ({
+    type: moviesActionTypes.FETCH_THRILLER_MOVIES_REQUEST,
+});
+
+export const fetchRecommendedMoviesSuccess = (recommendedMovies: Movie[], isPage?: number) => ({
+    type: isPage
+        ? moviesActionTypes.FETCH_THRILLER_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_THRILLER_MOVIES_SUCCESS,
+    payload: recommendedMovies,
+});
+
+export const fetchRecommendedMoviesFailure = (error: any) => ({
+    type: moviesActionTypes.FETCH_THRILLER_MOVIES_FAILURE,
+    payload: error,
+});
+
+export const fetchRecommendedMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchRecommendedMoviesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const recommendedMovies = res.data.docs;
+                if (isPage) {
+                    dispatch(fetchRecommendedMoviesSuccess(recommendedMovies, isPage));
+                } else dispatch(fetchRecommendedMoviesSuccess(recommendedMovies));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchRecommendedMoviesFailure(errorMessage));
             });
     };
 };

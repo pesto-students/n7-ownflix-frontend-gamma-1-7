@@ -19,10 +19,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import theme from '../../theme';
+import { Movie } from '../../models/movie.interface';
+import { Series } from '../../models/series.interface';
+import { useHistory } from 'react-router-dom';
 
 interface IMovieDetailsProps {
   modalOpen: boolean;
   closeModal: any;
+  modalData: Movie | Series;
 }
 
 const style = {
@@ -83,14 +87,29 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props: any) => {
-  const [movie, setMovie] = React.useState(true);
+const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
+
+  const getPlot = (plot: string) => {
+    const sentences = plot.match(/\S.*?\."?(?=\s|$)/g);
+    return sentences?.length ? sentences[0] + sentences[1] : plot
+  };
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
+  const { title, runningTime, rated, images, imagesVertical, imdbRating, slug } = (props.modalData as Movie);
+  const { noOfEpisodes } = (props.modalData as Series);
+  const plot = getPlot(props.modalData.plot || '')
+  const thumbNail = images.length > 1 ? images[1].location.cloudFrontUrl : images[0].location.cloudFrontUrl
+  const verticalImage = images.length > 1 ? imagesVertical[1].location.cloudFrontUrl : imagesVertical[0].location.cloudFrontUrl
+  const history = useHistory();
 
+  const onWatch = () => {
+    let path = `movie/${slug}`;
+    history.push(path);
+  }
   const handleChange = (event: any) => {
     const {
       target: { value },
+
     } = event;
     setPersonName(
       // On autofill we get a the stringified value.
@@ -115,28 +134,29 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props: any) =
       >
         <Fade in={props.modalOpen}>
           <Box sx={style} className="modal-modal">
-            <div className="modal-bg-img">
-              <img className="modal-bg-img-img" src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+            <div className="modal-bg-img" style={{ backgroundImage: `url(${thumbNail})` }}>
             </div>
             <div className="close-button" onClick={props.closeModal}>
               <CloseIcon />
             </div>
             <div className="header-content">
-              <img src="https://image.tmdb.org/t/p/original//reEMJA1uzscCbkpeRJeTT2bjqUp.jpg" alt="poster" className="home-poster" />
+              <div className="home-poster">
+                <img src={verticalImage} alt="poster" />
+              </div>
               <div className="poster-details">
                 <div className="poster-details-1">
-                  <h1 className="movie-title">Movie Name</h1>
+                  <h1 className="movie-title">{title}</h1>
                   <div className="movie-details">
-                    <div className="movie-details-details">1 hr 54 min - R</div>
+                    <div className="movie-details-details">{runningTime} - {rated}</div>
                     <div className="movie-details-details">Drama/Mystery</div>
-                    <div className="movie-details-details">89% Match</div>
+                    <div className="movie-details-details">Rating: {imdbRating}</div>
                   </div>
                   <p className="movie-description">
-                    Money Heist is a Spanish heist crime drama television series created by Álex Pina. The series traces two long-prepared heists led by the Professor, one on the Royal Mint of Spain, and one on the Bank of Spain, told from the perspective of one of the robbers, Tokyo
+                    {plot}
                   </p>
                   <div className="movie-options">
-                    <Button variant="contained" color="primary" className="movie-options-options">Watch</Button>
-                    {movie ?
+                    <Button variant="contained" color="primary" onClick={onWatch} className="movie-options-options">Watch</Button>
+                    {noOfEpisodes ?
                       <div className="movie-options-options">
                         <FormControl>
                           <Select
@@ -173,10 +193,10 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props: any) =
                     <Button variant="outlined" color="primary">+ Add to My List</Button>
                   </div>
                 </div>
-                {!movie ?
+                {!noOfEpisodes ?
                   <div className="poster-details-2">
-                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
-                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+                    {images.length ? <img src={images[0].location.cloudFrontUrl} alt="poster" /> : null}
+                    {images.length > 1 ? <img src={images[1].location.cloudFrontUrl} alt="poster1" /> : null}
                   </div>
                   :
                   <div className="modal-dropdown">

@@ -1,26 +1,23 @@
 import { Genre } from "./genres.interface";
 import { Images } from "./images.interface";
 
-export interface Movie {
-    _id: string;
+export interface Series {
     genre: Genre;
     title: string;
     slug: string;
     images: Images[];
     imagesVertical: Images[];
     videoTrailer: string;
-    videoMain: string;
     yearOfRelease: string;
     dateOfRelease: string;
-    runningTime: string;
     director: string;
     productionHouse: string;
     imdbRating?: string;
     actors?: string[];
     plot?: string;
     rated: string;
-    createdAt: Date;
+    createdAt: string;
     isPublised: string;
     subscriptionRequired: boolean;
+    noOfEpisodes: number;
 }
-
