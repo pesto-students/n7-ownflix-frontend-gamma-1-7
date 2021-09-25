@@ -22,6 +22,7 @@ import theme from '../../theme';
 import { Movie } from '../../models/movie.interface';
 import { Series } from '../../models/series.interface';
 import { useHistory } from 'react-router-dom';
+import { getPlot } from '../../utils/utils';
 
 interface IMovieDetailsProps {
   modalOpen: boolean;
@@ -89,10 +90,7 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 
 const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
 
-  const getPlot = (plot: string) => {
-    const sentences = plot.match(/\S.*?\."?(?=\s|$)/g);
-    return sentences?.length ? sentences[0] + sentences[1] : plot
-  };
+
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
   const { title, runningTime, rated, images, imagesVertical, imdbRating, slug } = (props.modalData as Movie);

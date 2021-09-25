@@ -6,6 +6,6 @@ export const requests = {
     fetchDramaMovies: '/movies/genre/drama',
     fetchHorrorMovies: '/movies/genre/horror',
     fetchThrillerMovies: '/movies/genre/thriller',
-    fetchRecommendedMovies: '/movies/genre/recommended',
+
     fetchAllGenres: '/genres'
 }

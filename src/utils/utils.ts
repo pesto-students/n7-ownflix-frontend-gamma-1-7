@@ -27,3 +27,8 @@ export const logEvent = (e: unknown, data: unknown) => {
         console.log(...args)
     }
 }
+
+export const getPlot = (plot: string) => {
+    const sentences = plot.match(/\S.*?\."?(?=\s|$)/g);
+    return sentences?.length ? sentences[0] + sentences[1] : plot
+};

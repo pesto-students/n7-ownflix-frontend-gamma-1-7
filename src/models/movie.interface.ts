@@ -9,7 +9,7 @@ export interface Movie {
     images: Images[];
     imagesVertical: Images[];
     videoTrailer: string;
-    videoMain: string;
+    videoMain: any;
     yearOfRelease: string;
     dateOfRelease: string;
     runningTime: string;
