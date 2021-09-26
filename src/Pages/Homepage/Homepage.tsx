@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Helmet } from 'react-helmet';
 import Slider from '../../components/Slider/Slider';
 import './homepage.scss';
 import Button from '@material-ui/core/Button';
@@ -41,6 +42,10 @@ const Homepage = () => {
         dispatch(fetchThrillerMoviesAsync(requests.fetchThrillerMovies, 1))
     }, [dispatch])
     return (
+        <>
+        <Helmet defer={false}>
+				<title>Home - {process.env.REACT_APP_NAME}</title>
+			</Helmet>
         <div className="HomePage">
             <div className="main-header">
                 <div className="header">
@@ -86,6 +91,7 @@ const Homepage = () => {
                 <Slider isLarge={false} title='Horror' sliderData={horrorMovies}></Slider>
             </div>
         </div>
+        </>
     )
 }
 

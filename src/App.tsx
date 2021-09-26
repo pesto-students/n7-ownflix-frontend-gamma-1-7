@@ -1,20 +1,21 @@
-import './App.scss';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import './App.scss';
 import Layout from './hoc/Layout/Layout';
+import PrivateRoute from "./hoc/Routes/PrivateRoute";
 import Homepage from './Pages/Homepage/Homepage';
 import Playerpage from './Pages/Playerpage/Playerpage';
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import theme from './theme';
+import Popular from './Pages/Popular/Popular';
 import Searchpage from './Pages/Searchpage/Searchpage';
 import Signin from './Pages/Signin/Signin';
 import Signup from './Pages/Signup/Signup';
-import Popular from './Pages/Popular/Popular';
 import Verify from './Pages/Verify/Verify';
-import PrivateRoute from "./hoc/Routes/PrivateRoute"
-import { useDispatch } from 'react-redux';
-import React from 'react';
 import { fetchAllGenresAsync } from './redux/genres/genres.actions';
 import { requests } from './requests';
+import theme from './theme';
+import axios from './utils/axiosInstance';
 
 function App() {
 
@@ -45,5 +46,19 @@ function App() {
     </ThemeProvider>
   );
 }
+
+if (localStorage.getItem('accessToken')) {
+			axios
+				.get('/auth/check')
+				.then(async res => {
+					if (res.data.msg === 'Expired') {
+						localStorage.clear();
+					}
+				})
+				.catch(e => {
+					localStorage.clear();
+				});
+}
+    
 
 export default App;

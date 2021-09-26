@@ -7,6 +7,7 @@ import theme from '../../theme';
 import { Link } from '@material-ui/core';
 import {useParams} from 'react-router-dom';
 import axios from '../../utils/axiosInstance';
+import { Helmet } from 'react-helmet';
 interface IVerifyProps {
 }
 const useStyles = makeStyles((theme: Theme) => ({
@@ -90,6 +91,10 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
         console.log(id)
     },[])
     return (
+        <>
+        <Helmet defer={false}>
+				<title>OTP Verification - {process.env.REACT_APP_NAME}</title>
+			</Helmet>
         <div className="Verify">
             <a href="/">
                 <img src={Logo} alt="logo" className="Verify--Logo" />
@@ -123,9 +128,10 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
                     Verify
                 </Button>
             </div>
-            <p>Didn't received OTP? <Link onClick={handleResendOTP} style={{display:timer===0?'initial':'hidden'}}>Resend</Link> </p>
+            <p>Didn't received OTP? <Link onClick={handleResendOTP} style={{display:timer===0?'initial':'hidden',cursor:'pointer'}}>Resend</Link> </p>
             {timer!==0 && (<p>{timer}</p>)}
         </div>
+        </>
     );
 };
 

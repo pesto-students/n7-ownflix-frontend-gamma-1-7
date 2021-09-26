@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import './Signup.scss';
 import Logo from '../../images/logo.png'
 import { Button, Checkbox, makeStyles, TextField, Theme, ThemeProvider } from '@material-ui/core';
@@ -6,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import theme from '../../theme';
 import { Link } from '@material-ui/core';
 import axios from '../../utils/axiosInstance';
+import { Helmet } from 'react-helmet';
 
 interface ISignupProps {
     name:String
@@ -125,6 +127,10 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
 // errorText})
     }
     return (
+        <>
+        <Helmet defer={false}>
+				<title>Sign Up - {process.env.REACT_APP_NAME}</title>
+			</Helmet>
         <div className="Signup">
             <a href="/">
                 <img src={Logo} alt="logo" className="Signup--Logo" />
@@ -222,6 +228,7 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
             </div>
             <p>Already have an account? <Link href="/signin" onClick={(e) => { e.stopPropagation() }}>Sign in</Link> </p>
         </div>
+        </>
     );
 };
 

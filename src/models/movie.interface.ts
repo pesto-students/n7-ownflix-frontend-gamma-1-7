@@ -3,7 +3,7 @@ import { Images } from "./images.interface";
 
 export interface Movie {
     _id: string;
-    genre: Genre;
+    genres: Genre[];
     title: string;
     slug: string;
     images: Images[];

@@ -23,6 +23,7 @@
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
@@ -37,7 +38,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "heroku-postbuild":"npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +60,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.172",
+    "@types/react-helmet": "^6.1.2",
     "@types/react-router-dom": "^5.1.8",
     "prettier": "^2.4.1"
   },

@@ -15,7 +15,7 @@ interface IWatchflixPlayerProps {
 const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) => {
     if (props.playerData.data) {
         const { title, rated, imdbRating, yearOfRelease, plot, images, videoMain } = (props.playerData.data as Movie)
-        const genresConverted = [props?.playerData?.data?.genre.title];
+        const genresConverted = [props?.playerData?.data?.genres];
         const thumbNail = images[0].location.cloudFrontUrl
         const autoVideoUrl = videoMain.destinationLocation.location.cloudFrontUrl
         const sources = {
@@ -52,9 +52,7 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
                         <h3>{title}</h3>
                     </div>
                     <div className="WatchflixPlayer__Info--genres">
-                        {genresConverted && genresConverted.map(genre => (
-                            <span key={`Genre--id_${genre}`} className="genre-title">{genre}</span>
-                        ))}
+                        
                         <span className="genre-title">{yearOfRelease}</span>
                         <span className="genre-title">{rated}</span>
                         <span className="genre-title">Rating: {imdbRating}</span>

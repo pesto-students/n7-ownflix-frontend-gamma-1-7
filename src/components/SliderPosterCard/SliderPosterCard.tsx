@@ -19,7 +19,7 @@ interface SliderPosterCardProps {
 const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props) => {
     let { title, images, imagesVertical, slug } = props.data;
 
-    let genresConverted = [props.data.genre.title];
+    let genresConverted = [props.data.genres];
 
     let poster_path = imagesVertical[0].location.cloudFrontUrl;
     let backdrop_path = images[0].location.cloudFrontUrl;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Helmet } from 'react-helmet';
 import './Signin.scss';
 import Logo from '../../images/logo.png'
 import { Button, Checkbox, makeStyles, TextField, Theme, ThemeProvider } from '@material-ui/core';
@@ -43,6 +44,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
     const [password, setPassword] = React.useState('');
     const [rememberMe, setRememberMe] = React.useState(false);
     const [errorText, setErrorText] = React.useState("")
+    const [loadingText, setLoadingText] = React.useState("Sign In")
     const dispatch = useDispatch();
 
 
@@ -58,6 +60,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
     const handleLoginForm=(e:any)=>{
         e.preventDefault();
         setErrorText("")
+        setLoadingText("Please wait")
         if(email===""){
             setErrorText("Enter email address")
             return false
@@ -95,6 +98,8 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
             
         }).catch(err=>{
             setErrorText("Wrong email and password ")
+        }).finally(()=>{
+            setLoadingText("Sign In")
         })
         // 
         // dispatch(login())
@@ -102,6 +107,10 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
         // window.location.href="/home"
     }
     return (
+        <>
+        <Helmet defer={false}>
+				<title>Sign In- {process.env.REACT_APP_NAME}</title>
+			</Helmet>
         <div className="Signin">
             <a href="/">
                 <img src={Logo} alt="logo" className="Signin--Logo" />
@@ -149,12 +158,13 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
                 {errorText!=="" && (
                            <span style={{color:'#ff5555'}}>{errorText}</span>
                        )}
-                <Button onClick={e=>handleLoginForm(e)} variant="contained" color="primary" className={classes.signInButton}>
-                    Sign in
+                <Button disabled={loadingText==="Sign In"?false:true} onClick={e=>handleLoginForm(e)} variant="contained" color="primary" className={classes.signInButton}>
+                    {loadingText}
                 </Button>
             </div>
             <p>Don't have an account? <Link href="/signup" onClick={(e) => { e.stopPropagation() }}>Sign up</Link> </p>
         </div>
+        </>
     );
 };
 
