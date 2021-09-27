@@ -3,6 +3,9 @@ import PlayerContainer from "griffith";
 import { Movie } from "../../models/movie.interface";
 import { logEvent } from "../../utils/utils";
 import './WatchflixPlayer.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from "../../redux/rootReducer";
+import { addToWatchlistAsync, removeFromWatchlistAsync } from "../../redux/watchlist/watchlist.actions";
 
 interface IWatchflixPlayerProps {
     playerData: {
@@ -13,11 +16,27 @@ interface IWatchflixPlayerProps {
 }
 
 const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) => {
+    const dispatch = useDispatch();
+
+    const watchlist = useSelector(
+        (state: RootState) => state.watchlist
+    );
+    const hasAddedinWatchlist = watchlist.filter(w => w.entityId === props.playerData.data?._id).length > 0
+
+    const handleAdd = (event: any) => {
+        event.stopPropagation();
+        dispatch(addToWatchlistAsync('/watch-list/', { entityId: props.playerData.data?._id, user: localStorage.getItem("user"), entity: 'movies' }));
+    };
+    const handleRemove = (event: any) => {
+        event.stopPropagation();
+        const addedList = watchlist.find((w) => w.entityId === props.playerData.data?._id)
+        dispatch(removeFromWatchlistAsync(`/watch-list/${addedList._id}`, addedList._id))
+    };
     if (props.playerData.data) {
-        const { title, rated, imdbRating, yearOfRelease, plot, images, videoMain } = (props.playerData.data as Movie)
-        const genresConverted = [props?.playerData?.data?.genres];
+        const { title, rated, imdbRating, yearOfRelease, plot, images, videoMain, genres } = (props.playerData.data as Movie)
         const thumbNail = images[0].location.cloudFrontUrl
         const autoVideoUrl = videoMain.destinationLocation.location.cloudFrontUrl
+
         const sources = {
             Auto: {
                 format: 'm3u8',
@@ -38,7 +57,7 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
             cover: thumbNail,
             sources,
             shouldObserveResize: true,
-            autoplay: true,
+            autoplay: false,
             onEvent: logEvent,
         }
 
@@ -52,7 +71,9 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
                         <h3>{title}</h3>
                     </div>
                     <div className="WatchflixPlayer__Info--genres">
-                        
+                        {genres && genres.map(genre => (
+                            <span key={`Genre--id_${genre._id}`} className="genre-title">{genre.title}</span>
+                        ))}
                         <span className="genre-title">{yearOfRelease}</span>
                         <span className="genre-title">{rated}</span>
                         <span className="genre-title">Rating: {imdbRating}</span>
@@ -60,7 +81,9 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
                     <p>{plot}</p>
                 </div>
                 <div className="WatchflixPlayer__MovieOptions">
-                    <Button variant="outlined" color="primary">+ Add to My List</Button>
+                    {!hasAddedinWatchlist ?
+                        <Button variant="outlined" color="primary" onClick={handleAdd} >+ Add to my list</Button> :
+                        <Button variant="contained" color="primary" onClick={handleRemove} >- Remove from my list</Button>}
                 </div>
             </div>
         )

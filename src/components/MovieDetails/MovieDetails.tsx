@@ -23,6 +23,9 @@ import { Movie } from '../../models/movie.interface';
 import { Series } from '../../models/series.interface';
 import { useHistory } from 'react-router-dom';
 import { getPlot } from '../../utils/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/rootReducer';
+import { addToWatchlistAsync, removeFromWatchlistAsync } from '../../redux/watchlist/watchlist.actions';
 
 interface IMovieDetailsProps {
   modalOpen: boolean;
@@ -92,6 +95,7 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
 
 
   const theme = useTheme();
+  const dispatch = useDispatch();
   const [personName, setPersonName] = React.useState<string[]>([]);
   const { title, runningTime, rated, images, imagesVertical, imdbRating, slug, genres } = (props.modalData as Movie);
   const { noOfEpisodes } = (props.modalData as Series);
@@ -113,6 +117,20 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
       // On autofill we get a the stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+  };
+  const watchlist = useSelector(
+    (state: RootState) => state.watchlist
+  );
+  const hasAddedinWatchlist = watchlist.filter(w => w.entityId === props.modalData._id).length > 0
+
+  const handleAdd = (event: any) => {
+    event.stopPropagation();
+    dispatch(addToWatchlistAsync('/watch-list/', { entityId: props.modalData._id, user: localStorage.getItem("user"), entity: 'movies' }));
+  };
+  const handleRemove = (event: any) => {
+    event.stopPropagation();
+    const addedList = watchlist.find((w) => w.entityId === props.modalData._id)
+    dispatch(removeFromWatchlistAsync(`/watch-list/${addedList._id}`, addedList._id))
   };
 
 
@@ -192,7 +210,9 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
                         </FormControl>
                       </div>
                       : null}
-                    <Button variant="outlined" color="primary">+ Add to My List</Button>
+                    {!hasAddedinWatchlist ?
+                      <Button variant="outlined" color="primary" onClick={handleAdd} >+ Add to my list</Button> :
+                      <Button variant="contained" color="primary" onClick={handleRemove} >- Remove from my list</Button>}
                   </div>
                 </div>
                 {!noOfEpisodes ?

@@ -246,18 +246,18 @@ export const fetchThrillerMoviesAsync = (fetchUrl: string, isPage: number): AppT
 
 
 export const fetchRecommendedMoviesRequest = () => ({
-    type: moviesActionTypes.FETCH_THRILLER_MOVIES_REQUEST,
+    type: moviesActionTypes.FETCH_RECOMMENDED_MOVIES_REQUEST,
 });
 
 export const fetchRecommendedMoviesSuccess = (recommendedMovies: Movie[], isPage?: number) => ({
     type: isPage
-        ? moviesActionTypes.FETCH_THRILLER_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_THRILLER_MOVIES_SUCCESS,
+        ? moviesActionTypes.FETCH_RECOMMENDED_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_RECOMMENDED_MOVIES_SUCCESS,
     payload: recommendedMovies,
 });
 
 export const fetchRecommendedMoviesFailure = (error: any) => ({
-    type: moviesActionTypes.FETCH_THRILLER_MOVIES_FAILURE,
+    type: moviesActionTypes.FETCH_RECOMMENDED_MOVIES_FAILURE,
     payload: error,
 });
 

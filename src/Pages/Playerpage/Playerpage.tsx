@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import Slider from '../../components/Slider/Slider';
 import WatchflixPlayer from '../../components/WatchflixPlayer/WatchflixPlayer';
 import { Movie } from '../../models/movie.interface';
-import { fetchRecommendedMoviesAsync } from '../../redux/movies/movies.actions';
 import { fetchMovieAsync } from '../../redux/player/player.actions';
 import { RootState } from '../../redux/rootReducer';
 import './Playerpage.scss';
@@ -15,6 +14,14 @@ const Playerpage = () => {
     console.log(location.pathname);
     const movieSlug = location.pathname.split('/')[2]
     console.log(movieSlug)
+    let recommendedMovies = {
+        ...useSelector(
+            (state: RootState) => state.movies.recommendedMovies
+        )
+    };
+    recommendedMovies.data = recommendedMovies.data.filter(m => {
+        return m.slug !== movieSlug
+    })
     const playerData: {
         loading: boolean;
         error: string;
@@ -30,7 +37,7 @@ const Playerpage = () => {
     return (
         <div className="Playerpage">
             <WatchflixPlayer playerData={playerData} />
-            <Slider isLarge={false} title='Recommended Movies' sliderData={[]}></Slider>
+            <Slider isLarge={false} title='Recommended Movies' sliderData={recommendedMovies}></Slider>
         </div>
     )
 }

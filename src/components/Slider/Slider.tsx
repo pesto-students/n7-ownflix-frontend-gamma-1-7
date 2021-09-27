@@ -12,6 +12,8 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import SliderPosterCard from '../SliderPosterCard/SliderPosterCard';
 import { Movie } from '../../models/movie.interface';
+import SkeletonPoster from '../SkeletonPoster/SkeletonPoster';
+import SkeletonElement from '../SkeletonElement/SkeletonElement';
 SwiperCore.use([Navigation, Pagination]);
 
 interface SliderProps {
@@ -92,9 +94,8 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
             {sliderData.loading ?
                 (
                     <div className='SliderPosterCard__not-loaded'>
-                        {/* <SkeletonElement type="title" />
-						<SkeletonPoster /> */}
-                        Loading...
+                        <SkeletonElement type="title" />
+                        <SkeletonPoster />
                     </div>
                 ) : (
                     <h3 className="SliderPosterCard__title">

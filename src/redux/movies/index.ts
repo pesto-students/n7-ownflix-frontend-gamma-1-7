@@ -5,6 +5,7 @@ import { dramaReducer } from "./dramaReducer";
 import { horrorReducer } from "./horrorReducer";
 import { latestReducer } from "./latestReducer";
 import { popularReducer } from "./popularReducer";
+import { recommendedReducer } from "./recommendedReducer";
 import { thrillerReducer } from "./thrillerReducer";
 
 
@@ -15,5 +16,6 @@ export default combineReducers({
     comedyMovies: comedyReducer,
     dramaMovies: dramaReducer,
     horrorMovies: horrorReducer,
-    thrillerMovies: thrillerReducer
+    thrillerMovies: thrillerReducer,
+    recommendedMovies: recommendedReducer
 })

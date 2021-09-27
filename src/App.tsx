@@ -13,6 +13,7 @@ import Signin from './Pages/Signin/Signin';
 import Signup from './Pages/Signup/Signup';
 import Verify from './Pages/Verify/Verify';
 import { fetchAllGenresAsync } from './redux/genres/genres.actions';
+import { fetchWatchlistAsync } from './redux/watchlist/watchlist.actions';
 import { requests } from './requests';
 import theme from './theme';
 import axios from './utils/axiosInstance';
@@ -22,6 +23,7 @@ function App() {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(fetchAllGenresAsync(requests.fetchAllGenres))
+    dispatch(fetchWatchlistAsync(`/watch-list/user/${localStorage.getItem('user')}`))
   }, [dispatch])
   return (
     <ThemeProvider theme={theme}>
@@ -48,17 +50,17 @@ function App() {
 }
 
 if (localStorage.getItem('accessToken')) {
-			axios
-				.get('/auth/check')
-				.then(async res => {
-					if (res.data.msg === 'Expired') {
-						localStorage.clear();
-					}
-				})
-				.catch(e => {
-					localStorage.clear();
-				});
+  axios
+    .get('/auth/check')
+    .then(async res => {
+      if (res.data.msg === 'Expired') {
+        localStorage.clear();
+      }
+    })
+    .catch(e => {
+      localStorage.clear();
+    });
 }
-    
+
 
 export default App;

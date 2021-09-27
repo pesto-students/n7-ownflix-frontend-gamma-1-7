@@ -9,6 +9,8 @@ import { requests } from '../../requests';
 import { RootState } from '../../redux/rootReducer';
 import { getPlot } from '../../utils/utils';
 import { useHistory } from 'react-router-dom';
+import { addToWatchlistAsync, removeFromWatchlistAsync } from '../../redux/watchlist/watchlist.actions';
+import SkeletonBanner from '../../components/SkeletonBanner/SkeletonBanner';
 
 const Homepage = () => {
 
@@ -49,6 +51,20 @@ const Homepage = () => {
         let path = `movie/${slug}`;
         history.push(path);
     }
+    const watchlist = useSelector(
+        (state: RootState) => state.watchlist
+    );
+    const hasAddedinWatchlist = watchlist.filter(w => w.entityId === popularMovies.data[0]._id).length > 0
+
+    const handleAdd = (event: any) => {
+        event.stopPropagation();
+        dispatch(addToWatchlistAsync('/watch-list/', { entityId: popularMovies.data[0]._id, user: localStorage.getItem("user"), entity: 'movies' }));
+    };
+    const handleRemove = (event: any) => {
+        event.stopPropagation();
+        const addedList = watchlist.find((w) => w.entityId === popularMovies.data[0]._id)
+        dispatch(removeFromWatchlistAsync(`/watch-list/${addedList._id}`, addedList._id))
+    };
     return (
         <>
             <Helmet defer={false}>
@@ -82,7 +98,9 @@ const Homepage = () => {
                                         </p>
                                         <div className="movie-options">
                                             <Button variant="contained" color="primary" onClick={() => onWatch(popularMovies.data[0].slug)} className="movie-options-options">Watch</Button>
-                                            <Button variant="outlined" color="primary">+ Add to My List</Button>
+                                            {!hasAddedinWatchlist ?
+                                                <Button variant="outlined" color="primary" onClick={handleAdd} >+ Add to my list</Button> :
+                                                <Button variant="contained" color="primary" onClick={handleRemove} >- Remove from my list</Button>}
                                         </div>
                                     </div>
                                     <div className="poster-details-2">
@@ -94,7 +112,7 @@ const Homepage = () => {
                                     </div>
                                 </div>
                             </div>
-                        </> : 'Loading...'} </div>
+                        </> : <SkeletonBanner />} </div>
                 <div className="Homepage__content">
                     <Slider isLarge={false} title='Latest' sliderData={latestMovies}></Slider>
                     <Slider isLarge={true} title='Popular' sliderData={popularMovies}></Slider>

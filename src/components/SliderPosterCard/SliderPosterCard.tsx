@@ -10,6 +10,8 @@ import { Movie } from '../../models/movie.interface';
 import { RootState } from '../../redux/rootReducer';
 import { Genre } from '../../models/genres.interface';
 import { Series } from '../../models/series.interface';
+import { addToWatchlistAsync, removeFromWatchlistAsync } from '../../redux/watchlist/watchlist.actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface SliderPosterCardProps {
     isLarge: boolean;
@@ -22,9 +24,12 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
     let poster_path = imagesVertical[0].location.cloudFrontUrl;
     let backdrop_path = images[0].location.cloudFrontUrl;
     let isLarge = props.isLarge;
-    let hasAddedinWatchlist = false;
     const [modalOpen, setModalOpen] = React.useState(false);
-
+    const dispatch = useDispatch();
+    const watchlist = useSelector(
+        (state: RootState) => state.watchlist
+    );
+    const hasAddedinWatchlist = watchlist.filter(w => w.entityId === props.data._id).length > 0
     const closeModal = () => {
         setModalOpen(false);
     }
@@ -32,11 +37,12 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
 
     const handleAdd = (event: any) => {
         event.stopPropagation();
-        // dispatch(addToFavourites({ ...item, isFavourite }));
+        dispatch(addToWatchlistAsync('/watch-list/', { entityId: props.data._id, user: localStorage.getItem("user"), entity: 'movies' }));
     };
     const handleRemove = (event: any) => {
         event.stopPropagation();
-        // dispatch(removeFromFavourites({ ...item, isFavourite }));
+        const addedList = watchlist.find((w) => w.entityId === props.data._id)
+        dispatch(removeFromWatchlistAsync(`/watch-list/${addedList._id}`, addedList._id))
     };
     const handleModalOpening = () => {
         // dispatch(showModalDetail({ ...item, fallbackTitle, genresConverted, isFavourite }));
@@ -104,3 +110,5 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
 };
 
 export default SliderPosterCard;
+
+

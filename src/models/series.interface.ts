@@ -2,6 +2,7 @@ import { Genre } from "./genres.interface";
 import { Images } from "./images.interface";
 
 export interface Series {
+    _id: string;
     genres: Genre[];
     title: string;
     slug: string;
