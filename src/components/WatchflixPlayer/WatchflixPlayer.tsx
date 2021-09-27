@@ -37,16 +37,21 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
         const { title, rated, imdbRating, yearOfRelease, plot, images, videoMain, genres } = (props.playerData.data as Movie)
         const thumbNail = images[0].location.cloudFrontUrl
         const autoVideoUrl = videoMain.destinationLocation.location.cloudFrontUrl
+        const sdVideoUrl = autoVideoUrl.split('.').slice(0, -1).join('.') + '_Ott_Hls_Ts_Avc_Aac_16x9_480x270p_0.4Mbps_qvbr.m3u8'
+        const hdVideoUrl = autoVideoUrl.split('.').slice(0, -1).join('.') + '_Ott_Hls_Ts_Avc_Aac_16x9_960x540p_3.5Mbps_qvbr.m3u8'
 
         const sources = {
-            Auto: {
+            "auto": {
                 format: 'm3u8',
-                play_url: autoVideoUrl,
+                play_url: autoVideoUrl
             },
-            hd: {
+            "sd": {
                 format: 'm3u8',
-                play_url:
-                    'https://d3dr7atq7iqw02.cloudfront.net/48626d63-e362-4233-9f2f-f2c3f4c916b1/AppleHLS1/videoplayback_Ott_Hls_Ts_Avc_Aac_16x9_1280x720p_6.0Mbps_qvbr.m3u8',
+                play_url: sdVideoUrl
+            },
+            "hd": {
+                format: 'm3u8',
+                play_url: hdVideoUrl
             },
 
         }
@@ -58,7 +63,7 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
             cover: thumbNail,
             sources,
             shouldObserveResize: true,
-            autoplay: false,
+            autoplay: true,
             onEvent: logEvent,
         }
 
