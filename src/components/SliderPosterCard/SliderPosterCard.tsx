@@ -94,7 +94,7 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                     </div>
                     <div className="SliderPosterCard__poster-info--genres">
                         {genres && genres.map(genre => (
-                            <span key={`Genre--id_${genre}`} className="genre-title">{genre.title}</span>
+                            <span key={`Genre--id_${genre._id}`} className="genre-title">{genre.title}</span>
                         ))}
                     </div>
                 </div>
