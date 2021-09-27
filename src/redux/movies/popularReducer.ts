@@ -18,7 +18,6 @@ export const popularReducer = createReducer(initialState, (builder) => {
             state.loading = true
         })
         .addCase(moviesActionTypes.FETCH_POPULAR_MOVIES_SUCCESS, (state, action: PayloadAction<Movie[]>) => {
-
             state.error = ''
             state.data = action.payload;
             state.loading = false;

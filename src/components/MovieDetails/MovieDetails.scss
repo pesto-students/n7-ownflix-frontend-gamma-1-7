@@ -70,7 +70,23 @@
           .movie-details {
             display: flex;
             flex-direction: row;
-            .movie-details-details {
+            .movie-details-runningTime {
+              padding-right: 30px;
+            }
+            .movie-details-genres {
+              padding-right: 30px;
+              .genre-title{
+              	&:after {
+					        content: "/";
+				        	display: inline-block;
+			          	}
+
+				        &:last-child:after {
+				        	display: none;
+				        }
+              }
+            }
+            .movie-details-rating {
               padding-right: 30px;
             }
           }

@@ -29,6 +29,6 @@ export const logEvent = (e: unknown, data: unknown) => {
 }
 
 export const getPlot = (plot: string) => {
-    const sentences = plot.match(/\S.*?\."?(?=\s|$)/g);
-    return sentences?.length ? sentences[0] + sentences[1] : plot
+    const sentences = (plot.match(/\S.*?\."?(?=\s|$)/g) || []);
+    return (sentences.length > 0) ? sentences[0] + (sentences[1] ? sentences[1] : '') : plot
 };

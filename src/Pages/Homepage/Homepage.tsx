@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchActionMoviesAsync, fetchComedyMoviesAsync, fetchDramaMoviesAsync, fetchHorrorMoviesAsync, fetchLatestMoviesAsync, fetchPopularMoviesAsync, fetchThrillerMoviesAsync } from '../../redux/movies/movies.actions';
 import { requests } from '../../requests';
 import { RootState } from '../../redux/rootReducer';
+import { getPlot } from '../../utils/utils';
+import { useHistory } from 'react-router-dom';
 
 const Homepage = () => {
 
@@ -33,14 +35,20 @@ const Homepage = () => {
         (state: RootState) => state.movies.thrillerMovies
     );
     React.useEffect(() => {
-        dispatch(fetchLatestMoviesAsync(requests.fetchLatestMovies, 1))
         dispatch(fetchPopularMoviesAsync(requests.fetchPopularMovies, 1))
+        dispatch(fetchLatestMoviesAsync(requests.fetchLatestMovies, 1))
         dispatch(fetchActionMoviesAsync(requests.fetchActionMovies, 1))
         // dispatch(fetchDramaMoviesAsync(requests.fetchDramaMovies, 1))
         dispatch(fetchComedyMoviesAsync(requests.fetchComedyMovies, 1))
         dispatch(fetchHorrorMoviesAsync(requests.fetchHorrorMovies, 1))
         dispatch(fetchThrillerMoviesAsync(requests.fetchThrillerMovies, 1))
     }, [dispatch])
+    const history = useHistory();
+
+    const onWatch = (slug: string) => {
+        let path = `movie/${slug}`;
+        history.push(path);
+    }
     return (
         <>
             <Helmet defer={false}>
@@ -48,39 +56,45 @@ const Homepage = () => {
             </Helmet>
             <div className="HomePage">
                 <div className="main-header">
-                    <div className="header">
-                        <div className="image" style={{ backgroundImage: `url(${`https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg`})` }}>
-                        </div>
-                    </div>
-                    <div className="header-content">
-                        <img src="https://image.tmdb.org/t/p/original//reEMJA1uzscCbkpeRJeTT2bjqUp.jpg" alt="poster" className="home-poster" />
-                        <div className="poster-details">
-                            <div className="poster-details-1">
-                                <h2 className="movie-type">Most Popular</h2>
-                                <h1 className="movie-title">Movie Name</h1>
-                                <div className="movie-details">
-                                    <div className="movie-details-details">1 hr 54 min - R</div>
-                                    <div className="movie-details-details">Drama/Mystery</div>
-                                    <div className="movie-details-details">89% Match</div>
-                                </div>
-                                <p className="movie-description">
-                                    Money Heist is a Spanish heist crime drama television series created by Álex Pina. The series traces two long-prepared heists led by the Professor, one on the Royal Mint of Spain, and one on the Bank of Spain, told from the perspective of one of the robbers, Tokyo
-                                </p>
-                                <div className="movie-options">
-                                    <Button variant="contained" color="primary" className="movie-options-options">Watch</Button>
-                                    <Button variant="outlined" color="primary">+ Add to My List</Button>
+                    {!popularMovies.loading && popularMovies.data.length > 0 ?
+                        <>
+                            <div className="header">
+                                <div className="image" style={{ backgroundImage: `url(${popularMovies.data[0].images[0].location.cloudFrontUrl})` }}>
                                 </div>
                             </div>
-                            <div className="poster-details-2">
-                                <div className="poster-images">
-                                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
-                                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
-                                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+                            <div className="header-content">
+                                <img src={popularMovies.data[0].imagesVertical[0].location.cloudFrontUrl} alt="poster" className="home-poster" />
+                                <div className="poster-details">
+                                    <div className="poster-details-1">
+                                        <h2 className="movie-type">Most Popular</h2>
+                                        <h1 className="movie-title">{popularMovies.data[0].title}</h1>
+                                        <div className="movie-details">
+                                            <div className="movie-details-runningTime">{popularMovies.data[0].runningTime} - {popularMovies.data[0].rated}</div>
+                                            <div className="movie-details-genres">
+                                                {popularMovies.data[0].genres && popularMovies.data[0].genres.map(genre => (
+                                                    <span key={`Genre--id_${genre._id}`} className="genre-title">{genre.title}</span>
+                                                ))}
+                                            </div>
+                                            <div className="movie-details-rating">Rating: {popularMovies.data[0].imdbRating}</div>
+                                        </div>
+                                        <p className="movie-description">
+                                            {getPlot(popularMovies.data[0].plot || '')}
+                                        </p>
+                                        <div className="movie-options">
+                                            <Button variant="contained" color="primary" onClick={() => onWatch(popularMovies.data[0].slug)} className="movie-options-options">Watch</Button>
+                                            <Button variant="outlined" color="primary">+ Add to My List</Button>
+                                        </div>
+                                    </div>
+                                    <div className="poster-details-2">
+                                        <div className="poster-images">
+                                            {popularMovies.data[0].images.length ? <img src={popularMovies.data[0].images[0].location.cloudFrontUrl} alt="poster" /> : null}
+                                            {popularMovies.data[0].images.length > 1 ? <img src={popularMovies.data[0].images[1].location.cloudFrontUrl} alt="poster1" /> : null}
+                                            {popularMovies.data[0].images.length > 2 ? <img src={popularMovies.data[0].images[2].location.cloudFrontUrl} alt="poster1" /> : null}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </> : 'Loading...'} </div>
                 <div className="Homepage__content">
                     <Slider isLarge={false} title='Latest' sliderData={latestMovies}></Slider>
                     <Slider isLarge={true} title='Popular' sliderData={popularMovies}></Slider>

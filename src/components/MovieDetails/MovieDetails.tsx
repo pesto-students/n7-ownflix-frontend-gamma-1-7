@@ -93,7 +93,7 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
 
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
-  const { title, runningTime, rated, images, imagesVertical, imdbRating, slug } = (props.modalData as Movie);
+  const { title, runningTime, rated, images, imagesVertical, imdbRating, slug, genres } = (props.modalData as Movie);
   const { noOfEpisodes } = (props.modalData as Series);
   const plot = getPlot(props.modalData.plot || '')
   const thumbNail = images.length > 1 ? images[1].location.cloudFrontUrl : images[0].location.cloudFrontUrl
@@ -145,9 +145,13 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
                 <div className="poster-details-1">
                   <h1 className="movie-title">{title}</h1>
                   <div className="movie-details">
-                    <div className="movie-details-details">{runningTime} - {rated}</div>
-                    <div className="movie-details-details">Drama/Mystery</div>
-                    <div className="movie-details-details">Rating: {imdbRating}</div>
+                    <div className="movie-details-runningTime">{runningTime} - {rated}</div>
+                    <div className="movie-details-genres">
+                      {genres && genres.map(genre => (
+                        <span key={`Genre--id_${genre._id}`} className="genre-title">{genre.title}</span>
+                      ))}
+                    </div>
+                    <div className="movie-details-rating">Rating: {imdbRating}</div>
                   </div>
                   <p className="movie-description">
                     {plot}
