@@ -121,6 +121,14 @@ $iteration-count: infinite;
     }
   }
 
+  &.player{
+    background-color: black;
+    max-height: calc(100vw * (1080/1920));
+    @include background-gradient;
+    animation: shine $animation-duration $easing-function $iteration-count;
+       height: calc(100vh - 80px - 75px);
+}
+
   &.banner {
     position: relative;
     display: inline-block;

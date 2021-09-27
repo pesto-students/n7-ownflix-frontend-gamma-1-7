@@ -6,6 +6,7 @@ import './WatchflixPlayer.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../redux/rootReducer";
 import { addToWatchlistAsync, removeFromWatchlistAsync } from "../../redux/watchlist/watchlist.actions";
+import SkeletonElement from "../SkeletonElement/SkeletonElement";
 
 interface IWatchflixPlayerProps {
     playerData: {
@@ -89,7 +90,13 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
         )
     } else {
         return (
-            <div>Loading...</div>
+            <div className="Skeleton__Player">
+                <SkeletonElement type="player"></SkeletonElement>
+                <SkeletonElement type="title"></SkeletonElement>
+                <SkeletonElement type="text"></SkeletonElement>
+                <SkeletonElement type="text"></SkeletonElement>
+                <SkeletonElement type="button"></SkeletonElement>
+            </div>
         )
     }
 }
