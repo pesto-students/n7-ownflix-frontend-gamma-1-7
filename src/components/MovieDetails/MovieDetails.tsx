@@ -121,16 +121,16 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
   const watchlist = useSelector(
     (state: RootState) => state.watchlist
   );
-  const hasAddedinWatchlist = watchlist.filter(w => w.entityId === props.modalData._id).length > 0
+  const hasAddedinWatchlist = watchlist.movies.filter((w: any) => w.movie._id === props.modalData._id).length > 0
 
   const handleAdd = (event: any) => {
     event.stopPropagation();
-    dispatch(addToWatchlistAsync('/watch-list/', { entityId: props.modalData._id, user: localStorage.getItem("user"), entity: 'movies' }));
+    dispatch(addToWatchlistAsync('/watch-list/', { entityId: props.modalData._id, user: localStorage.getItem("user"), entity: 'movies' }, 'movies', props.modalData));
   };
   const handleRemove = (event: any) => {
     event.stopPropagation();
-    const addedList = watchlist.find((w) => w.entityId === props.modalData._id)
-    dispatch(removeFromWatchlistAsync(`/watch-list/${addedList._id}`, addedList._id))
+    const addedList = watchlist.movies.find((w: any) => w.movie._id === props.modalData._id)
+    dispatch(removeFromWatchlistAsync(`/watch-list/${addedList.watchlistId}`, addedList.watchlistId, 'movies'))
   };
 
 

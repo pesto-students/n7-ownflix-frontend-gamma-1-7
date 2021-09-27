@@ -22,16 +22,16 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
     const watchlist = useSelector(
         (state: RootState) => state.watchlist
     );
-    const hasAddedinWatchlist = watchlist.filter(w => w.entityId === props.playerData.data?._id).length > 0
+    const hasAddedinWatchlist = watchlist.movies.filter((w: any) => w.movie._id === props.playerData.data?._id).length > 0
 
     const handleAdd = (event: any) => {
         event.stopPropagation();
-        dispatch(addToWatchlistAsync('/watch-list/', { entityId: props.playerData.data?._id, user: localStorage.getItem("user"), entity: 'movies' }));
+        dispatch(addToWatchlistAsync('/watch-list/', { entityId: props.playerData.data?._id, user: localStorage.getItem("user"), entity: 'movies' }, 'movies', (props.playerData.data as Movie)));
     };
     const handleRemove = (event: any) => {
         event.stopPropagation();
-        const addedList = watchlist.find((w) => w.entityId === props.playerData.data?._id)
-        dispatch(removeFromWatchlistAsync(`/watch-list/${addedList._id}`, addedList._id))
+        const addedList = watchlist.movies.find((w: any) => w.movie._id === props.playerData.data?._id)
+        dispatch(removeFromWatchlistAsync(`/watch-list/${addedList.watchlistId}`, addedList.watchlistId, 'movies'))
     };
     if (props.playerData.data) {
         const { title, rated, imdbRating, yearOfRelease, plot, images, videoMain, genres } = (props.playerData.data as Movie)

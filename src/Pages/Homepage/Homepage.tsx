@@ -54,16 +54,16 @@ const Homepage = () => {
     const watchlist = useSelector(
         (state: RootState) => state.watchlist
     );
-    const hasAddedinWatchlist = watchlist.filter(w => w.entityId === popularMovies.data[0]._id).length > 0
+    const hasAddedinWatchlist = watchlist.movies.filter((w: any) => w.movie._id === popularMovies.data[0]._id).length > 0
 
     const handleAdd = (event: any) => {
         event.stopPropagation();
-        dispatch(addToWatchlistAsync('/watch-list/', { entityId: popularMovies.data[0]._id, user: localStorage.getItem("user"), entity: 'movies' }));
+        dispatch(addToWatchlistAsync('/watch-list/', { entityId: popularMovies.data[0]._id, user: localStorage.getItem("user"), entity: 'movies' }, 'movies', popularMovies.data[0]));
     };
     const handleRemove = (event: any) => {
         event.stopPropagation();
-        const addedList = watchlist.find((w) => w.entityId === popularMovies.data[0]._id)
-        dispatch(removeFromWatchlistAsync(`/watch-list/${addedList._id}`, addedList._id))
+        const addedList = watchlist.movies.find((w: any) => w.movie._id === popularMovies.data[0]._id)
+        dispatch(removeFromWatchlistAsync(`/watch-list/${addedList.watchlistId}`, addedList.watchlistId, 'movies'))
     };
     return (
         <>
