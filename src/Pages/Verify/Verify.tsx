@@ -5,7 +5,7 @@ import { Button, Checkbox, makeStyles, TextField, Theme, ThemeProvider } from '@
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import theme from '../../theme';
 import { Link } from '@material-ui/core';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from '../../utils/axiosInstance';
 import { Helmet } from 'react-helmet';
 interface IVerifyProps {
@@ -31,37 +31,37 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
     const classes = useStyles();
     const [otp, setOtp] = React.useState('');
-    const {id}:any = useParams();
+    const { id }: any = useParams();
     const [errorText, setErrorText] = React.useState('');
     const [btnText, setBtnText] = React.useState("Verify")
     const [timer, setTimer] = React.useState(0)
-    
-    
-    const handleOTPSubmit=(e:any)=>{
+
+
+    const handleOTPSubmit = (e: any) => {
         e.preventDefault();
         setErrorText("");
-        if(otp===""){
+        if (otp === "") {
             setErrorText("Please enter the OTP");
-        }else{
+        } else {
             setBtnText("Please wait");
-            axios.get('users/'+id).then(res=>{
-                let user=res.data;
-                if(user.otp===otp){
+            axios.get('users/' + id).then(res => {
+                let user = res.data;
+                if (user.otp === otp) {
                     alert("OTP verification successful")
                     let search = window.location.search;
                     let params = new URLSearchParams(search);
                     let foo = params.get('ref');
-                    axios.put("users/"+id,{isVerified:true}).then(res=>{
-                        window.location.href=""+foo
-                    }).catch(err=>{
+                    axios.put("users/" + id, { isVerified: true }).then(res => {
+                        window.location.href = "" + foo
+                    }).catch(err => {
                         alert("Something went wrong")
                     })
-                }else{
+                } else {
                     setErrorText("Wrong OTP entered. Please try again")
                 }
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err)
-            }).finally(()=>{
+            }).finally(() => {
                 setBtnText("Verify");
             })
         }
@@ -77,60 +77,60 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
     //     }, 1000);
     //     console.log({timer})
     // }
-    const handleResendOTP=()=>{
-        axios.post("users/resend-otp",{id:id}).then(res=>{
+    const handleResendOTP = () => {
+        axios.post("users/resend-otp", { id: id }).then(res => {
             // setTimer(10) 
             alert("OTP has been sent ");
             // counter(timer)
-        }).catch(err=>{
+        }).catch(err => {
             alert("Something went wrong")
         })
     }
 
     React.useEffect(() => {
         console.log(id)
-    },[])
+    }, [])
     return (
         <>
-        <Helmet defer={false}>
-				<title>OTP Verification - {process.env.REACT_APP_NAME}</title>
-			</Helmet>
-        <div className="Verify">
-            <a href="/">
-                <img src={Logo} alt="logo" className="Verify--Logo" />
-            </a>
-            <div className="Verify__Card">
-                <div className="Verify__Card--Header">
-                    <h1>Verify</h1>
-                    {id!=="" && (
-                        <p>Enter the code sent to your mail.</p>
-                    )
-                    }
+            <Helmet defer={false}>
+                <title>{`OTP Verification - ${process.env.REACT_APP_NAME}`}</title>
+            </Helmet>
+            <div className="Verify">
+                <a href="/">
+                    <img src={Logo} alt="logo" className="Verify--Logo" />
+                </a>
+                <div className="Verify__Card">
+                    <div className="Verify__Card--Header">
+                        <h1>Verify</h1>
+                        {id !== "" && (
+                            <p>Enter the code sent to your mail.</p>
+                        )
+                        }
+                    </div>
+                    <form className={classes.root} noValidate autoComplete="off">
+                        <ThemeProvider theme={theme}>
+                            <div className="Verify__Card--InputOTP">
+                                <TextField
+                                    label="OTP"
+                                    variant="filled"
+                                    id="mui-theme-provider-outlined-input"
+                                    className={classes.input}
+                                    onChange={e => setOtp(e.target.value)}
+                                    value={otp}
+                                />
+                            </div>
+                        </ThemeProvider>
+                        {errorText !== "" && (
+                            <span style={{ color: '#ff5555' }}>{errorText}</span>
+                        )}
+                    </form>
+                    <Button disabled={btnText === "Verify" ? false : true} variant="contained" color="primary" className={classes.verifyButton} onClick={e => handleOTPSubmit(e)}>
+                        Verify
+                    </Button>
                 </div>
-                <form className={classes.root} noValidate autoComplete="off">
-                    <ThemeProvider theme={theme}>
-                        <div className="Verify__Card--InputOTP">
-                            <TextField
-                                label="OTP"
-                                variant="filled"
-                                id="mui-theme-provider-outlined-input"
-                                className={classes.input}
-                                onChange={e=>setOtp(e.target.value)}
-                                value={otp}
-                            />
-                        </div>
-                    </ThemeProvider>
-                    {errorText!=="" && (
-                           <span style={{color:'#ff5555'}}>{errorText}</span>
-                       )}
-                </form>
-                <Button disabled={btnText==="Verify"?false:true} variant="contained" color="primary" className={classes.verifyButton} onClick={e=>handleOTPSubmit(e)}>
-                    Verify
-                </Button>
+                <p>Didn't received OTP? <Link onClick={handleResendOTP} style={{ display: timer === 0 ? 'initial' : 'hidden', cursor: 'pointer' }}>Resend</Link> </p>
+                {timer !== 0 && (<p>{timer}</p>)}
             </div>
-            <p>Didn't received OTP? <Link onClick={handleResendOTP} style={{display:timer===0?'initial':'hidden',cursor:'pointer'}}>Resend</Link> </p>
-            {timer!==0 && (<p>{timer}</p>)}
-        </div>
         </>
     );
 };

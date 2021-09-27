@@ -7,7 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import theme from '../../theme';
 import { Link } from '@material-ui/core';
 import { useDispatch, } from 'react-redux';
-import {login} from '../../redux/auth/auth.actions'
+import { login } from '../../redux/auth/auth.actions'
 import axios from '../../utils/axiosInstance';
 
 // import authReducer from '../../redux/auth/authReducer';
@@ -57,22 +57,22 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
     // const handleRememberMeChange = (event: any) => {
     //     setRememberMe(event.target.checked);
     // };
-    const handleLoginForm=(e:any)=>{
+    const handleLoginForm = (e: any) => {
         e.preventDefault();
         setErrorText("")
         setLoadingText("Please wait")
-        if(email===""){
+        if (email === "") {
             setErrorText("Enter email address")
             return false
         }
-        if(password===""){
+        if (password === "") {
             setErrorText("Enter password")
             return false
         }
-        axios.post('auth/login/',{email:email,password:password}).then(res=>{
+        axios.post('auth/login/', { email: email, password: password }).then(res => {
             // console.log(res.data.data)
-            let user=res.data.data.user;
-            localStorage.setItem("accessToken",res.data.data.accessToken)
+            let user = res.data.data.user;
+            localStorage.setItem("accessToken", res.data.data.accessToken)
             localStorage.setItem('name', user.name);
             localStorage.setItem('role', user.role);
             localStorage.setItem('user', user.id);
@@ -81,24 +81,24 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
             let params = new URLSearchParams(search);
             let foo = params.get('ref');
 
-            if(user.isVerified){
-                if(foo){
-                    window.location.href=foo
-                }else{
-                    window.location.href="/home"
+            if (user.isVerified) {
+                if (foo) {
+                    window.location.href = foo
+                } else {
+                    window.location.href = "/home"
                 }
-            }else{
-                window.location.href="verify/"+user.id+"?ref="+foo
+            } else {
+                window.location.href = "verify/" + user.id + "?ref=" + foo
             }
             // if verified go to home 
             // if not verified go to verify
             // alert("successful")
             // window.location.href="/home"
             // console.log(localStorage)
-            
-        }).catch(err=>{
+
+        }).catch(err => {
             setErrorText("Wrong email and password ")
-        }).finally(()=>{
+        }).finally(() => {
             setLoadingText("Sign In")
         })
         // 
@@ -108,62 +108,62 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
     }
     return (
         <>
-        <Helmet defer={false}>
-				<title>Sign In- {process.env.REACT_APP_NAME}</title>
-			</Helmet>
-        <div className="Signin">
-            <a href="/">
-                <img src={Logo} alt="logo" className="Signin--Logo" />
-            </a>
-            <div className="Signin__Card">
-                <div className="Signin__Card--Header">
-                    <h1>Sign In</h1>
-                    <p>Enter your credentials to continue.</p>
-                </div>
-                <form className={classes.root} noValidate autoComplete="off">
-                    <ThemeProvider theme={theme}>
-                        <div className="Signin__Card--InputEmail">
+            <Helmet defer={false}>
+                <title>{`Sign In- ${process.env.REACT_APP_NAME}`}</title>
+            </Helmet>
+            <div className="Signin">
+                <a href="/">
+                    <img src={Logo} alt="logo" className="Signin--Logo" />
+                </a>
+                <div className="Signin__Card">
+                    <div className="Signin__Card--Header">
+                        <h1>Sign In</h1>
+                        <p>Enter your credentials to continue.</p>
+                    </div>
+                    <form className={classes.root} noValidate autoComplete="off">
+                        <ThemeProvider theme={theme}>
+                            <div className="Signin__Card--InputEmail">
+                                <TextField
+                                    label="Enter your Email"
+                                    variant="filled"
+                                    id="mui-theme-provider-outlined-input"
+                                    className={classes.input}
+                                    onChange={e => setEmail(e.target.value)}
+                                    value={email}
+                                />
+                            </div>
                             <TextField
-                                label="Enter your Email"
+                                type="password"
+                                label="Enter your Password"
                                 variant="filled"
                                 id="mui-theme-provider-outlined-input"
                                 className={classes.input}
-                                onChange={e=>setEmail(e.target.value)}
-                                value={email}
+                                onChange={e => setPassword(e.target.value)}
+                                value={password}
                             />
-                        </div>
-                        <TextField
-                            type="password"
-                            label="Enter your Password"
-                            variant="filled"
-                            id="mui-theme-provider-outlined-input"
-                            className={classes.input}
-                            onChange={e=>setPassword(e.target.value)}
-                            value={password}
+                        </ThemeProvider>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={rememberMe}
+                                    // onChange={'handleRememberMeChange'}
+                                    name="checkedB"
+                                    color="primary"
+                                    className={!rememberMe ? classes.checkbox : ''}
+                                />
+                            }
+                            label="Remember Me"
                         />
-                    </ThemeProvider>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={rememberMe}
-                                // onChange={'handleRememberMeChange'}
-                                name="checkedB"
-                                color="primary"
-                                className={!rememberMe ? classes.checkbox : ''}
-                            />
-                        }
-                        label="Remember Me"
-                    />
-                </form>
-                {errorText!=="" && (
-                           <span style={{color:'#ff5555'}}>{errorText}</span>
-                       )}
-                <Button disabled={loadingText==="Sign In"?false:true} onClick={e=>handleLoginForm(e)} variant="contained" color="primary" className={classes.signInButton}>
-                    {loadingText}
-                </Button>
+                    </form>
+                    {errorText !== "" && (
+                        <span style={{ color: '#ff5555' }}>{errorText}</span>
+                    )}
+                    <Button disabled={loadingText === "Sign In" ? false : true} onClick={e => handleLoginForm(e)} variant="contained" color="primary" className={classes.signInButton}>
+                        {loadingText}
+                    </Button>
+                </div>
+                <p>Don't have an account? <Link href="/signup" onClick={(e) => { e.stopPropagation() }}>Sign up</Link> </p>
             </div>
-            <p>Don't have an account? <Link href="/signup" onClick={(e) => { e.stopPropagation() }}>Sign up</Link> </p>
-        </div>
         </>
     );
 };

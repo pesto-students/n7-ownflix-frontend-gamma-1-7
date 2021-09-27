@@ -17,9 +17,7 @@ interface SliderPosterCardProps {
 }
 
 const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props) => {
-    let { title, images, imagesVertical, slug } = props.data;
-
-    let genresConverted = [props.data.genres];
+    let { title, images, imagesVertical, slug, genres } = props.data;
 
     let poster_path = imagesVertical[0].location.cloudFrontUrl;
     let backdrop_path = images[0].location.cloudFrontUrl;
@@ -95,8 +93,8 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                         <h3>{title}</h3>
                     </div>
                     <div className="SliderPosterCard__poster-info--genres">
-                        {genresConverted && genresConverted.map(genre => (
-                            <span key={`Genre--id_${genre}`} className="genre-title">{genre}</span>
+                        {genres && genres.map(genre => (
+                            <span key={`Genre--id_${genre}`} className="genre-title">{genre.title}</span>
                         ))}
                     </div>
                 </div>

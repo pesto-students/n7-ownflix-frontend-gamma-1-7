@@ -180,11 +180,11 @@ export const fetchLatestMoviesRequest = () => ({
     type: moviesActionTypes.FETCH_LATEST_MOVIES_REQUEST,
 });
 
-export const fetchLatestMoviesSuccess = (latetMovies: Movie[], isPage?: number) => ({
+export const fetchLatestMoviesSuccess = (latestMovies: Movie[], isPage?: number) => ({
     type: isPage
         ? moviesActionTypes.FETCH_LATEST_MOVIES_SUCCESS
         : moviesActionTypes.LOAD_MORE_LATEST_MOVIES_SUCCESS,
-    payload: latetMovies,
+    payload: latestMovies,
 });
 
 export const fetchLatestMoviesFailure = (error: any) => ({
@@ -198,10 +198,10 @@ export const fetchLatestMoviesAsync = (fetchUrl: string, isPage: number): AppThu
         axios
             .get(fetchUrl)
             .then(res => {
-                const latetMovies = res.data.docs;
+                const latestMovies = res.data.docs;
                 if (isPage) {
-                    dispatch(fetchLatestMoviesSuccess(latetMovies, isPage));
-                } else dispatch(fetchLatestMoviesSuccess(latetMovies));
+                    dispatch(fetchLatestMoviesSuccess(latestMovies, isPage));
+                } else dispatch(fetchLatestMoviesSuccess(latestMovies));
             })
             .catch(error => {
                 const errorMessage = error.message;

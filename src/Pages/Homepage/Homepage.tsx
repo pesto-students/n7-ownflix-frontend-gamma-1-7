@@ -43,54 +43,54 @@ const Homepage = () => {
     }, [dispatch])
     return (
         <>
-        <Helmet defer={false}>
-				<title>Home - {process.env.REACT_APP_NAME}</title>
-			</Helmet>
-        <div className="HomePage">
-            <div className="main-header">
-                <div className="header">
-                    <div className="image" style={{ backgroundImage: `url(${`https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg`})` }}>
-                    </div>
-                </div>
-                <div className="header-content">
-                    <img src="https://image.tmdb.org/t/p/original//reEMJA1uzscCbkpeRJeTT2bjqUp.jpg" alt="poster" className="home-poster" />
-                    <div className="poster-details">
-                        <div className="poster-details-1">
-                            <h2 className="movie-type">Most Popular</h2>
-                            <h1 className="movie-title">Movie Name</h1>
-                            <div className="movie-details">
-                                <div className="movie-details-details">1 hr 54 min - R</div>
-                                <div className="movie-details-details">Drama/Mystery</div>
-                                <div className="movie-details-details">89% Match</div>
-                            </div>
-                            <p className="movie-description">
-                                Money Heist is a Spanish heist crime drama television series created by Álex Pina. The series traces two long-prepared heists led by the Professor, one on the Royal Mint of Spain, and one on the Bank of Spain, told from the perspective of one of the robbers, Tokyo
-                            </p>
-                            <div className="movie-options">
-                                <Button variant="contained" color="primary" className="movie-options-options">Watch</Button>
-                                <Button variant="outlined" color="primary">+ Add to My List</Button>
-                            </div>
-                        </div>
-                        <div className="poster-details-2">
-                            <div className="poster-images">
-                                <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
-                                <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
-                                <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
-                            </div>
+            <Helmet defer={false}>
+                <title>{`Home - ${process.env.REACT_APP_NAME}`}</title>
+            </Helmet>
+            <div className="HomePage">
+                <div className="main-header">
+                    <div className="header">
+                        <div className="image" style={{ backgroundImage: `url(${`https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg`})` }}>
                         </div>
                     </div>
+                    <div className="header-content">
+                        <img src="https://image.tmdb.org/t/p/original//reEMJA1uzscCbkpeRJeTT2bjqUp.jpg" alt="poster" className="home-poster" />
+                        <div className="poster-details">
+                            <div className="poster-details-1">
+                                <h2 className="movie-type">Most Popular</h2>
+                                <h1 className="movie-title">Movie Name</h1>
+                                <div className="movie-details">
+                                    <div className="movie-details-details">1 hr 54 min - R</div>
+                                    <div className="movie-details-details">Drama/Mystery</div>
+                                    <div className="movie-details-details">89% Match</div>
+                                </div>
+                                <p className="movie-description">
+                                    Money Heist is a Spanish heist crime drama television series created by Álex Pina. The series traces two long-prepared heists led by the Professor, one on the Royal Mint of Spain, and one on the Bank of Spain, told from the perspective of one of the robbers, Tokyo
+                                </p>
+                                <div className="movie-options">
+                                    <Button variant="contained" color="primary" className="movie-options-options">Watch</Button>
+                                    <Button variant="outlined" color="primary">+ Add to My List</Button>
+                                </div>
+                            </div>
+                            <div className="poster-details-2">
+                                <div className="poster-images">
+                                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+                                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+                                    <img src="https://image.tmdb.org/t/p/original//gFZriCkpJYsApPZEF3jhxL4yLzG.jpg" alt="poster" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="Homepage__content">
+                    <Slider isLarge={false} title='Latest' sliderData={latestMovies}></Slider>
+                    <Slider isLarge={true} title='Popular' sliderData={popularMovies}></Slider>
+                    <Slider isLarge={false} title='Action' sliderData={actionMovies}></Slider>
+                    {/* <Slider isLarge={false} title='Drama' sliderData={dramaMovies}></Slider> */}
+                    <Slider isLarge={false} title='Thriller' sliderData={thrillerMovies}></Slider>
+                    <Slider isLarge={false} title='Comedy' sliderData={comedyMovies}></Slider>
+                    <Slider isLarge={false} title='Horror' sliderData={horrorMovies}></Slider>
                 </div>
             </div>
-            <div className="Homepage__content">
-                <Slider isLarge={false} title='Latest' sliderData={latestMovies}></Slider>
-                <Slider isLarge={true} title='Popular' sliderData={popularMovies}></Slider>
-                <Slider isLarge={false} title='Action' sliderData={actionMovies}></Slider>
-                {/* <Slider isLarge={false} title='Drama' sliderData={dramaMovies}></Slider> */}
-                <Slider isLarge={false} title='Thriller' sliderData={thrillerMovies}></Slider>
-                <Slider isLarge={false} title='Comedy' sliderData={comedyMovies}></Slider>
-                <Slider isLarge={false} title='Horror' sliderData={horrorMovies}></Slider>
-            </div>
-        </div>
         </>
     )
 }
