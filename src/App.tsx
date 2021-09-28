@@ -1,7 +1,7 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import Layout from './hoc/Layout/Layout';
 import PrivateRoute from "./hoc/Routes/PrivateRoute";
@@ -12,6 +12,7 @@ import Searchpage from './Pages/Searchpage/Searchpage';
 import Signin from './Pages/Signin/Signin';
 import Signup from './Pages/Signup/Signup';
 import Verify from './Pages/Verify/Verify';
+import Watchlist from './Pages/Watchlist/Watchlist';
 import { fetchAllGenresAsync } from './redux/genres/genres.actions';
 import { fetchWatchlistAsync } from './redux/watchlist/watchlist.actions';
 import { requests } from './requests';
@@ -37,6 +38,7 @@ function App() {
 
           <Layout>
             <PrivateRoute path="/movie/:id" exact component={Playerpage}></PrivateRoute>
+            <PrivateRoute path="/watchlist" exact component={Watchlist}></PrivateRoute>
             <Route path="/popular" exact component={Popular}></Route>
             <Route path="/search" exact component={Searchpage}></Route>
             <Route path="/" exact component={Homepage}></Route>

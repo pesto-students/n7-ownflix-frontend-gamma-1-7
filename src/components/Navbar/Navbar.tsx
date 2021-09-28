@@ -18,6 +18,7 @@ import { createStyles, alpha, Theme, makeStyles } from '@material-ui/core/styles
 import { login, logout } from '../../redux/auth/auth.actions'
 import { useDispatch, } from 'react-redux';
 import { Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -76,6 +77,8 @@ const isLogin = () => {
 const Navbar = () => {
     const classes = useStyles();
     const isScrolled = useScroll(0);
+    const history = useHistory();
+
     const [open, setOpen] = React.useState(false);
     const [authorOpen, setAuthorOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
@@ -139,6 +142,11 @@ const Navbar = () => {
     const loginPage = () => {
         window.location.href = "/signin"
     }
+
+    const onMyListClicked = () => {
+        history.push('/watchlist');
+    }
+
     return (
         <div className={`Navbar ${isScrolled && "Navbar__fixed"}`}>
             <div className="left-navbar">
@@ -167,7 +175,7 @@ const Navbar = () => {
                                             <MenuItem onClick={handleClose} className="dropdown-item">Movies</MenuItem>
                                             <MenuItem onClick={handleClose} className="dropdown-item">Popular</MenuItem>
                                             <MenuItem onClick={handleClose} className="dropdown-item">New</MenuItem>
-                                            <MenuItem onClick={handleClose} className="dropdown-item">My List</MenuItem>
+                                            <MenuItem onClick={onMyListClicked} className="dropdown-item">My List</MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
                                 </Paper>

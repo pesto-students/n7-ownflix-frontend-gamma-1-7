@@ -44,9 +44,6 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
         const addedList = watchlist.movies.find((w: any) => w.movie._id === props.data?._id)
         dispatch(removeFromWatchlistAsync(`/watch-list/${addedList.watchlistId}`, addedList.watchlistId, 'movies'))
     };
-    const handleModalOpening = () => {
-        // dispatch(showModalDetail({ ...item, fallbackTitle, genresConverted, isFavourite }));
-    }
     const handlePlayAction = (event: any) => {
         event.stopPropagation();
 
@@ -56,7 +53,7 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
             <MovieDetails modalOpen={modalOpen} modalData={props.data} closeModal={closeModal} />
             <div
                 className={`SliderPosterCard__poster ${isLarge && "SliderPosterCard__poster--big"}`}
-                onClick={handleModalOpening}
+                onClick={() => { setModalOpen(true) }}
             >
                 {isLarge ? (
                     poster_path ? (
