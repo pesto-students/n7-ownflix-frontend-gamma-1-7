@@ -1,10 +1,11 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.scss';
 import Layout from './hoc/Layout/Layout';
 import PrivateRoute from "./hoc/Routes/PrivateRoute";
+import Genre from './Pages/Genre/Genre';
 import Homepage from './Pages/Homepage/Homepage';
 import Playerpage from './Pages/Playerpage/Playerpage';
 import Popular from './Pages/Popular/Popular';
@@ -41,9 +42,9 @@ function App() {
             <PrivateRoute path="/watchlist" exact component={Watchlist}></PrivateRoute>
             <Route path="/popular" exact component={Popular}></Route>
             <Route path="/search" exact component={Searchpage}></Route>
+            <Route path="/movies/:genre" exact component={Genre}></Route>
             <Route path="/" exact component={Homepage}></Route>
             <Route path="/home" exact component={Homepage}></Route>
-
           </Layout>
         </Switch>
       </div>

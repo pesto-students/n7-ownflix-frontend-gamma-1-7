@@ -29,13 +29,13 @@
             text-decoration: none;
         }
 
-        &:hover {
-            .SliderPosterCard__showmore {
-                opacity: 1;
-                max-width: 200px;
-                transform: translate(1vw,0);
-            }
-        }
+        // &:hover {
+        //     .SliderPosterCard__showmore {
+        //         opacity: 1;
+        //         max-width: 200px;
+        //         transform: translate(1vw,0);
+        //     }
+        // }
     }
 
     &__showmore {
@@ -45,10 +45,9 @@
         align-items: center;
         color: $white;
         white-space: nowrap;
-        opacity: 0;
-        max-width: 0;
-        transform: translateZ(0);
-        transition: max-width 450ms, opacity 450ms, transform 750ms;
+        padding-left: 1vw;
+        max-width: 200px;
+      
 
         @include mq('md'){
             font-size: 14px;

@@ -1,7 +1,6 @@
 import React from 'react';
 import './Navbar.scss';
 import Logo from '../../images/logo.png'
-import profilePicture from '../../images/profile-picture.png';
 import useScroll from '../../hooks/useScroll';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -10,12 +9,11 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
 import AvatarIcon from '@material-ui/icons/Person';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, alpha, Theme, makeStyles } from '@material-ui/core/styles';
-import { login, logout } from '../../redux/auth/auth.actions'
+import { logout } from '../../redux/auth/auth.actions'
 import { useDispatch, } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
@@ -83,7 +81,7 @@ const Navbar = () => {
     const [authorOpen, setAuthorOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
     const authorRef = React.useRef<HTMLDivElement>(null);
-    const [autheticated, setAutheticated] = React.useState(isLogin())
+    const [autheticated] = React.useState(isLogin())
 
     const dispatch = useDispatch();
 

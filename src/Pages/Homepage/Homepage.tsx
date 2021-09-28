@@ -4,7 +4,7 @@ import Slider from '../../components/Slider/Slider';
 import './homepage.scss';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchActionMoviesAsync, fetchComedyMoviesAsync, fetchDramaMoviesAsync, fetchHorrorMoviesAsync, fetchLatestMoviesAsync, fetchPopularMoviesAsync, fetchThrillerMoviesAsync } from '../../redux/movies/movies.actions';
+import { fetchActionMoviesAsync, fetchComedyMoviesAsync, fetchHorrorMoviesAsync, fetchLatestMoviesAsync, fetchPopularMoviesAsync, fetchThrillerMoviesAsync } from '../../redux/movies/movies.actions';
 import { requests } from '../../requests';
 import { RootState } from '../../redux/rootReducer';
 import { getPlot } from '../../utils/utils';

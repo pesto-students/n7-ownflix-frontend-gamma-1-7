@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Slider.scss';
 import useViewport from '../../hooks/useViewport';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 // Swiper
@@ -30,8 +30,7 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
     const { width } = useViewport();
     const { title, sliderData } = props;
     const error = false;
-    const { pathname } = useLocation();
-    const genre = "Action"
+    const genre = title.toLocaleLowerCase();
     const isLarge = props.isLarge
     //Custom Swiper config
     const navigationPrevRef = React.useRef(null);
@@ -99,7 +98,7 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
                     </div>
                 ) : (
                     <h3 className="SliderPosterCard__title">
-                        <Link to={`${pathname}/${genre}`}>
+                        <Link to={`movies/${genre}`}>
                             <span>{title}</span>
                             <span className='SliderPosterCard__showmore'>Show all <ChevronRightIcon /></span>
                         </Link>

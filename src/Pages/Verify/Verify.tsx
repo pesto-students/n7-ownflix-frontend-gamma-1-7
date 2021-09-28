@@ -1,8 +1,7 @@
 import * as React from 'react';
 import './Verify.scss'
 import Logo from '../../images/logo.png'
-import { Button, Checkbox, makeStyles, TextField, Theme, ThemeProvider } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Button, makeStyles, TextField, Theme, ThemeProvider } from '@material-ui/core';
 import theme from '../../theme';
 import { Link } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
@@ -34,7 +33,7 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
     const { id }: any = useParams();
     const [errorText, setErrorText] = React.useState('');
     const [btnText, setBtnText] = React.useState("Verify")
-    const [timer, setTimer] = React.useState(0)
+    const [timer] = React.useState(0)
 
 
     const handleOTPSubmit = (e: any) => {
@@ -87,9 +86,6 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
         })
     }
 
-    React.useEffect(() => {
-        console.log(id)
-    }, [])
     return (
         <>
             <Helmet defer={false}>

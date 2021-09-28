@@ -8,7 +8,6 @@ import MovieDetails from '../MovieDetails/MovieDetails';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Movie } from '../../models/movie.interface';
 import { RootState } from '../../redux/rootReducer';
-import { Genre } from '../../models/genres.interface';
 import { Series } from '../../models/series.interface';
 import { addToWatchlistAsync, removeFromWatchlistAsync } from '../../redux/watchlist/watchlist.actions';
 import { useDispatch, useSelector } from 'react-redux';

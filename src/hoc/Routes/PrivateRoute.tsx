@@ -1,15 +1,13 @@
-import { useSelector } from 'react-redux';
-import { Redirect, Route , RouteProps } from 'react-router-dom';
-import {useParams} from 'react-router'
+import { Redirect, Route } from 'react-router-dom';
 
 
 
-function PrivateRoute ({ component: Component, ...rest }:any) {
+function PrivateRoute({ component: Component, ...rest }: any) {
 	const isLogin = localStorage.getItem("accessToken");
 	// let search = window.location.search;
 	// let params = new URLSearchParams(search);
 	// let foo = params.get('ref');
-	let reUrl="/signin?ref="+window.location.href
+	let reUrl = "/signin?ref=" + window.location.href
 	return (
 		<Route
 			{...rest}

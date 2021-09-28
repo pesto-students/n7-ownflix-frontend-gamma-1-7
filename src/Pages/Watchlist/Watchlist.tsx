@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import PosterCard from '../../components/PosterCard/PosterCard';
-import { Movie } from '../../models/movie.interface';
 import { RootState } from '../../redux/rootReducer';
 import './Watchlist.scss';
 

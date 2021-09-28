@@ -11,7 +11,6 @@ import './Playerpage.scss';
 const Playerpage = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-    console.log(location.pathname);
     const movieSlug = location.pathname.split('/')[2]
     console.log(movieSlug)
     let recommendedMovies = {

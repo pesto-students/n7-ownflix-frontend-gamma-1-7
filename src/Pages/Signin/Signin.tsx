@@ -42,7 +42,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
     const classes = useStyles();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [rememberMe, setRememberMe] = React.useState(false);
+    const [rememberMe] = React.useState(false);
     const [errorText, setErrorText] = React.useState("")
     const [loadingText, setLoadingText] = React.useState("Sign In")
     const dispatch = useDispatch();
