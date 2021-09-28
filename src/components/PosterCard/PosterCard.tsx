@@ -66,7 +66,7 @@ const PosterCard: React.FunctionComponent<IPosterCardProps> = (props) => {
                         <Link
                             className="PosterCard__info--icon icon--play"
                             onClick={handlePlayAction}
-                            to={`movie/${slug}`}
+                            to={`../movie/${slug}`}
                         >
                             <PlayArrowIcon fontSize="small" />
 

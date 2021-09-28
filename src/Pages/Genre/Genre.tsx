@@ -2,7 +2,7 @@ import * as React from 'react';
 import './Genre.scss';
 import PosterCard from '../../components/PosterCard/PosterCard';
 import { useLocation } from 'react-router-dom';
-import { GENRE } from '../../models/genre';
+import { GENRE } from '../../models/genre.enum';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchActionMoviesAsync, fetchLatestMoviesAsync } from '../../redux/movies/movies.actions';
 import { requests } from '../../requests';

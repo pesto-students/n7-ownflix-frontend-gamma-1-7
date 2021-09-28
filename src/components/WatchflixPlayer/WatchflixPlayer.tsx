@@ -58,8 +58,7 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
 
         const playerProps = {
             id: 'test-hls-video',
-            title: `WatchFlix - ${title}`,
-            standalone: true,
+            title: `${title} - Watchflix`,
             cover: thumbNail,
             sources,
             shouldObserveResize: true,

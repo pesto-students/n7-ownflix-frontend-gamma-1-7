@@ -78,6 +78,7 @@ const Navbar = () => {
     const history = useHistory();
 
     const [open, setOpen] = React.useState(false);
+    const [searchInput, searchInputChange] = React.useState('');
     const [authorOpen, setAuthorOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
     const authorRef = React.useRef<HTMLDivElement>(null);
@@ -144,7 +145,11 @@ const Navbar = () => {
     const onMyListClicked = () => {
         history.push('/watchlist');
     }
-
+    const handleKeyPress = (event: any) => {
+        if (event.key === 'Enter') {
+            history.push(`/search?q=${searchInput}`)
+        }
+    }
     return (
         <div className={`Navbar ${isScrolled && "Navbar__fixed"}`}>
             <div className="left-navbar">
@@ -193,7 +198,10 @@ const Navbar = () => {
                             root: classes.inputRoot,
                             input: classes.inputInput,
                         }}
+                        value={searchInput}
+                        onChange={(e) => searchInputChange(e.target.value)}
                         inputProps={{ 'aria-label': 'search' }}
+                        onKeyPress={handleKeyPress}
                     />
                 </div>
                 {autheticated ? (
@@ -234,5 +242,4 @@ const Navbar = () => {
         </div>
     )
 }
-
 export default Navbar;
