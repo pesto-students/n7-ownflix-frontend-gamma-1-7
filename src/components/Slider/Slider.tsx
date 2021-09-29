@@ -101,7 +101,7 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
                         {title === 'Recommended Movies' ?
                             <span>{title}</span>
                             :
-                            <Link to={`movies/${genre}`}>
+                            <Link to={`/movies/${genre}`}>
                                 <span>{title}</span>
                                 <span className='SliderPosterCard__showmore'>Show all <ChevronRightIcon /></span>
                             </Link>

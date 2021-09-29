@@ -11,7 +11,8 @@ import './Playerpage.scss';
 const Playerpage = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const movieSlug = location.pathname.split('/')[2]
+    // const movieSlug = 
+    const [movieSlug, setMovieSlug] = React.useState('')
     console.log(movieSlug)
     let recommendedMovies = {
         ...useSelector(
@@ -30,6 +31,7 @@ const Playerpage = () => {
     );
 
     React.useEffect(() => {
+        setMovieSlug(location.pathname.split('/')[2])
         dispatch(fetchMovieAsync(`/movies/s/${movieSlug}`))
     }, [dispatch, movieSlug])
 

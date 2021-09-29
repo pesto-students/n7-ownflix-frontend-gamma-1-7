@@ -43,8 +43,9 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
         const addedList = watchlist.movies.find((w: any) => w.movie._id === props.data?._id)
         dispatch(removeFromWatchlistAsync(`/watch-list/${addedList.watchlistId}`, addedList.watchlistId, 'movies'))
     };
-    const handlePlayAction = (event: any) => {
-        event.stopPropagation();
+    const handlePlayAction = (e:any,slug:any) => {
+        e.stopPropagation();
+        window.location.href=slug;
 
     };
     return (
@@ -72,8 +73,8 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                     <div className="SliderPosterCard__poster-info--iconswrp">
                         <Link
                             className="SliderPosterCard__poster-info--icon icon--play"
-                            onClick={handlePlayAction}
-                            to={`/movie/${slug}`}
+                            onClick={e=>handlePlayAction(e,slug)}
+                            to={'#'}
                         >
                             <PlayArrowIcon fontSize="small" />
                         </Link>

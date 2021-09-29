@@ -105,8 +105,9 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
   const history = useHistory();
 
   const onWatch = () => {
-    let path = `movie/${slug}`;
-    history.push(path);
+    let path = `/movie/${slug}`;
+    // history.push(path);
+    window.location.href=path
   }
   const handleChange = (event: any) => {
     const {
