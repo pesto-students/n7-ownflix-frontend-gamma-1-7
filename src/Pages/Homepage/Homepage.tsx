@@ -54,7 +54,7 @@ const Homepage = () => {
     const watchlist = useSelector(
         (state: RootState) => state.watchlist
     );
-    const hasAddedinWatchlist = watchlist.movies.filter((w: any) => w.movie._id === popularMovies.data[0]._id).length > 0
+    const hasAddedinWatchlist = watchlist.movies.filter((w: any) => w?.movie?._id === popularMovies.data[0]?._id).length > 0
 
     const handleAdd = (event: any) => {
         event.stopPropagation();

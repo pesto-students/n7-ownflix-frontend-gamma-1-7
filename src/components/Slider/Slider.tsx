@@ -98,10 +98,14 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
                     </div>
                 ) : (
                     <h3 className="SliderPosterCard__title">
-                        <Link to={`movies/${genre}`}>
+                        {title === 'Recommended Movies' ?
                             <span>{title}</span>
-                            <span className='SliderPosterCard__showmore'>Show all <ChevronRightIcon /></span>
-                        </Link>
+                            :
+                            <Link to={`movies/${genre}`}>
+                                <span>{title}</span>
+                                <span className='SliderPosterCard__showmore'>Show all <ChevronRightIcon /></span>
+                            </Link>
+                        }
                     </h3>
                 )
             }
