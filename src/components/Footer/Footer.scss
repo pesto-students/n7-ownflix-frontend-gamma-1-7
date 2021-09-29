@@ -7,12 +7,19 @@
     margin-top:48px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    @include mq('md') {
+        display: flex;
+        justify-content: space-between;
+    }
     &__SiteDetails{
         
     }
     &__Links{
-        display: flex;
+        display: none;
+        @include mq('md') {
+		    display: flex;
+		}
         &--Link{
             padding-left:12px;
         }

@@ -77,6 +77,8 @@ const Homepage = () => {
                             <div className="header">
                                 <div className="image" style={{ backgroundImage: `url(${popularMovies.data[0].images[0].location.cloudFrontUrl})` }}>
                                 </div>
+                                <div className="image-vertical" style={{ backgroundImage: `url(${popularMovies.data[0].imagesVertical[0].location.cloudFrontUrl})` }}>
+                                </div>
                             </div>
                             <div className="header-content">
                                 <img src={popularMovies.data[0].imagesVertical[0].location.cloudFrontUrl} alt="poster" className="home-poster" />

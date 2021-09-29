@@ -215,7 +215,7 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
                       <Button variant="contained" color="primary" onClick={handleRemove} >- Remove from my list</Button>}
                   </div>
                 </div>
-                {!noOfEpisodes ?
+                {/* {!noOfEpisodes ?
                   <div className="poster-details-2">
                     {images.length ? <img src={images[0].location.cloudFrontUrl} alt="poster" /> : null}
                     {images.length > 1 ? <img src={images[1].location.cloudFrontUrl} alt="poster1" /> : null}
@@ -243,7 +243,7 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
                       </TableContainer>
                     </div>
                   </div>
-                }
+                } */}
               </div>
             </div>
           </Box>
