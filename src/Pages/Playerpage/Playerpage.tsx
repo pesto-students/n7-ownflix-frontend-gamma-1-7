@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Slider from '../../components/Slider/Slider';
@@ -39,6 +40,9 @@ const Playerpage = () => {
         <div className="Playerpage">
             <WatchflixPlayer playerData={playerData} />
             <Slider isLarge={false} title='Recommended Movies' sliderData={recommendedMovies}></Slider>
+            <Helmet defer={false}>
+				<title>{playerData?.data?.title || 'Movie'} - {process.env.REACT_APP_NAME}</title>
+			</Helmet>
         </div>
     )
 }

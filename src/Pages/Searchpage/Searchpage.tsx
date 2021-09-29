@@ -6,6 +6,7 @@ import axios from '../../utils/axiosInstance';
 import { AxiosResponse } from 'axios';
 import { Movie } from '../../models/movie.interface';
 import SkeletonPoster from '../../components/SkeletonPoster/SkeletonPoster';
+import { Helmet } from 'react-helmet';
 
 interface ISearchpageProps {
 }
@@ -26,6 +27,9 @@ const Searchpage: React.FunctionComponent<ISearchpageProps> = (props) => {
     }, [query])
     return (
         <div className="Searchpage">
+            <Helmet defer={false}>
+				<title>Search Results for: {query} - {process.env.REACT_APP_NAME}</title>
+			</Helmet>
             <div className="Searchpage__Search">
                 <h2>Search Results for: </h2> <h1 className="Searchpage__Search--Query">{query}</h1>
             </div>
