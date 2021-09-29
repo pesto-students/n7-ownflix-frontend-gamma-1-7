@@ -70,9 +70,23 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
             setErrorText("Please enter your email")
             return false
         }
+        if (email) {
+            const emailRegex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)
+            if (!emailRegex.test(email.toLowerCase())) {
+                setErrorText("Please enter valid email")
+                return false
+            }
+        }
         if (mobile === "") {
             setErrorText("Please enter your mobile no")
             return false
+        }
+        if (mobile) {
+            const phoneRegex = new RegExp(/^(?:(?:\+|0{0,2})91(\s*|[\-])?|[0]?)?([6789]\d{2}([ -]?)\d{3}([ -]?)\d{4})$/)
+            if (!phoneRegex.test(mobile)) {
+                setErrorText("Please enter valid mobile no")
+                return false
+            }
         }
         if (password === "") {
             setErrorText("Please enter your password")

@@ -48,5 +48,12 @@
             margin-bottom: 16px;
             width: 100%;
         }
+        &--ErrorText{
+            margin-top: 12px;
+        }
+    }
+    .MuiButton-contained.Mui-disabled{
+        color: $black;
+        background-color: $primary;
     }
 }

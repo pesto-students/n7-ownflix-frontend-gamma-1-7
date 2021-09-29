@@ -42,7 +42,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
     const classes = useStyles();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [rememberMe] = React.useState(false);
+    // const [rememberMe] = React.useState(false);
     const [errorText, setErrorText] = React.useState("")
     const [loadingText, setLoadingText] = React.useState("Sign In")
     const dispatch = useDispatch();
@@ -63,10 +63,12 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
         setLoadingText("Please wait")
         if (email === "") {
             setErrorText("Enter email address")
+            setLoadingText("Sign In")
             return false
         }
         if (password === "") {
             setErrorText("Enter password")
+            setLoadingText("Sign In")
             return false
         }
         axios.post('auth/login/', { email: email, password: password }).then(res => {
@@ -98,6 +100,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
 
         }).catch(err => {
             setErrorText("Wrong email and password ")
+            setLoadingText("Sign In")
         }).finally(() => {
             setLoadingText("Sign In")
         })
@@ -142,7 +145,7 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
                                 value={password}
                             />
                         </ThemeProvider>
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             control={
                                 <Checkbox
                                     checked={rememberMe}
@@ -153,14 +156,15 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
                                 />
                             }
                             label="Remember Me"
-                        />
+                        /> */}
                     </form>
                     {errorText !== "" && (
-                        <span style={{ color: '#ff5555' }}>{errorText}</span>
+                        <span style={{ color: '#ff5555' }} className="Signin__Card--ErrorText">{errorText}</span>
                     )}
                     <Button disabled={loadingText === "Sign In" ? false : true} onClick={e => handleLoginForm(e)} variant="contained" color="primary" className={classes.signInButton}>
                         {loadingText}
                     </Button>
+
                 </div>
                 <p>Don't have an account? <Link href="/signup" onClick={(e) => { e.stopPropagation() }}>Sign up</Link> </p>
             </div>
