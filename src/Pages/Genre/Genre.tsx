@@ -4,7 +4,7 @@ import PosterCard from '../../components/PosterCard/PosterCard';
 import { useLocation } from 'react-router-dom';
 import { GENRE } from '../../models/genre.enum';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchActionMoviesAsync, fetchLatestMoviesAsync } from '../../redux/movies/movies.actions';
+import { fetchActionMoviesAsync, fetchComedyMoviesAsync, fetchHorrorMoviesAsync, fetchLatestMoviesAsync, fetchPopularMoviesAsync, fetchThrillerMoviesAsync } from '../../redux/movies/movies.actions';
 import { requests } from '../../requests';
 import { RootState } from '../../redux/rootReducer';
 import { Movie } from '../../models/movie.interface';
@@ -27,16 +27,16 @@ const Genre: React.FunctionComponent<IGenreProps> = (props) => {
                 dispatch(fetchLatestMoviesAsync(requests.fetchLatestMovies, page));
                 break;
             case GENRE.COMEDY:
-                dispatch(fetchLatestMoviesAsync(requests.fetchComedyMovies, page));
+                dispatch(fetchComedyMoviesAsync(requests.fetchComedyMovies, page));
                 break;
             case GENRE.HORROR:
-                dispatch(fetchLatestMoviesAsync(requests.fetchHorrorMovies, page));
+                dispatch(fetchHorrorMoviesAsync(requests.fetchHorrorMovies, page));
                 break;
             case GENRE.POPULAR:
-                dispatch(fetchLatestMoviesAsync(requests.fetchPopularMovies, page));
+                dispatch(fetchPopularMoviesAsync(requests.fetchPopularMovies, page));
                 break;
             case GENRE.THRILLER:
-                dispatch(fetchLatestMoviesAsync(requests.fetchThrillerMovies, page));
+                dispatch(fetchThrillerMoviesAsync(requests.fetchThrillerMovies, page));
                 break;
         }
     }, [dispatch, genre, page])

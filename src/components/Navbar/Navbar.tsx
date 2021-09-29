@@ -145,6 +145,9 @@ const Navbar = () => {
     const onMyListClicked = () => {
         history.push('/watchlist');
     }
+    const onMoviesClicked = () => {
+        history.push('/movies');
+    }
     const handleKeyPress = (event: any) => {
         if (event.key === 'Enter') {
             history.push(`/search?q=${searchInput}`)
@@ -175,9 +178,9 @@ const Navbar = () => {
                                     <ClickAwayListener onClickAway={handleClose}>
                                         <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} className="browse-menu-list">
                                             <MenuItem onClick={handleClose} className="dropdown-item">TV Shows</MenuItem>
-                                            <MenuItem onClick={handleClose} className="dropdown-item">Movies</MenuItem>
-                                            <MenuItem onClick={handleClose} className="dropdown-item">Popular</MenuItem>
-                                            <MenuItem onClick={handleClose} className="dropdown-item">New</MenuItem>
+                                            <MenuItem onClick={onMoviesClicked} className="dropdown-item">Movies</MenuItem>
+                                            <MenuItem onClick={() => { history.push('/movies/popular') }} className="dropdown-item">Popular</MenuItem>
+                                            <MenuItem onClick={() => { history.push('/movies/latest') }} className="dropdown-item">New</MenuItem>
                                             <MenuItem onClick={onMyListClicked} className="dropdown-item">My List</MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
