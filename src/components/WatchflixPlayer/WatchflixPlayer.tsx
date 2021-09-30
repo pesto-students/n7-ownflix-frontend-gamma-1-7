@@ -14,6 +14,7 @@ interface IWatchflixPlayerProps {
         error: string;
         data: Movie | null;
     };
+    views: number;
 }
 
 const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) => {
@@ -75,6 +76,7 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
                     <div className="WatchflixPlayer__Info--title">
                         <h3>{title}</h3>
                     </div>
+                    <p className="WatchflixPlayer__Info--views">Views: {props.views}</p>
                     <div className="WatchflixPlayer__Info--genres">
                         {genres && genres.map(genre => (
                             <span key={`Genre--id_${genre._id}`} className="genre-title">{genre.title}</span>
