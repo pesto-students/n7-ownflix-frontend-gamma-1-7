@@ -20,6 +20,8 @@ import { fetchWatchlistAsync } from './redux/watchlist/watchlist.actions';
 import { requests } from './requests';
 import theme from './theme';
 import axios from './utils/axiosInstance';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
@@ -49,6 +51,7 @@ function App() {
             <Route path="/home" exact component={Homepage}></Route>
           </Layout>
         </Switch>
+        <ToastContainer position="top-center" theme="dark" />
       </div>
     </ThemeProvider>
   );

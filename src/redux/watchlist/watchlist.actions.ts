@@ -4,6 +4,7 @@ import { AxiosResponse } from "axios";
 import { watchlistActionTypes } from "./watchlist.types";
 import { Movie } from "../../models/movie.interface";
 import { Series } from "../../models/series.interface";
+import { toast } from 'react-toastify';
 
 export const fetchWatchlist = (watchlist: any[]) => ({
     type: watchlistActionTypes.FETCH_WATCHLIST,
@@ -32,7 +33,11 @@ export const fetchWatchlistAsync = (fetchUrl: any): AppThunk => {
 
 
 export const addToWatchlistAsync = (postUrl: string, body: any, type: string, data: Movie | Series): any => {
-    return (dispatch: any) => {
+    return (dispatch: any, getState: any) => {
+        if (!getState().auth.isLogin) {
+            toast.error("You need to sign in for this feature.")
+            return false;
+        }
         axios
             .post(postUrl, body)
             .then((res: AxiosResponse<any>) => {
