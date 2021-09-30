@@ -46,12 +46,13 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
             axios.get('users/' + id).then(res => {
                 let user = res.data;
                 if (user.otp === otp) {
-                    alert("OTP verification successful")
+                    alert("OTP verification successful.Please sign in")
                     let search = window.location.search;
                     let params = new URLSearchParams(search);
-                    let foo = params.get('ref');
+                    let foo =  '/signin';
+                    let email = params.get('email')
                     axios.put("users/" + id, { isVerified: true }).then(res => {
-                        window.location.href = "" + foo
+                        window.location.href = "" + foo+"?email="+user.email
                     }).catch(err => {
                         alert("Something went wrong")
                     })
@@ -103,7 +104,7 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
                         )
                         }
                     </div>
-                    <form className={classes.root} noValidate autoComplete="off">
+                    <form className={classes.root} noValidate autoComplete="off" onSubmit={e=>e.preventDefault()}>
                         <ThemeProvider theme={theme}>
                             <div className="Verify__Card--InputOTP">
                                 <TextField
@@ -113,6 +114,7 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
                                     className={classes.input}
                                     onChange={e => setOtp(e.target.value)}
                                     value={otp}
+                                    required={true}
                                 />
                             </div>
                         </ThemeProvider>

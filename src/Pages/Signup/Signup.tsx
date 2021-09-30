@@ -115,9 +115,9 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
                         // console.log(res.data)
                         window.location.href = "/verify/" + res.data._id
                     } else if (res.status === 204) {
-                        setLoginBtnText("This email or mobile no  already registred with us")
+                        setErrorText("This email or mobile no  already registred with us")
                     } else {
-                        setLoginBtnText("Something went wrong")
+                        setErrorText("Something went wrong")
                         // console.log(res)
                     }
                 }).catch(err => {

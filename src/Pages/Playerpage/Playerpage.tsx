@@ -8,13 +8,14 @@ import { Movie } from '../../models/movie.interface';
 import { fetchMovieAsync } from '../../redux/player/player.actions';
 import { RootState } from '../../redux/rootReducer';
 import './Playerpage.scss';
+import axios from '../../utils/axiosInstance';
 
 const Playerpage = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     // const movieSlug = 
     const [movieSlug, setMovieSlug] = React.useState('')
-    console.log(movieSlug)
+    // console.log(movieSlug)
     let recommendedMovies = {
         ...useSelector(
             (state: RootState) => state.movies.recommendedMovies
@@ -31,10 +32,24 @@ const Playerpage = () => {
         (state: RootState) => state.player
     );
 
-    React.useEffect(() => {
+    React.useEffect(()=>{
         setMovieSlug(location.pathname.split('/')[2])
         dispatch(fetchMovieAsync(`/movies/s/${movieSlug}`))
-    }, [dispatch, movieSlug])
+        console.log("called",playerData);
+        if(playerData?.data?.title){
+            let u=`resume-watch/get-details?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}`;
+            axios.get(u).then(res=>{
+                console.log(res.data.runningTime);
+                // playerData.data.currentTime=res.data.runningTime
+            })
+            let ud=`resume-watch/check-or-update?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}&runningTime=25`;
+            axios.get(ud).then(res=>{
+                console.log("done",res.data.runningTime);
+                // playerData.data.currentTime=res.data.runningTime
+            })
+        }
+        // console.log("S")
+    }, [dispatch, movieSlug,playerData?.data?.title])
 
     return (
         <div className="Playerpage">

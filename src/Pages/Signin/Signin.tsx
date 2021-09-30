@@ -104,11 +104,15 @@ const Signin: React.FunctionComponent<ISigninProps> = (props) => {
         }).finally(() => {
             setLoadingText("Sign In")
         })
-        // 
-        // dispatch(login())
-        // 
-        // window.location.href="/home"
     }
+    React.useEffect(() => {
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let email = params.get('email')
+        if(email){
+            setEmail(email);
+        }
+    }, [email])
     return (
         <>
             <Helmet defer={false}>

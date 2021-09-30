@@ -22,7 +22,7 @@ export const fetchMovieAsync = (fetchUrl: string): AppThunk => {
     return (dispatch: any) => {
         dispatch(fetchMovieRequest());
         axios
-            .get(fetchUrl)
+            .get(fetchUrl,{timeout:-1})
             .then(res => {
                 const movie = res.data;
                 dispatch(fetchMovieSuccess(movie));

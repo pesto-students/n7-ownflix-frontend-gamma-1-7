@@ -45,7 +45,7 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
     };
     const handlePlayAction = (e:any,slug:any) => {
         e.stopPropagation();
-        window.location.href=slug;
+        window.location.href='/movie/'+slug;
 
     };
     return (
