@@ -42,10 +42,13 @@ const Playerpage = () => {
                 console.log(res.data.runningTime);
                 // playerData.data.currentTime=res.data.runningTime
             })
-            let ud=`resume-watch/check-or-update?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}&runningTime=25`;
+            let ud=`resume-watch/check-or-update?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}&runningTime=20`;
             axios.get(ud).then(res=>{
                 console.log("done",res.data.runningTime);
                 // playerData.data.currentTime=res.data.runningTime
+            })
+            axios.get('movies/views/'+playerData.data?._id).then(res=>{
+                console.log("views",res.data.views);
             })
         }
         // console.log("S")
