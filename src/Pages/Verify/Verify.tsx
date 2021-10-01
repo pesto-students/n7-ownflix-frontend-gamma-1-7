@@ -7,6 +7,8 @@ import { Link } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import axios from '../../utils/axiosInstance';
 import { Helmet } from 'react-helmet';
+import { toast } from 'react-toastify';
+
 interface IVerifyProps {
 }
 const useStyles = makeStyles((theme: Theme) => ({
@@ -46,15 +48,15 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
             axios.get('users/' + id).then(res => {
                 let user = res.data;
                 if (user.otp === otp) {
-                    alert("OTP verification successful.Please sign in")
+                    toast.success("OTP verification successful.Please sign in")
                     let search = window.location.search;
                     let params = new URLSearchParams(search);
-                    let foo =  '/signin';
+                    let foo = '/signin';
                     let email = params.get('email')
                     axios.put("users/" + id, { isVerified: true }).then(res => {
-                        window.location.href = "" + foo+"?email="+user.email
+                        window.location.href = "" + foo + "?email=" + user.email
                     }).catch(err => {
-                        alert("Something went wrong")
+                        toast.error("Something went wrong")
                     })
                 } else {
                     setErrorText("Wrong OTP entered. Please try again")
@@ -80,10 +82,10 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
     const handleResendOTP = () => {
         axios.post("users/resend-otp", { id: id }).then(res => {
             // setTimer(10) 
-            alert("OTP has been sent ");
+            toast.info("OTP has been sent ");
             // counter(timer)
         }).catch(err => {
-            alert("Something went wrong")
+            toast.error("Something went wrong")
         })
     }
 
@@ -104,7 +106,7 @@ const Verify: React.FunctionComponent<IVerifyProps> = (props) => {
                         )
                         }
                     </div>
-                    <form className={classes.root} noValidate autoComplete="off" onSubmit={e=>e.preventDefault()}>
+                    <form className={classes.root} noValidate autoComplete="off" onSubmit={e => e.preventDefault()}>
                         <ThemeProvider theme={theme}>
                             <div className="Verify__Card--InputOTP">
                                 <TextField

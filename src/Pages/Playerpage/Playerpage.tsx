@@ -13,8 +13,11 @@ import axios from '../../utils/axiosInstance';
 const Playerpage = () => {
     const dispatch = useDispatch();
     const location = useLocation();
+
     // const movieSlug = 
     const [movieSlug, setMovieSlug] = React.useState('')
+    const [views, setViews] = React.useState(0)
+    const [time, setTime] = React.useState(0);
     // console.log(movieSlug)
     let recommendedMovies = {
         ...useSelector(
@@ -32,7 +35,14 @@ const Playerpage = () => {
         (state: RootState) => state.player
     );
 
-    React.useEffect(()=>{
+    function setEmomInterval(expr:any, ...rest:any) :any{
+        setTimeout(function() {
+            expr(...rest);
+            setInterval(expr, 60000, ...rest);
+        }, 60000 - new Date().getTime() % (60 * 1000));
+        }
+        
+    React.useEffect(() => {
         setMovieSlug(location.pathname.split('/')[2])
         dispatch(fetchMovieAsync(`/movies/s/${movieSlug}`))
         console.log("called",playerData);
@@ -40,27 +50,31 @@ const Playerpage = () => {
             let u=`resume-watch/get-details?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}`;
             axios.get(u).then(res=>{
                 console.log(res.data.runningTime);
-                // playerData.data.currentTime=res.data.runningTime
+                setTime(res.data.runningTime);
             })
-            let ud=`resume-watch/check-or-update?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}&runningTime=20`;
-            axios.get(ud).then(res=>{
-                console.log("done",res.data.runningTime);
-                // playerData.data.currentTime=res.data.runningTime
-            })
+            
             axios.get('movies/views/'+playerData.data?._id).then(res=>{
-                console.log("views",res.data.views);
+                setViews(res.data.views)
             })
+             setEmomInterval(() => {
+                 let rt=localStorage.getItem("runningTime")||0;
+                let ud=`resume-watch/check-or-update?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}&runningTime=${rt}`;
+                    axios.get(ud).then(res=>{
+                        console.log("done",res.data.runningTime);
+                })
+             });
         }
-        // console.log("S")
-    }, [dispatch, movieSlug,playerData?.data?.title])
+        
+        
+    }, [dispatch, movieSlug,time, playerData.data?._id])
 
     return (
         <div className="Playerpage">
-            <WatchflixPlayer playerData={playerData} />
+            <WatchflixPlayer wtime={time} playerData={playerData} views={views} />
             <Slider isLarge={false} title='Recommended Movies' sliderData={recommendedMovies}></Slider>
             <Helmet defer={false}>
-				<title>{playerData?.data?.title || 'Movie'} - {process.env.REACT_APP_NAME}</title>
-			</Helmet>
+                <title>{playerData?.data?.title || 'Movie'} - {process.env.REACT_APP_NAME}</title>
+            </Helmet>
         </div>
     )
 }

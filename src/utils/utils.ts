@@ -22,6 +22,8 @@ const groupedLogger = createGroupedLogger('TIMEUPDATE', 2000)
 export const logEvent = (e: unknown, data: unknown) => {
     const args = ['onEvent', e, data]
     if (e === EVENTS.DOM.TIMEUPDATE) {
+        let rrr:any=(data)
+        localStorage.setItem("runningTime",rrr?.currentTime)
         groupedLogger(...args)
     } else {
         console.log(...args)

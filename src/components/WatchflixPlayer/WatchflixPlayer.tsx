@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, duration } from "@material-ui/core";
 import PlayerContainer from "griffith";
 import { Movie } from "../../models/movie.interface";
 import { logEvent } from "../../utils/utils";
@@ -14,6 +14,8 @@ interface IWatchflixPlayerProps {
         error: string;
         data: Movie | null;
     };
+    views: number;
+    wtime:number;
 }
 
 const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) => {
@@ -64,17 +66,20 @@ const WatchflixPlayer: React.FunctionComponent<IWatchflixPlayerProps> = (props) 
             shouldObserveResize: true,
             autoplay: true,
             onEvent: logEvent,
+            elapsed:150,
+            progressDots:[]
         }
-
+        
         return (
             <div className="WatchflixPlayer">
                 <div className="WatchflixPlayer__Player">
-                    <PlayerContainer {...playerProps} />
+                    <PlayerContainer {...playerProps}  />
                 </div>
                 <div className="WatchflixPlayer__Info">
                     <div className="WatchflixPlayer__Info--title">
                         <h3>{title}</h3>
                     </div>
+                    <p className="WatchflixPlayer__Info--views">Views: {props.views}</p>
                     <div className="WatchflixPlayer__Info--genres">
                         {genres && genres.map(genre => (
                             <span key={`Genre--id_${genre._id}`} className="genre-title">{genre.title}</span>
