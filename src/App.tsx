@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import './App.scss';
 import Layout from './hoc/Layout/Layout';
@@ -22,14 +22,22 @@ import theme from './theme';
 import axios from './utils/axiosInstance';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { RootState } from './redux/rootReducer';
 
 function App() {
 
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(
+    (state: RootState) => state.auth.isLogin
+  );
   React.useEffect(() => {
     dispatch(fetchAllGenresAsync(requests.fetchAllGenres))
-    dispatch(fetchWatchlistAsync(`/watch-list/user/${localStorage.getItem('user')}`))
   }, [dispatch])
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchWatchlistAsync(`/watch-list/user/${localStorage.getItem('user')}`))
+    }
+  }, [dispatch, isLoggedIn])
   return (
     <ThemeProvider theme={theme}>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

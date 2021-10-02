@@ -4,7 +4,7 @@ import Slider from '../../components/Slider/Slider';
 import './homepage.scss';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchActionMoviesAsync, fetchComedyMoviesAsync, fetchHorrorMoviesAsync, fetchLatestMoviesAsync, fetchPopularMoviesAsync, fetchThrillerMoviesAsync } from '../../redux/movies/movies.actions';
+import { fetchActionMoviesAsync, fetchComedyMoviesAsync, fetchHalfwatchedMoviesAsync, fetchHorrorMoviesAsync, fetchLatestMoviesAsync, fetchPopularMoviesAsync, fetchThrillerMoviesAsync } from '../../redux/movies/movies.actions';
 import { requests } from '../../requests';
 import { RootState } from '../../redux/rootReducer';
 import { getPlot } from '../../utils/utils';
@@ -36,6 +36,13 @@ const Homepage = () => {
     const thrillerMovies = useSelector(
         (state: RootState) => state.movies.thrillerMovies
     );
+    const halfwatchedMovies = useSelector(
+        (state: RootState) => state.movies.halfwatchedMovies
+    );
+    const isLoggedIn = useSelector(
+        (state: RootState) => state.auth.isLogin
+    );
+
     React.useEffect(() => {
         dispatch(fetchPopularMoviesAsync(requests.fetchPopularMovies, 1))
         dispatch(fetchLatestMoviesAsync(requests.fetchLatestMovies, 1))
@@ -44,7 +51,15 @@ const Homepage = () => {
         dispatch(fetchComedyMoviesAsync(requests.fetchComedyMovies, 1))
         dispatch(fetchHorrorMoviesAsync(requests.fetchHorrorMovies, 1))
         dispatch(fetchThrillerMoviesAsync(requests.fetchThrillerMovies, 1))
+
     }, [dispatch])
+
+    React.useEffect(() => {
+        if (isLoggedIn) {
+            const user = localStorage.getItem('user')
+            dispatch(fetchHalfwatchedMoviesAsync(`resume-watch/user/${user}`, 1))
+        }
+    }, [dispatch, isLoggedIn])
     const history = useHistory();
 
     const onWatch = (slug: string) => {
@@ -116,6 +131,9 @@ const Homepage = () => {
                             </div>
                         </> : <SkeletonBanner />} </div>
                 <div className="Homepage__content">
+                    {halfwatchedMovies.data.length ?
+                        <Slider isLarge={false} title='Continue Watching' sliderData={halfwatchedMovies}></Slider> : null
+                    }
                     <Slider isLarge={false} title='Latest' sliderData={latestMovies}></Slider>
                     <Slider isLarge={true} title='Popular' sliderData={popularMovies}></Slider>
                     <Slider isLarge={false} title='Action' sliderData={actionMovies}></Slider>

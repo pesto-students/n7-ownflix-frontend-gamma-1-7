@@ -22,5 +22,7 @@ export interface Movie {
     createdAt: Date;
     isPublised: string;
     subscriptionRequired: boolean;
+    halfwatchedTime?: number;
+    resumeWatchId?: string;
 }
 

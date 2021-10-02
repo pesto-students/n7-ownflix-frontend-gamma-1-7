@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { actionReducer } from "./actionReducer";
 import { comedyReducer } from "./comedyReducer";
 import { dramaReducer } from "./dramaReducer";
+import { halfwatchedReducer } from "./halfwatchedReducer";
 import { horrorReducer } from "./horrorReducer";
 import { latestReducer } from "./latestReducer";
 import { popularReducer } from "./popularReducer";
@@ -17,5 +18,6 @@ export default combineReducers({
     dramaMovies: dramaReducer,
     horrorMovies: horrorReducer,
     thrillerMovies: thrillerReducer,
-    recommendedMovies: recommendedReducer
+    recommendedMovies: recommendedReducer,
+    halfwatchedMovies: halfwatchedReducer
 })

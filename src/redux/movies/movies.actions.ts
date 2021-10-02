@@ -278,3 +278,37 @@ export const fetchRecommendedMoviesAsync = (fetchUrl: string, isPage: number): A
             });
     };
 };
+
+export const fetchHalfwatchedMoviesRequest = () => ({
+    type: moviesActionTypes.FETCH_HALFWATCHED_MOVIES_REQUEST,
+});
+
+export const fetchHalfwatchedMoviesSuccess = (halfwatchedMovies: Movie[], isPage?: number) => ({
+    type: isPage
+        ? moviesActionTypes.FETCH_HALFWATCHED_MOVIES_SUCCESS
+        : moviesActionTypes.LOAD_MORE_HALFWATCHED_MOVIES_SUCCESS,
+    payload: halfwatchedMovies,
+});
+
+export const fetchHalfwatchedMoviesFailure = (error: any) => ({
+    type: moviesActionTypes.FETCH_HALFWATCHED_MOVIES_FAILURE,
+    payload: error,
+});
+
+export const fetchHalfwatchedMoviesAsync = (fetchUrl: string, isPage: number): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchHalfwatchedMoviesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const halfwatchedMovies = res.data.movies.map((o: any) => { return { ...o.movie, halfwatchedTime: o.runningTime, resumeWatchId: o.resumeWatchId } });
+                if (isPage) {
+                    dispatch(fetchHalfwatchedMoviesSuccess(halfwatchedMovies, isPage));
+                } else dispatch(fetchHalfwatchedMoviesSuccess(halfwatchedMovies));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchHalfwatchedMoviesFailure(errorMessage));
+            });
+    };
+};

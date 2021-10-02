@@ -11,6 +11,7 @@ import { RootState } from '../../redux/rootReducer';
 import { Series } from '../../models/series.interface';
 import { addToWatchlistAsync, removeFromWatchlistAsync } from '../../redux/watchlist/watchlist.actions';
 import { useDispatch, useSelector } from 'react-redux';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 interface SliderPosterCardProps {
     isLarge: boolean;
@@ -18,8 +19,14 @@ interface SliderPosterCardProps {
 }
 
 const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props) => {
-    let { title, images, imagesVertical, slug, genres } = props.data;
-
+    let { title, images, imagesVertical, slug, genres, runningTime, halfwatchedTime } = (props.data as Movie);
+    let movieTime: number = 0
+    let watchedTime = 0;
+    if (runningTime && halfwatchedTime) {
+        debugger
+        movieTime = +(runningTime.replace(/\D/g, ''));
+        watchedTime = (100 * halfwatchedTime) / movieTime;
+    }
     let poster_path = imagesVertical[0].location.cloudFrontUrl;
     let backdrop_path = images[0].location.cloudFrontUrl;
     let isLarge = props.isLarge;
@@ -43,11 +50,11 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
         const addedList = watchlist.movies.find((w: any) => w.movie._id === props.data?._id)
         dispatch(removeFromWatchlistAsync(`/watch-list/${addedList.watchlistId}`, addedList.watchlistId, 'movies'))
     };
-    const handlePlayAction = (e:any,slug:any) => {
+    const handlePlayAction = (e: any, slug: any) => {
         e.stopPropagation();
-        window.location.href='/movie/'+slug;
-
+        window.location.href = '/movie/' + slug;
     };
+
     return (
         <div>
             <MovieDetails modalOpen={modalOpen} modalData={props.data} closeModal={closeModal} />
@@ -73,7 +80,7 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                     <div className="SliderPosterCard__poster-info--iconswrp">
                         <Link
                             className="SliderPosterCard__poster-info--icon icon--play"
-                            onClick={e=>handlePlayAction(e,slug)}
+                            onClick={e => handlePlayAction(e, slug)}
                             to={'#'}
                         >
                             <PlayArrowIcon fontSize="small" />
@@ -100,6 +107,9 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                             <span key={`Genre--id_${genre._id}`} className="genre-title">{genre.title}</span>
                         ))}
                     </div>
+                    {watchedTime > 0 &&
+                        <LinearProgress variant="determinate" style={{ width: "95%", marginTop: '4px' }} value={watchedTime} />
+                    }
                 </div>
             </div>
         </div>
