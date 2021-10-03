@@ -24,11 +24,12 @@ interface SliderProps {
         error: string;
         data: Movie[]
     } | any;
+    type: string
 }
 
 const Slider: React.FunctionComponent<SliderProps> = (props) => {
     const { width } = useViewport();
-    const { title, sliderData } = props;
+    const { title, sliderData, type } = props;
     const error = false;
     const genre = title.toLocaleLowerCase();
     const isLarge = props.isLarge
@@ -101,7 +102,7 @@ const Slider: React.FunctionComponent<SliderProps> = (props) => {
                         {title === 'Recommended Movies' || 'Continue Watching' ?
                             <span>{title}</span>
                             :
-                            <Link to={`/movies/${genre}`}>
+                            <Link to={type === 'movies' ? `movies/${genre}` : `series/${genre}`}>
                                 <span>{title}</span>
                                 <span className='SliderPosterCard__showmore'>Show all <ChevronRightIcon /></span>
                             </Link>

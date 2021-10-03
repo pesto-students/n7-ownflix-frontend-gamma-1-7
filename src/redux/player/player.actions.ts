@@ -34,3 +34,34 @@ export const fetchMovieAsync = (fetchUrl: string): AppThunk => {
             });
     };
 };
+
+
+export const fetchSeriesRequest = () => ({
+    type: playerActionTypes.FETCH_SERIES,
+});
+
+export const fetchSeriesSuccess = (series: any) => ({
+    type: playerActionTypes.FETCH_SERIES_SUCCESS,
+    payload: series,
+});
+
+export const fetchSeriesFailure = (error: any) => ({
+    type: playerActionTypes.FETCH_SERIES_FAILURE,
+    payload: error,
+});
+
+export const fetchSeriesAsync = (fetchUrl: string): AppThunk => {
+    return (dispatch: any) => {
+        dispatch(fetchSeriesRequest());
+        axios
+            .get(fetchUrl)
+            .then(res => {
+                const series = res.data;
+                dispatch(fetchSeriesSuccess(series));
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                dispatch(fetchSeriesFailure(errorMessage));
+            });
+    };
+};

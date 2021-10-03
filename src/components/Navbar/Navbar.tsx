@@ -177,7 +177,7 @@ const Navbar = () => {
                                 <Paper>
                                     <ClickAwayListener onClickAway={handleClose}>
                                         <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} className="browse-menu-list">
-                                            <MenuItem onClick={handleClose} className="dropdown-item">TV Shows</MenuItem>
+                                            <MenuItem onClick={() => { history.push('/series') }} className="dropdown-item">TV Shows</MenuItem>
                                             <MenuItem onClick={onMoviesClicked} className="dropdown-item">Movies</MenuItem>
                                             <MenuItem onClick={() => { history.push('/movies/popular') }} className="dropdown-item">Popular</MenuItem>
                                             <MenuItem onClick={() => { history.push('/movies/latest') }} className="dropdown-item">New</MenuItem>

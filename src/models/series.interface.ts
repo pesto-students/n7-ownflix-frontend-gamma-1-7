@@ -8,6 +8,7 @@ export interface Series {
     slug: string;
     images: Images[];
     imagesVertical: Images[];
+    episodes?: any[];
     videoTrailer: string;
     yearOfRelease: string;
     dateOfRelease: string;

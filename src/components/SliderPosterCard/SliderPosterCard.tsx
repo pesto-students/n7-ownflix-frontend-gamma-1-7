@@ -23,10 +23,11 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
     let movieTime: number = 0
     let watchedTime = 0;
     if (runningTime && halfwatchedTime) {
-        debugger
         movieTime = +(runningTime.replace(/\D/g, ''));
         watchedTime = (100 * halfwatchedTime) / movieTime;
     }
+    let { noOfEpisodes } = (props.data as Series);
+
     let poster_path = imagesVertical[0].location.cloudFrontUrl;
     let backdrop_path = images[0].location.cloudFrontUrl;
     let isLarge = props.isLarge;
@@ -80,8 +81,7 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                     <div className="SliderPosterCard__poster-info--iconswrp">
                         <Link
                             className="SliderPosterCard__poster-info--icon icon--play"
-                            onClick={e => handlePlayAction(e, slug)}
-                            to={'#'}
+                            to={!noOfEpisodes ? `/movies/s/${slug}` : `/series/s/${slug}`}
                         >
                             <PlayArrowIcon fontSize="small" />
                         </Link>

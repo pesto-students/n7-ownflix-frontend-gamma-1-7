@@ -5,7 +5,7 @@ import { playerActionTypes } from "./player.types";
 const initialState: {
     loading: boolean;
     error: string;
-    data: Movie | null
+    data: Movie | null | any
 } = {
     loading: false,
     error: '',
@@ -24,6 +24,20 @@ export const playerReducer = createReducer(initialState, (builder) => {
         })
 
         .addCase(playerActionTypes.FETCH_MOVIE_FAILURE, (state, action: PayloadAction<string>) => {
+            state.error = action.payload
+            state.data = null
+            state.loading = false;
+        })
+        .addCase(playerActionTypes.FETCH_SERIES, (state) => {
+            state.loading = true
+        })
+        .addCase(playerActionTypes.FETCH_SERIES_SUCCESS, (state, action: PayloadAction<any>) => {
+            state.error = ''
+            state.data = action.payload;
+            state.loading = false;
+        })
+
+        .addCase(playerActionTypes.FETCH_SERIES_FAILURE, (state, action: PayloadAction<string>) => {
             state.error = action.payload
             state.data = null
             state.loading = false;

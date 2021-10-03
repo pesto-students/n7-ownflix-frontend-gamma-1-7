@@ -63,7 +63,7 @@ const Homepage = () => {
     const history = useHistory();
 
     const onWatch = (slug: string) => {
-        let path = `movie/${slug}`;
+        let path = `movies/s/${slug}`;
         history.push(path);
     }
     const watchlist = useSelector(
@@ -132,15 +132,15 @@ const Homepage = () => {
                         </> : <SkeletonBanner />} </div>
                 <div className="Homepage__content">
                     {halfwatchedMovies.data.length ?
-                        <Slider isLarge={false} title='Continue Watching' sliderData={halfwatchedMovies}></Slider> : null
+                        <Slider isLarge={false} title='Continue Watching' type="both" sliderData={halfwatchedMovies}></Slider> : null
                     }
-                    <Slider isLarge={false} title='Latest' sliderData={latestMovies}></Slider>
-                    <Slider isLarge={true} title='Popular' sliderData={popularMovies}></Slider>
-                    <Slider isLarge={false} title='Action' sliderData={actionMovies}></Slider>
-                    {/* <Slider isLarge={false} title='Drama' sliderData={dramaMovies}></Slider> */}
-                    <Slider isLarge={false} title='Thriller' sliderData={thrillerMovies}></Slider>
-                    <Slider isLarge={false} title='Comedy' sliderData={comedyMovies}></Slider>
-                    <Slider isLarge={false} title='Horror' sliderData={horrorMovies}></Slider>
+                    <Slider isLarge={false} title='Latest' type="movies" sliderData={latestMovies}></Slider>
+                    <Slider isLarge={true} title='Popular' type="movies" sliderData={popularMovies}></Slider>
+                    <Slider isLarge={false} title='Action' type="movies" sliderData={actionMovies}></Slider>
+                    {/* <Slider isLarge={false} title='Drama' type="movies" sliderData={dramaMovies}></Slider> */}
+                    <Slider isLarge={false} title='Thriller' type="movies" sliderData={thrillerMovies}></Slider>
+                    <Slider isLarge={false} title='Comedy' type="movies" sliderData={comedyMovies}></Slider>
+                    <Slider isLarge={false} title='Horror' type="movies" sliderData={horrorMovies}></Slider>
                 </div>
             </div>
         </>

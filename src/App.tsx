@@ -11,6 +11,8 @@ import Movies from './Pages/Movies/Movies';
 import Playerpage from './Pages/Playerpage/Playerpage';
 import Popular from './Pages/Popular/Popular';
 import Searchpage from './Pages/Searchpage/Searchpage';
+import Series from './Pages/Series/Series';
+import SeriesGenre from './Pages/SeriesGenre/SeriesGenre';
 import Signin from './Pages/Signin/Signin';
 import Signup from './Pages/Signup/Signup';
 import Verify from './Pages/Verify/Verify';
@@ -49,12 +51,15 @@ function App() {
           <Route path="/verify/:id" exact component={Verify}></Route>
 
           <Layout>
-            <PrivateRoute path="/movie/:id" exact component={Playerpage}></PrivateRoute>
             <PrivateRoute path="/watchlist" exact component={Watchlist}></PrivateRoute>
             <Route path="/popular" exact component={Popular}></Route>
             <Route path="/search" exact component={Searchpage}></Route>
+            <PrivateRoute path="/movies/s/:slug" exact component={Playerpage}></PrivateRoute>
             <Route path="/movies/:genre" exact component={Genre}></Route>
             <Route path="/movies/" exact component={Movies}></Route>
+            <PrivateRoute path="/series/s/:slug" exact component={Playerpage}></PrivateRoute>
+            <Route path="/series/:genre" exact component={SeriesGenre}></Route>
+            <Route path="/series/" exact component={Series}></Route>
             <Route path="/" exact component={Homepage}></Route>
             <Route path="/home" exact component={Homepage}></Route>
           </Layout>

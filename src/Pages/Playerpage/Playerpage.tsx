@@ -2,10 +2,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import SeriesPlayer from '../../components/SeriesPlayer/SeriesPlayer';
 import Slider from '../../components/Slider/Slider';
 import WatchflixPlayer from '../../components/WatchflixPlayer/WatchflixPlayer';
 import { Movie } from '../../models/movie.interface';
-import { fetchMovieAsync } from '../../redux/player/player.actions';
+import { Series } from '../../models/series.interface';
+import { fetchMovieAsync, fetchSeriesAsync } from '../../redux/player/player.actions';
 import { RootState } from '../../redux/rootReducer';
 import './Playerpage.scss';
 import axios from '../../utils/axiosInstance';
@@ -21,18 +23,21 @@ const Playerpage = () => {
     const [views, setViews] = React.useState(0)
     const [time, setTime] = React.useState(0);
     // console.log(movieSlug)
+    const type = location.pathname.split('/')[1]
     let recommendedMovies = {
         ...useSelector(
             (state: RootState) => state.movies.recommendedMovies
         )
     };
-    recommendedMovies.data = recommendedMovies.data.filter(m => {
-        return m.slug !== movieSlug
-    })
+    if (type === 'movies') {
+        recommendedMovies.data = recommendedMovies.data.filter(m => {
+            return m.slug !== movieSlug
+        })
+    }
     const playerData: {
         loading: boolean;
         error: string;
-        data: Movie | null;
+        data: any;
     } = useSelector(
         (state: RootState) => state.player
     );
@@ -57,10 +62,15 @@ const Playerpage = () => {
     }, [playerData.data?._id])
 
     useEffect(() => {
-        const slug = location.pathname.split('/')[2]
+        const slug = location.pathname.split('/')[3]
         setMovieSlug(slug)
-        dispatch(fetchMovieAsync(`/movies/s/${slug}`))
-    }, [dispatch, location])
+        if (type === 'movies') {
+            dispatch(fetchMovieAsync(`/movies/s/${slug}`))
+        } else {
+            dispatch(fetchSeriesAsync(`/series/s/${slug}`))
+
+        }
+    }, [dispatch, location, type])
 
     useEffect(() => {
         if (playerData.data?._id) {
@@ -81,7 +91,7 @@ const Playerpage = () => {
 
     return (
         <div className="Playerpage">
-            {playerData.data ?
+            {type === 'movies' ? playerData.data ?
                 <WatchflixPlayer currentTime={time} playerData={playerData} views={views} /> :
                 <div className="Skeleton__Player">
                     <SkeletonElement type="player"></SkeletonElement>
@@ -90,8 +100,9 @@ const Playerpage = () => {
                     <SkeletonElement type="text"></SkeletonElement>
                     <SkeletonElement type="button"></SkeletonElement>
                 </div>
-            }
-            <Slider isLarge={false} title='Recommended Movies' sliderData={recommendedMovies}></Slider>
+                :
+                <SeriesPlayer playerData={playerData}  ></SeriesPlayer>}
+            <Slider isLarge={false} title='Recommended Movies' type="movies" sliderData={recommendedMovies}></Slider>
             <Helmet defer={false}>
                 <title>{playerData?.data?.title || 'Movie'} - {process.env.REACT_APP_NAME}</title>
             </Helmet>
