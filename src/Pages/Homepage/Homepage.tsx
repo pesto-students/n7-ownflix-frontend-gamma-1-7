@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchActionMoviesAsync, fetchComedyMoviesAsync, fetchHalfwatchedMoviesAsync, fetchHorrorMoviesAsync, fetchLatestMoviesAsync, fetchPopularMoviesAsync, fetchThrillerMoviesAsync } from '../../redux/movies/movies.actions';
 import { requests } from '../../requests';
 import { RootState } from '../../redux/rootReducer';
-import { getPlot } from '../../utils/utils';
+import { getFormattedDuration, getPlot } from '../../utils/utils';
 import { useHistory } from 'react-router-dom';
 import { addToWatchlistAsync, removeFromWatchlistAsync } from '../../redux/watchlist/watchlist.actions';
 import SkeletonBanner from '../../components/SkeletonBanner/SkeletonBanner';
@@ -102,7 +102,7 @@ const Homepage = () => {
                                         <h2 className="movie-type">Most Popular</h2>
                                         <h1 className="movie-title">{popularMovies.data[0].title}</h1>
                                         <div className="movie-details">
-                                            <div className="movie-details-runningTime">{popularMovies.data[0].runningTime} - {popularMovies.data[0].rated}</div>
+                                            <div className="movie-details-runningTime">{getFormattedDuration(popularMovies.data[0].duration)} - {popularMovies.data[0].rated}</div>
                                             <div className="movie-details-genres">
                                                 {popularMovies.data[0].genres && popularMovies.data[0].genres.map(genre => (
                                                     <span key={`Genre--id_${genre._id}`} className="genre-title">{genre.title}</span>

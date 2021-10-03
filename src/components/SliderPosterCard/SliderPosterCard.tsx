@@ -12,19 +12,16 @@ import { Series } from '../../models/series.interface';
 import { addToWatchlistAsync, removeFromWatchlistAsync } from '../../redux/watchlist/watchlist.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
 interface SliderPosterCardProps {
     isLarge: boolean;
     data: Movie | Series;
 }
 
 const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props) => {
-    let { title, images, imagesVertical, slug, genres, runningTime, halfwatchedTime } = (props.data as Movie);
-    let movieTime: number = 0
+    let { title, images, imagesVertical, slug, genres, duration, halfwatchedTime } = (props.data as Movie);
     let watchedTime = 0;
-    if (runningTime && halfwatchedTime) {
-        movieTime = +(runningTime.replace(/\D/g, ''));
-        watchedTime = (100 * halfwatchedTime) / movieTime;
+    if (duration && halfwatchedTime) {
+        watchedTime = (100 * halfwatchedTime) / duration;
     }
     let { noOfEpisodes } = (props.data as Series);
 

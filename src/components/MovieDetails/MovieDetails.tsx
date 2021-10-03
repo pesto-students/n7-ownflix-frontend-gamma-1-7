@@ -22,7 +22,7 @@ import theme from '../../theme';
 import { Movie } from '../../models/movie.interface';
 import { Series } from '../../models/series.interface';
 import { useHistory } from 'react-router-dom';
-import { getPlot } from '../../utils/utils';
+import { getFormattedDuration, getPlot } from '../../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/rootReducer';
 import { addToWatchlistAsync, removeFromWatchlistAsync } from '../../redux/watchlist/watchlist.actions';
@@ -97,7 +97,8 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [personName, setPersonName] = React.useState<string[]>([]);
-  const { title, runningTime, rated, images, imagesVertical, imdbRating, slug, genres } = (props.modalData as Movie);
+  const { title, duration, rated, images, imagesVertical, imdbRating, slug, genres } = (props.modalData as Movie);
+  const runningTime = getFormattedDuration(duration);
   const { noOfEpisodes } = (props.modalData as Series);
   const plot = getPlot(props.modalData.plot || '')
   const thumbNail = images.length > 1 ? images[1].location.cloudFrontUrl : images[0].location.cloudFrontUrl
@@ -106,7 +107,7 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
 
   const onWatch = () => {
     let path = `/movies/s/${slug}`;
-    history.push(path);
+    window.location.href = path
   }
   const handleChange = (event: any) => {
     const {

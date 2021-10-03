@@ -12,7 +12,7 @@ export interface Movie {
     videoMain: any;
     yearOfRelease: string;
     dateOfRelease: string;
-    runningTime: string;
+    duration: number;
     director: string;
     productionHouse: string;
     imdbRating?: string;
