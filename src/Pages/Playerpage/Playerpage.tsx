@@ -50,7 +50,7 @@ const Playerpage = () => {
     }
 
     useEffect(() => {
-        if (playerData.data?._id) {
+        if (playerData.data?._id&&type==='movies') {
             setEmomInterval(() => {
                 let rt = localStorage.getItem("runningTime") || 0;
                 let ud = `resume-watch/check-or-update?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}&runningTime=${rt}`;
@@ -73,14 +73,14 @@ const Playerpage = () => {
     }, [dispatch, location, type])
 
     useEffect(() => {
-        if (playerData.data?._id) {
-            let u = `resume-watch/get-details?userId=${localStorage.getItem("user")}&entity=movies&entityId=${playerData.data?._id}`;
+        if (playerData.data?._id && type==='movies') {
+            let u = `resume-watch/get-details?userId=${localStorage.getItem("user")}&entity=${type}&entityId=${playerData.data?._id}`;
             axios.get(u).then(res => {
                 console.log(res.data.runningTime);
                 setTime(res.data.runningTime);
             })
         }
-    }, [time, setTime, playerData.data?._id])
+    }, [time, setTime, playerData.data?._id,type])
 
     useEffect(() => {
         if (playerData.data?._id)
