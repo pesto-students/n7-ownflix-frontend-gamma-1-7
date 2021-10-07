@@ -192,7 +192,11 @@ const Navbar = () => {
 											className="browse-menu-list"
 										>
 											<MenuItem
-												onClick={handleClose}
+													onClick={() => {
+														history.push(
+															'/series'
+														);
+													}}
 												className="dropdown-item"
 											>
 												TV Shows

@@ -10,6 +10,9 @@
         @include mq('ll') {
            height: calc(100vh - 80px - 75px);
         }
+        .time_1f7ddn0{
+            width: 110px;
+        }
     }
    
     &__Info {
@@ -102,6 +105,11 @@
 .Skeleton__Player{
     display: flex;
     flex-direction: column;
+    padding: 0px 4vw;
+
+}
+
+.NotFound{
     padding: 0px 4vw;
 
 }

@@ -50,63 +50,36 @@ const style = {
 };
 
 
-const rows = [
-  createData('Episode 01', 'Temp title 1'),
-  createData('Episode 02', 'Temp title 2'),
-  createData('Episode 03', 'Temp title 3'),
-  createData('Episode 04', 'Temp title 4'),
-  createData('Episode 05', 'Temp title 5'),
-];
-function createData(
-  episodes: string,
-  title: string
-) {
-  return { episodes, title };
-}
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
-const names = [
-  'Season 1',
-  'Season 2',
-  'Season 3',
-  'Season 4',
-];
-
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 
 const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
 
 
   const theme = useTheme();
   const dispatch = useDispatch();
-  const [personName, setPersonName] = React.useState<string[]>([]);
+  const [selectedEpisode, setSelectedEpisode] = React.useState<number>(1);
   const { title, duration, rated, images, imagesVertical, imdbRating, slug, genres } = (props.modalData as Movie);
   const runningTime = getFormattedDuration(duration);
   const { noOfEpisodes } = (props.modalData as Series);
+  var episodes = [];
+for (var i = 1; i <= noOfEpisodes; i++) {
+    // note: we are adding a key prop here to allow react to uniquely identify each
+    // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
+    episodes.push(`Episode ${i}`);
+}
   const plot = getPlot(props.modalData.plot || '')
   const thumbNail = images.length > 1 ? images[1].location.cloudFrontUrl : images[0].location.cloudFrontUrl
   const verticalImage = images.length > 1 ? imagesVertical[1].location.cloudFrontUrl : imagesVertical[0].location.cloudFrontUrl
   const history = useHistory();
 
   const onWatch = () => {
-    let path = `/movies/s/${slug}`;
+    let path=''
+    if(noOfEpisodes){
+      path=`/series/s/${slug}/${selectedEpisode}`
+    }else{
+    path = `/movies/s/${slug}`;
+  }
     window.location.href = path
   }
   const handleChange = (event: any) => {
@@ -114,10 +87,7 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
       target: { value },
 
     } = event;
-    setPersonName(
-      // On autofill we get a the stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setSelectedEpisode(value);
   };
   const watchlist = useSelector(
     (state: RootState) => state.watchlist
@@ -182,27 +152,25 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
                         <FormControl>
                           <Select
                             displayEmpty
-                            value={personName}
+                            value={selectedEpisode}
                             onChange={handleChange}
                             input={<OutlinedInput />}
                             renderValue={(selected: any) => {
-                              if (selected.length === 0) {
-                                return <em>Seasons</em>;
+                              if (selected === 0) {
+                                return <em>Episodes</em>;
                               }
 
-                              return selected.join(', ');
+                              return `Episode ${selected}`;
                             }}
-                            MenuProps={MenuProps}
                             inputProps={{ 'aria-label': 'Without label' }}
                           >
                             <MenuItem disabled value="">
-                              <em>Seasons</em>
+                              <em>Episodes</em>
                             </MenuItem>
-                            {names.map((name) => (
+                            {episodes.map((name,i) => (
                               <MenuItem
                                 key={name}
-                                value={name}
-                                style={getStyles(name, personName, theme)}
+                                value={i+1}
                               >
                                 {name}
                               </MenuItem>
@@ -216,35 +184,6 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
                       <Button variant="contained" color="primary" onClick={handleRemove} >- Remove from my list</Button>}
                   </div>
                 </div>
-                {/* {!noOfEpisodes ?
-                  <div className="poster-details-2">
-                    {images.length ? <img src={images[0].location.cloudFrontUrl} alt="poster" /> : null}
-                    {images.length > 1 ? <img src={images[1].location.cloudFrontUrl} alt="poster1" /> : null}
-                  </div>
-                  :
-                  <div className="modal-dropdown">
-                    <div className="episodes-table">
-                      <TableContainer component={Paper} className="episodes-table-table">
-                        <Table className="table">
-                          <TableBody>
-                            {rows.map((row) => (
-                              <TableRow
-                                key={row.episodes}
-                                className="table-row"
-                              >
-                                <TableCell component="th" scope="row">
-                                  {row.episodes}
-                                </TableCell>
-                                <TableCell align="center">{row.title}</TableCell>
-                                <TableCell align="right" className="table-row-play"><PlayCircleFilledWhiteOutlinedIcon /></TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </div>
-                  </div>
-                } */}
               </div>
             </div>
           </Box>

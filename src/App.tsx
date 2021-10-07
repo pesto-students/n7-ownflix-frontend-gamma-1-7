@@ -54,10 +54,10 @@ function App() {
             <PrivateRoute path="/watchlist" exact component={Watchlist}></PrivateRoute>
             <Route path="/popular" exact component={Popular}></Route>
             <Route path="/search" exact component={Searchpage}></Route>
-            <PrivateRoute path="/movies/s/:slug" exact component={Playerpage}></PrivateRoute>
+            <Route path="/movies/s/:slug" exact component={Playerpage}></Route>
             <Route path="/movies/:genre" exact component={Genre}></Route>
             <Route path="/movies/" exact component={Movies}></Route>
-            <PrivateRoute path="/series/s/:slug" exact component={Playerpage}></PrivateRoute>
+            <Route path="/series/s/:slug/:episodeNo" exact component={Playerpage}></Route>
             <Route path="/series/:genre" exact component={SeriesGenre}></Route>
             <Route path="/series/" exact component={Series}></Route>
             <Route path="/" exact component={Homepage}></Route>

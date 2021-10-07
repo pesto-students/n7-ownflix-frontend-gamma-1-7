@@ -92,7 +92,10 @@ const Playerpage = () => {
     return (
         <div className="Playerpage">
             {type === 'movies' ? playerData.data ?
-                <WatchflixPlayer currentTime={time} playerData={playerData} views={views} /> :
+            <>
+                <WatchflixPlayer currentTime={time} playerData={playerData} views={views} /> 
+                    <Slider isLarge={false} title='Recommended Movies' type="movies" sliderData={recommendedMovies}></Slider>
+                    </>:
                 <div className="Skeleton__Player">
                     <SkeletonElement type="player"></SkeletonElement>
                     <SkeletonElement type="title"></SkeletonElement>
@@ -101,8 +104,8 @@ const Playerpage = () => {
                     <SkeletonElement type="button"></SkeletonElement>
                 </div>
                 :
-                <SeriesPlayer playerData={playerData}  ></SeriesPlayer>}
-            <Slider isLarge={false} title='Recommended Movies' type="movies" sliderData={recommendedMovies}></Slider>
+                playerData.data?
+                <SeriesPlayer playerData={playerData}  ></SeriesPlayer>:null}
             <Helmet defer={false}>
                 <title>{playerData?.data?.title || 'Movie'} - {process.env.REACT_APP_NAME}</title>
             </Helmet>

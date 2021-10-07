@@ -8,17 +8,21 @@ import { RootState } from "../../redux/rootReducer";
 import { addToWatchlistAsync, removeFromWatchlistAsync } from "../../redux/watchlist/watchlist.actions";
 import SkeletonElement from "../SkeletonElement/SkeletonElement";
 import { Series } from "../../models/series.interface";
+import { useLocation } from "react-router-dom";
 
 interface ISeriesPlayerProps {
     playerData: {
         loading: boolean;
         error: string;
-        data: Series | null;
+        data: Series;
     };
 }
 
 const SeriesPlayer: React.FunctionComponent<ISeriesPlayerProps> = (props) => {
     const dispatch = useDispatch();
+    const location = useLocation();
+    console.log(location.pathname.split('/')[4])
+    const episodeNo = +location.pathname.split('/')[4]-1;
 
     const watchlist = useSelector(
         (state: RootState) => state.watchlist
@@ -34,8 +38,9 @@ const SeriesPlayer: React.FunctionComponent<ISeriesPlayerProps> = (props) => {
     //     const addedList = watchlist.movies.find((w: any) => w.movie._id === props.playerData.data?._id)
     //     dispatch(removeFromWatchlistAsync(`/watch-list/${addedList.watchlistId}`, addedList.watchlistId, 'movies'))
     // };
-    if (props.playerData.data?.episodes) {
-        const { title, plot, images, videoMain } = (props.playerData.data.episodes[0] as any)
+    if (props.playerData.data?.episodes?.length) {
+        if((props.playerData.data?.episodes||[])?.length>episodeNo){
+        const { title, plot, images, videoMain } = (props.playerData.data.episodes[episodeNo] as any)
         const { genres, yearOfRelease, imdbRating, rated } = (props.playerData.data as any)
         const thumbNail = images[0].location.cloudFrontUrl
         const autoVideoUrl = videoMain.destinationLocation.location.cloudFrontUrl
@@ -94,6 +99,12 @@ const SeriesPlayer: React.FunctionComponent<ISeriesPlayerProps> = (props) => {
                 </div> */}
             </div>
         )
+     }else{
+        return (
+            <div className="NotFound">
+                 <h1>Not Found</h1>
+        </div>)
+    }
     } else {
         return (
             <div className="Skeleton__Player">

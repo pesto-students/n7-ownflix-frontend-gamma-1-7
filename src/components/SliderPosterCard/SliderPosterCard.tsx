@@ -78,7 +78,7 @@ const SliderPosterCard: React.FunctionComponent<SliderPosterCardProps> = (props)
                     <div className="SliderPosterCard__poster-info--iconswrp">
                         <Link
                             className="SliderPosterCard__poster-info--icon icon--play"
-                            to={!noOfEpisodes ? `/movies/s/${slug}` : `/series/s/${slug}`}
+                            to={!noOfEpisodes ? `/movies/s/${slug}` : `/series/s/${slug}/1`}
                         >
                             <PlayArrowIcon fontSize="small" />
                         </Link>
