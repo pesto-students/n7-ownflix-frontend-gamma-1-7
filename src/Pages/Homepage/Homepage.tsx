@@ -134,13 +134,13 @@ const Homepage = () => {
                     {halfwatchedMovies.data.length ?
                         <Slider isLarge={false} title='Continue Watching' sliderData={halfwatchedMovies}></Slider> : null
                     }
-                    <Slider isLarge={false} title='Latest' sliderData={latestMovies}></Slider>
-                    <Slider isLarge={true} title='Popular' sliderData={popularMovies}></Slider>
-                    <Slider isLarge={false} title='Action' sliderData={actionMovies}></Slider>
-                    {/* <Slider isLarge={false} title='Drama' sliderData={dramaMovies}></Slider> */}
-                    <Slider isLarge={false} title='Thriller' sliderData={thrillerMovies}></Slider>
-                    <Slider isLarge={false} title='Comedy' sliderData={comedyMovies}></Slider>
-                    <Slider isLarge={false} title='Horror' sliderData={horrorMovies}></Slider>
+
+                   { latestMovies.data.length &&<Slider isLarge={false} title='Latest' sliderData={latestMovies}></Slider>}
+                   { popularMovies.data.length &&<Slider isLarge={true} title='Popular' sliderData={popularMovies}></Slider>}
+                   { actionMovies.data.length &&<Slider isLarge={false} title='Action' sliderData={actionMovies}></Slider>}
+                   { thrillerMovies.data.length &&<Slider isLarge={false} title='Thriller' sliderData={thrillerMovies}></Slider>}
+                   { comedyMovies.data.length &&<Slider isLarge={false} title='Comedy' sliderData={comedyMovies}></Slider>}
+                   { horrorMovies.data.length &&<Slider isLarge={false} title='Horror' sliderData={horrorMovies}></Slider>}
                 </div>
             </div>
         </>
