@@ -9,13 +9,6 @@ import { RootState } from "../../redux/rootReducer";
 import "./Watchlist.scss";
 
 interface IWatchlistProps {}
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    flexGrow: 1,
-    width: "100%",
-    backgroundColor: "white",
-  },
-}));
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -42,7 +35,6 @@ const Watchlist: React.FunctionComponent<IWatchlistProps> = (props) => {
 
   const movies = watchlist.movies;
   const series = watchlist.series;
-  const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
 
@@ -54,7 +46,7 @@ const Watchlist: React.FunctionComponent<IWatchlistProps> = (props) => {
       <div className="Watchlist__Header">
         <h1>Watchlist</h1>
       </div>
-      <div className="Watchlist__wrp classes">
+      <div className="Watchlist__wrp">
         <Tabs
           value={value}
           onChange={handleChange}
