@@ -105,7 +105,7 @@ const Slider: React.FunctionComponent<SliderProps> = props => {
 				</div>
 			) : (
 				<h3 className="SliderPosterCard__title">
-					{title === 'Recommended Movies' || 'Continue Watching' ? (
+					{title === ('Recommended Movies' || 'Continue Watching') ? (
 						<span>{title}</span>
 					) : (
 						<Link to={type === 'movies' ? `movies/${genre}` : `series/${genre}`}>

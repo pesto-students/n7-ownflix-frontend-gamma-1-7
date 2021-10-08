@@ -18,6 +18,8 @@ interface IPosterCardProps {
 
 const PosterCard: React.FunctionComponent<IPosterCardProps> = (props) => {
     let { title, images, slug, genres } = props.data;
+	let { noOfEpisodes } = props.data as Series;
+
     let backdrop_path = images[0].location.cloudFrontUrl;
     const [modalOpen, setModalOpen] = React.useState(false);
     const dispatch = useDispatch();
@@ -63,14 +65,21 @@ const PosterCard: React.FunctionComponent<IPosterCardProps> = (props) => {
                 )}
                 <div className="PosterCard__info">
                     <div className="PosterCard__info--iconswrp">
-                        <Link
-                            className="PosterCard__info--icon icon--play"
-                            onClick={handlePlayAction}
-                            to={`/s/${slug}`}
-                        >
+                    <a
+							className="SliderPosterCard__poster-info--icon icon--play"
+							href={
+								!noOfEpisodes
+									? `${process.env.REACT_APP_URL}/movies/s/${slug}`
+									: `${process.env.REACT_APP_URL}/series/s/${slug}/1`
+							}
+							onClick={e => {
+								e.stopPropagation();
+								// setModalOpen(true);
+							}}
+						>
                             <PlayArrowIcon fontSize="small" />
 
-                        </Link>
+                        </a>
                         {!hasAddedinWatchlist
                             ? (
                                 <button className='PosterCard__info--icon icon--favourite' onClick={handleAdd}>
