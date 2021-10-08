@@ -48,8 +48,8 @@ const Movies: React.FunctionComponent<IMoviesProps> = (props) => {
   }, [dispatch]);
   return (
     <div className="Movies">
-      <div className="Series__Header">
-        <h1>Series</h1>
+      <div className="Movies__Header">
+        <h1>Movies</h1>
       </div>
       <Slider
         isLarge={false}
