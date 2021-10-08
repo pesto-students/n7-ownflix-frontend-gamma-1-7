@@ -1,8 +1,11 @@
-.Movies{
-    padding-top: 70px;
+.Movies {
+  padding-top: 70px;
+  &__Header {
+    padding: 0 4vw;
+  }
 }
 @media only screen and (max-width: 674px) {
-	.Movies {
-        padding-top: 110px;
-	}
+  .Movies {
+    padding-top: 110px;
+  }
 }
