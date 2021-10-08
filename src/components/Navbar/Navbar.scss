@@ -43,6 +43,23 @@
 			width: 150px;
 		}
 	}
+	@media only screen and (max-width: 674px) {
+		.left-navbar {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			a img {
+				float: left;
+				padding-bottom: 15px;
+			}
+			.browse {
+				margin-left: 5px;
+			}
+			.logo {
+				width: 120px;
+			}
+		}
+	}
 	.right-navbar {
 		display: flex;
 		flex-direction: row;
@@ -61,6 +78,16 @@
 			}
 		}
 	}
+	@media only screen and (max-width: 674px) {
+		.right-navbar {
+			display: flex;
+			flex-direction: column-reverse;
+			align-items: flex-end;
+			.author {
+				padding-bottom: 10px;
+			}
+		}
+	}
 
 	&__fixed {
 		background-image: none;
@@ -69,4 +96,13 @@
 }
 .login-area {
 	padding-left: 15px;
+}
+@media only screen and (max-width: 674px) {
+	.login-area {
+		padding-left: 15px;
+		padding-bottom: 10px;
+	}
+	.Navbar {
+		height: 110px;
+	}
 }

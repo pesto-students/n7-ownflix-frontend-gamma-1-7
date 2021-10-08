@@ -59,10 +59,10 @@
         border-radius: 10px;
         box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2),
           0 4px 15px 0 rgba(0, 0, 0, 0.19);
-       display: none;
-		@include mq('md') {
-			display: block;
-		}
+        display: none;
+        @include mq('md') {
+          display: block;
+        }
       }
       .poster-details {
         display: flex;
@@ -131,6 +131,11 @@
             border-radius: 10px;
           }
         }
+      }
+    }
+    @media only screen and (max-width: 674px) {
+      .header-content {
+        margin-top: 110px;
       }
     }
   }

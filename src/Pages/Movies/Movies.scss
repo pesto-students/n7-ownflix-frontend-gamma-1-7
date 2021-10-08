@@ -1,3 +1,8 @@
 .Movies{
     padding-top: 70px;
 }
+@media only screen and (max-width: 674px) {
+	.Movies {
+        padding-top: 110px;
+	}
+}
