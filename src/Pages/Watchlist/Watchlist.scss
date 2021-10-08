@@ -23,6 +23,12 @@
             font-size: 1.2vw;
         }
     }
+    .MuiTab-textColorPrimary{
+        color:$white;
+    }
+    .MuiBox-root-17{
+        padding: 24px 0;
+    }
 }
 @media only screen and (max-width: 674px) {
 	.Watchlist{
