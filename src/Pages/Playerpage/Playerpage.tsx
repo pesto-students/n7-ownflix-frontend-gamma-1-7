@@ -18,12 +18,11 @@ import { useEffect } from "react";
 const Playerpage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
 
-  // const movieSlug =
   const [movieSlug, setMovieSlug] = React.useState("");
   const [views, setViews] = React.useState(0);
   const [time, setTime] = React.useState(0);
-  // console.log(movieSlug)
   const type = location.pathname.split("/")[1];
   let recommendedMovies = {
     ...useSelector((state: RootState) => state.movies.recommendedMovies),
@@ -47,7 +46,7 @@ const Playerpage = () => {
   }
 
   useEffect(() => {
-    if (playerData.data?._id && type === "movies") {
+    if (playerData.data?._id && type === "movies" && isLoggedIn) {
       setEmomInterval(() => {
         let rt = localStorage.getItem("runningTime") || 0;
         let ud = `resume-watch/check-or-update?userId=${localStorage.getItem(
@@ -58,7 +57,7 @@ const Playerpage = () => {
         });
       });
     }
-  }, [playerData.data?._id, type]);
+  }, [playerData.data?._id, type, isLoggedIn]);
 
   useEffect(() => {
     const slug = location.pathname.split("/")[3];
