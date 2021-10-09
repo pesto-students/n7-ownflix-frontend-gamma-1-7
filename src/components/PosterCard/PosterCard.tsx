@@ -125,8 +125,8 @@ const PosterCard: React.FunctionComponent<IPosterCardProps> = (props) => {
               className="SliderPosterCard__poster-info--icon icon--play"
               href={
                 !noOfEpisodes
-                  ? `${process.env.REACT_APP_URL}/movies/s/${slug}`
-                  : `${process.env.REACT_APP_URL}/series/s/${slug}/1`
+                  ? `${process.env.REACT_APP_URL}movies/s/${slug}`
+                  : `${process.env.REACT_APP_URL}series/s/${slug}/1`
               }
               onClick={(e) => {
                 e.stopPropagation();

@@ -25,6 +25,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { RootState } from "./redux/rootReducer";
 
+function Error404() {
+  return (
+    <div className="Error">
+      <h1>Error 404</h1>
+    </div>
+  );
+}
+
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLogin);
@@ -49,24 +57,35 @@ function App() {
           <Route path="/verify/:id" exact component={Verify}></Route>
 
           <Layout>
-            <PrivateRoute
-              path="/watchlist"
-              exact
-              component={Watchlist}
-            ></PrivateRoute>
-            <Route path="/search" exact component={Searchpage}></Route>
-            <Route path="/movies/s/:slug" exact component={Playerpage}></Route>
-            <Route path="/movies/:genre" exact component={Genre}></Route>
-            <Route path="/movies/" exact component={Movies}></Route>
-            <Route
-              path="/series/s/:slug/:episodeNo"
-              exact
-              component={Playerpage}
-            ></Route>
-            <Route path="/series/:genre" exact component={SeriesGenre}></Route>
-            <Route path="/series/" exact component={Series}></Route>
-            <Route path="/" exact component={Homepage}></Route>
-            <Route path="/home" exact component={Homepage}></Route>
+            <Switch>
+              <PrivateRoute
+                path="/watchlist"
+                exact
+                component={Watchlist}
+              ></PrivateRoute>
+              <Route path="/search" exact component={Searchpage}></Route>
+              <Route
+                path="/movies/s/:slug"
+                exact
+                component={Playerpage}
+              ></Route>
+              <Route path="/movies/:genre" exact component={Genre}></Route>
+              <Route path="/movies/" exact component={Movies}></Route>
+              <Route
+                path="/series/s/:slug/:episodeNo"
+                exact
+                component={Playerpage}
+              ></Route>
+              <Route
+                path="/series/:genre"
+                exact
+                component={SeriesGenre}
+              ></Route>
+              <Route path="/series/" exact component={Series}></Route>
+              <Route path="/" exact component={Homepage}></Route>
+              <Route path="/home" exact component={Homepage}></Route>
+              <Route component={Error404} />
+            </Switch>
           </Layout>
         </Switch>
         <ToastContainer position="top-center" theme="dark" />

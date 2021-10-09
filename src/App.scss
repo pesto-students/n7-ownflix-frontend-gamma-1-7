@@ -27,6 +27,12 @@
   background-color: $black;
   color: $white;
 }
+.Error {
+  padding: 70px 4vw 0 4vw;
+  @media only screen and (max-width: 674px) {
+    padding: 110px 4vw 0 4vw;
+  }
+}
 
 :root {
   --toastify-color-light: #fff;
