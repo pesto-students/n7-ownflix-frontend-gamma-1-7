@@ -6,14 +6,6 @@ import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import "./MovieDetails.scss";
 import CloseIcon from "@material-ui/icons/Close";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import PlayCircleFilledWhiteOutlinedIcon from "@material-ui/icons/PlayCircleFilledWhiteOutlined";
-import { Theme, useTheme } from "@material-ui/core/styles";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -21,7 +13,6 @@ import Select from "@material-ui/core/Select";
 import theme from "../../theme";
 import { Movie } from "../../models/movie.interface";
 import { Series } from "../../models/series.interface";
-import { useHistory } from "react-router-dom";
 import { getFormattedDuration, getPlot } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
@@ -53,7 +44,6 @@ const style = {
 };
 
 const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
-  const theme = useTheme();
   const dispatch = useDispatch();
   const [selectedEpisode, setSelectedEpisode] = React.useState<number>(1);
   const {
@@ -70,8 +60,6 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
   const { noOfEpisodes } = props.modalData as Series;
   var episodes = [];
   for (var i = 1; i <= noOfEpisodes; i++) {
-    // note: we are adding a key prop here to allow react to uniquely identify each
-    // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
     episodes.push(`Episode ${i}`);
   }
   const plot = getPlot(props.modalData.plot || "");
@@ -83,7 +71,6 @@ const MovieDetails: React.FunctionComponent<IMovieDetailsProps> = (props) => {
     images.length > 1
       ? imagesVertical[1].location.cloudFrontUrl
       : imagesVertical[0].location.cloudFrontUrl;
-  const history = useHistory();
 
   const onWatch = () => {
     let path = "";

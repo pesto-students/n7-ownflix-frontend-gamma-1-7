@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PosterCard from "../../components/PosterCard/PosterCard";
 import "./Searchpage.scss";
 import axios from "../../utils/axiosInstance";

@@ -1,9 +1,8 @@
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import * as React from "react";
 import { useSelector } from "react-redux";
-import { Theme } from "react-toastify";
 import PosterCard from "../../components/PosterCard/PosterCard";
 import { RootState } from "../../redux/rootReducer";
 import "./Watchlist.scss";

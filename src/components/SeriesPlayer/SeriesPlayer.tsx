@@ -1,6 +1,5 @@
 import { Button } from "@material-ui/core";
 import PlayerContainer from "griffith";
-import { Movie } from "../../models/movie.interface";
 import { logEvent } from "../../utils/utils";
 import "./SeriesPlayer.scss";
 import { useDispatch, useSelector } from "react-redux";
