@@ -1,7 +1,7 @@
 <h1 align="center">Watchflix</h1>
 <h5 align="center">Streaming website for all your entertainment.</h5><br/>
 
-![Image of Watchflix Project](https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/5/3/9/9/219935-6-eng-GB/Reconnaissance-International2_news_large.jpg)
+![Image of Watchflix Project](https://d1kii9u1lzlye3.cloudfront.net/assets01/watchflix_ss.png)
 
 
 
