@@ -15,6 +15,8 @@ The Web App shows you all the listing of the movies that you can watch. To watch
 The homepage shows the listing of all the genres. You can click on that genres and than you will redirected to that particular genre where you can see the listing for that particular genre.<br/>
 You can add/remove movies through the add and remove buttons that you can find hovering each poster or opening a single movie's detail modal. If you click on the play button you will be redirected to the player page where you can watch your movie.<br/><br/>
 
+**NOTE:** All the content uploaded on Website is for educational purposes.
+
 ## ▶️ Demo
 
 Here you can find the demo links:
