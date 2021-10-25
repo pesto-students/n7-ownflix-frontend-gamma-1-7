@@ -42,8 +42,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 const Signin: React.FunctionComponent<ISigninProps> = (props) => {
   const classes = useStyles();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("pesto@pesto.tech");
+  const [password, setPassword] = React.useState("pesto");
   const [errorText, setErrorText] = React.useState("");
   const [loadingText, setLoadingText] = React.useState("Sign In");
   const dispatch = useDispatch();
