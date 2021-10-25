@@ -1,0 +1,12 @@
+.Series {
+  padding-top: 70px;
+  overflow: hidden;
+  &__Header {
+    padding: 0 4vw;
+  }
+}
+@media only screen and (max-width: 674px) {
+  .Series {
+    padding-top: 110px;
+  }
+}
