@@ -1,7 +1,7 @@
 <h1 align="center">Watchflix</h1>
 <h5 align="center">Streaming website for all your entertainment.</h5><br/>
 
-![Image of Watchflix Project](https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/5/3/9/9/219935-6-eng-GB/Reconnaissance-International2_news_large.jpg)
+![Image of Watchflix Project](https://d1kii9u1lzlye3.cloudfront.net/assets01/watchflix_ss.png)
 
 
 
@@ -14,6 +14,8 @@ We have created this project with a purpose of exploring how streaming of a vide
 The Web App shows you all the listing of the movies that you can watch. To watch a movie user needs to be logged in, If a user tries to watch a movie without login in, the app redirects you to an authentication page, in which you can choose to sign up or to sign in.<br/>
 The homepage shows the listing of all the genres. You can click on that genres and than you will redirected to that particular genre where you can see the listing for that particular genre.<br/>
 You can add/remove movies through the add and remove buttons that you can find hovering each poster or opening a single movie's detail modal. If you click on the play button you will be redirected to the player page where you can watch your movie.<br/><br/>
+
+**NOTE:** All the content uploaded on Website is for educational purposes.
 
 ## ▶️ Demo
 
